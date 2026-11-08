@@ -1,0 +1,15 @@
+# SkillUp robots.txt
+# Replace 'https://YOUR_DOMAIN.com' with your actual production domain URL.
+
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /admin/
+Disallow: /mentor-dashboard
+Disallow: /mentor-dashboard/
+Disallow: /dashboard
+Disallow: /dashboard/
+Disallow: /classroom/
+Disallow: /api/
+
+Sitemap: https://skillups.co.in/sitemap.xml

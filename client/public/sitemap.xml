@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  SkillUp Platform XML Sitemap
+  Contains all public navigation list items, page routes, and descriptive metadata.
+  Production Domain: https://skillups.co.in
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- 1. Home Page -->
+  <url>
+    <loc>https://skillups.co.in/</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <!-- Description: SkillUp - Next-generation tech skill development platform offering cohort courses, live classes, internships, and capstone projects. -->
+  </url>
+
+  <!-- 2. About Us -->
+  <url>
+    <loc>https://skillups.co.in/about</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <!-- Description: About SkillUp - Learn our mission, industry mentor network, hiring partners, and our commitment to practical tech education. -->
+  </url>
+
+  <!-- 3. Courses -->
+  <url>
+    <loc>https://skillups.co.in/courses</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <!-- Description: Explore industry-curated courses in Full Stack Web Development, Cloud Computing, AI & Data Science, DevOps, and Cybersecurity. -->
+  </url>
+
+  <!-- 4. Blog & Articles -->
+  <url>
+    <loc>https://skillups.co.in/blog</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <!-- Description: Tech tutorials, career guidance, programming roadmaps, interview preparation tips, and developer insights. -->
+  </url>
+
+  <!-- 5. Contact Us -->
+  <url>
+    <loc>https://skillups.co.in/contact</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <!-- Description: Get in touch with SkillUp admissions, technical support, student grievance cell, and corporate partnership teams. -->
+  </url>
+
+  <!-- 6. Internship Program -->
+  <url>
+    <loc>https://skillups.co.in/internship</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <!-- Description: Hands-on virtual internship program with verified industry projects, letter of recommendation, and mentor code reviews. -->
+  </url>
+
+  <!-- 7. Hackathons & Coding Contests -->
+  <url>
+    <loc>https://skillups.co.in/hackathons</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <!-- Description: Compete in live coding hackathons, build innovative real-world software, win prizes, and get noticed by tech recruiters. -->
+  </url>
+
+  <!-- 8. Study Materials & Notes -->
+  <url>
+    <loc>https://skillups.co.in/materials</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <!-- Description: Download curated cheat-sheets, syllabus notes, code templates, interview question banks, and learning roadmaps. -->
+  </url>
+
+  <!-- 9. Live Interactive Classes -->
+  <url>
+    <loc>https://skillups.co.in/live-classes</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <!-- Description: Attend scheduled live interactive sessions, real-time doubt clearing with industry leads, and hands-on workshops. -->
+  </url>
+</urlset>

@@ -1,0 +1,140 @@
+@import "tailwindcss";
+@import "@livekit/components-styles";
+
+@theme {
+  --color-primary-green: #5DBA58;
+  --color-primary-green-hover: #4ea849;
+  --color-secondary-green: #EAF5EA;
+  --color-theme-black: #000000;
+  --color-theme-white: #FFFFFF;
+  --color-theme-bg: #F7FAF7;
+  --color-theme-text: #171717;
+  
+  --color-primary-navy: #10264B;
+  --color-deep-navy: #10264B;
+  
+  --color-app-bg: #F7FAF7;
+  --color-card-bg: #FFFFFF;
+  --color-text-primary: #171717;
+  --color-text-secondary: #525252;
+  --color-text-muted: #737373;
+  --color-app-border: #E5E7EB;
+  --color-app-divider: #F3F4F6;
+  
+  --color-success-val: #5DBA58;
+  --color-success-bg: #EAF5EA;
+  --color-warning-val: #B7791F;
+  --color-warning-bg: #FFF6E5;
+  --color-error-val: #C03945;
+  --color-error-bg: #FFF0F0;
+  
+  --color-accent-teal: #5DBA58;
+}
+
+@layer base {
+  :root {
+    --primary-green: #5DBA58;
+    --secondary-green: #EAF5EA;
+    --theme-black: #000000;
+    --theme-white: #FFFFFF;
+    --theme-bg: #F7FAF7;
+    --theme-text: #171717;
+
+    --primary-navy: #10264B;
+    --deep-navy: #10264B;
+
+    --bg-main: #F7FAF7;
+    --bg-card: #FFFFFF;
+    --text-primary: #171717;
+    --text-secondary: #525252;
+    --text-muted: #737373;
+    --border-color: #E5E7EB;
+    --divider-color: #F3F4F6;
+
+    --success: #5DBA58;
+    --success-bg: #EAF5EA;
+    --warning: #B7791F;
+    --warning-bg: #FFF6E5;
+    --error: #C03945;
+    --error-bg: #FFF0F0;
+    --accent-teal: #5DBA58;
+  }
+
+  body {
+    background-color: #F7FAF7;
+    color: #171717;
+    font-family: 'Plus Jakarta Sans', 'Noto Sans Tamil', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: -0.015em;
+  }
+}
+
+/* ========================================================
+   PARTNER LOGO MARQUEE ANIMATION
+======================================================== */
+@keyframes partner-marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.partner-marquee-container {
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x pan-y;
+}
+
+.animate-partner-marquee {
+  display: flex;
+  width: max-content;
+  animation: partner-marquee 35s linear infinite;
+  will-change: transform;
+}
+
+.partner-marquee-container:hover .animate-partner-marquee,
+.partner-marquee-container:focus-within .animate-partner-marquee {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-partner-marquee {
+    animation: none !important;
+    transform: none !important;
+    overflow-x: auto;
+    width: 100%;
+    justify-content: flex-start;
+    padding-bottom: 0.5rem;
+  }
+}
+
+/* ========================================================
+   YOUTUBE & EMBED TOUCH-FEEDBACK & SETTINGS SUPPRESSION
+======================================================== */
+yt-touch-feedback-shape,
+.ytSpecTouchFeedbackShapeHost,
+.ytSpecTouchFeedbackShapeOverlayTouchResponse,
+.ytSpecTouchFeedbackShapeStroke,
+.ytSpecTouchFeedbackShapeFill,
+.player-settings-icon,
+button[aria-label="Playback Settings"],
+.icon-button.player-settings-icon {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+}
+
+/* ========================================================
+   GLOBAL ANTI-INSPECT & ANTI-DRAG USER RESTRICTIONS
+======================================================== */
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+input, textarea {
+  user-select: text !important;
+  -webkit-user-select: text !important;
+}

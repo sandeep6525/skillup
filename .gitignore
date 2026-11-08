@@ -1,0 +1,77 @@
+# ===================================================
+# SkillUp Monorepo / Root (.gitignore)
+# ===================================================
+
+# Dependencies
+node_modules/
+*/node_modules/
+.pnp
+.pnp.js
+
+# Production & Build outputs
+dist/
+*/dist/
+build/
+*/build/
+*.tsbuildinfo
+
+# Environment & Secrets (Root, Client, Server)
+.env
+.env.local
+.env.*.local
+*.env
+server/.env
+server/.env.*
+client/.env
+client/.env.*
+!server/.env.example
+!client/.env.example
+!README.md
+
+# Local Database Backups, Dumps & SQLite
+backups/
+server/backups/
+*.sql
+*.sql.gz
+*.sqlite
+*.sqlite3
+*.db
+
+# Logs & Debug Output
+logs/
+*/logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Uploads & User Generated Files
+uploads/
+server/uploads/*
+!server/uploads/.gitkeep
+
+# IDE, OS & System Files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+ehthumbs.db
+[Dd]esktop.ini
+*.swp
+*.swo
+
+# Test Coverage & Caches
+coverage/
+*/coverage/
+.turbo/
+.vite/
+.eslintcache
+
+
+node_modules/
+dist/
+.env
+.env.local
+.DS_Store
