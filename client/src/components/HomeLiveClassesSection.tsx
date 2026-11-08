@@ -175,17 +175,7 @@ export const HomeLiveClassesSection: React.FC = () => {
         ======================================================== */}
         <div className="text-center max-w-3xl mx-auto space-y-5">
           {/* Top Live Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#5DBA58]/30 shadow-xs">
-            <span className="relative flex h-2.5 w-2.5">
-              {liveNowCount > 0 && (
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#5DBA58] opacity-75" />
-              )}
-              <span className={`relative inline-flex rounded-full h-2.5 w-2.5 ${liveNowCount > 0 ? 'bg-[#5DBA58]' : 'bg-[#267A36]'}`} />
-            </span>
-            <span className="text-xs font-bold text-[#267A36] uppercase tracking-wider">
-              {liveNowCount > 0 ? `${liveNowCount} Live Session${liveNowCount > 1 ? 's' : ''} Running Now` : 'Interactive Live Learning'}
-            </span>
-          </div>
+           
 
           {/* Main Heading */}
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#000000] tracking-tight leading-tight">

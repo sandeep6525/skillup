@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Link, useNavigate } from 'react-router-dom';
 import { api } from '../api/client';
@@ -91,50 +91,77 @@ export const HomePage: React.FC = () => {
   // Top 4 courses for the right floating panel in hero
   const popularCourses = featuredCourses.slice(0, 4);
 
+  // Responsive device detection for Hero Background Animation
+  // Desktop: 1024px+ (full animation)
+  // Tablet: 768px-1023px (reduced particle count & lighter blur)
+  // Mobile: < 768px (completely disabled, pure clean white background, 0 WebGPU/canvas overhead)
+  const [deviceTier, setDeviceTier] = useState<'mobile' | 'tablet' | 'desktop'>('desktop');
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width < 768) {
+        setDeviceTier('mobile');
+      } else if (width < 1024) {
+        setDeviceTier('tablet');
+      } else {
+        setDeviceTier('desktop');
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div className="min-w-0 bg-[#F7FAF7] text-[#171717] font-sans overflow-x-hidden selection:bg-[#5DBA58] selection:text-white">
       {/* ========================================================
-          1. CLEAN CENTERED HERO SECTION WITH AEROSHARDS BACKGROUND
-          - Interactive AeroShards background with green accents
+          1. CLEAN CENTERED HERO SECTION WITH RESPONSIVE BACKGROUND
+          - Desktop (1024px+): Full AeroShards GPU animated background with green accents
+          - Tablet (768px - 1023px): Optimized animation with reduced particle density & subtle glow
+          - Mobile (< 768px): Completely disabled animation, pure clean white background, zero canvas overhead
           - Completely center-aligned headline, description, and action buttons
           - Palette: #5DBA58, #000000, #FFFFFF, #F7FAF7, #EAF5EA, #171717
       ======================================================== */}
       <section className="relative flex flex-col justify-center items-center overflow-hidden bg-white text-[#171717] pt-20 sm:pt-28 pb-18 sm:pb-24 border-b border-slate-200/70">
         
-        {/* AeroShards Interactive Animated Background with true SkillUp Brand Green tones */}
-        <div className="absolute inset-0 z-0 pointer-events-auto">
-          <AeroShards
-            shardColor="#5DBA58"
-            accentColor="#267A36"
-            backgroundColor="transparent"
-            placement="full"
-            material="glass"
-            markers="plus"
-            count={1300}
-            depthOfField={0.75}
-            vignette={0.15}
-            mouseInteraction
-            pulseOnClick
-            holdToGather
-            lightMode={true}
-            shardSize={1}
-            spread={1}
-            twist={1}
-            billow={1}
-            speed={1}
-            scale={1}
-            glow={0.4}
-            grain={0.04}
-            intro
-            mouseStrength={0.6}
-            parallax={0.5}
-            paused={false}
-          />
-        </div>
+        {/* Desktop & Tablet Animated Background Layers (Hidden on Mobile < 768px and when motion-reduced) */}
+        {deviceTier !== 'mobile' && (
+          <div className="hidden md:block absolute inset-0 z-0 pointer-events-auto motion-reduce:hidden">
+            <AeroShards
+              shardColor="#5DBA58"
+              accentColor="#267A36"
+              backgroundColor="transparent"
+              placement="full"
+              material="glass"
+              markers="plus"
+              count={deviceTier === 'desktop' ? 1300 : 500}
+              depthOfField={deviceTier === 'desktop' ? 0.75 : 0.4}
+              vignette={deviceTier === 'desktop' ? 0.15 : 0.08}
+              mouseInteraction
+              pulseOnClick
+              holdToGather
+              lightMode={true}
+              shardSize={1}
+              spread={1}
+              twist={1}
+              billow={1}
+              speed={deviceTier === 'desktop' ? 1 : 0.7}
+              scale={1}
+              glow={deviceTier === 'desktop' ? 0.4 : 0.2}
+              grain={0.04}
+              intro
+              mouseStrength={0.6}
+              parallax={0.5}
+              paused={false}
+            />
+          </div>
+        )}
 
-        {/* Soft subtle green gradient atmosphere overlay for clean text contrast */}
-        <div className="absolute inset-0 bg-white/20 backdrop-blur-[0.5px] pointer-events-none z-[1]" />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[340px] bg-[#EAF5EA]/40 blur-[120px] rounded-full pointer-events-none z-[2]" />
+        {/* Atmosphere Overlays - Desktop and Tablet only; Mobile stays pure white */}
+        <div className="hidden md:block absolute inset-0 bg-white/20 backdrop-blur-[0.5px] pointer-events-none z-[1]" />
+        <div className="hidden md:block absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[340px] bg-[#EAF5EA]/40 blur-[120px] rounded-full pointer-events-none z-[2]" />
 
         {/* Hero Main Content Container - Centered */}
         <div className="max-w-4xl w-full mx-auto px-6 sm:px-10 relative z-10 text-center flex flex-col items-center">
