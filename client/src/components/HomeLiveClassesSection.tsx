@@ -180,7 +180,7 @@ export const HomeLiveClassesSection: React.FC = () => {
           {/* Main Heading */}
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#000000] tracking-tight leading-tight">
             Learn Live.{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#5DBA58] via-[#4ea849] to-[#267A36]">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#55B957] via-[#46a548] to-[#267A36]">
               Build Real Skills.
             </span>
           </h2>
@@ -191,20 +191,7 @@ export const HomeLiveClassesSection: React.FC = () => {
           </p>
 
           {/* 3 Small Highlights */}
-          <div className="pt-2 flex flex-wrap items-center justify-center gap-3 sm:gap-6">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-slate-200 text-xs font-bold text-[#171717] shadow-2xs">
-              <UserCheck className="w-4 h-4 text-[#5DBA58]" />
-              <span>Expert Mentors</span>
-            </div>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-slate-200 text-xs font-bold text-[#171717] shadow-2xs">
-              <Radio className="w-4 h-4 text-[#5DBA58]" />
-              <span>Interactive Sessions</span>
-            </div>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-slate-200 text-xs font-bold text-[#171717] shadow-2xs">
-              <CheckCircle2 className="w-4 h-4 text-[#5DBA58]" />
-              <span>Practical Learning</span>
-            </div>
-          </div>
+           
         </div>
 
         {/* ========================================================
@@ -228,7 +215,7 @@ export const HomeLiveClassesSection: React.FC = () => {
                     onClick={() => setActiveStatusTab(tab.id)}
                     className={`relative inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
                       isActive
-                        ? 'bg-[#5DBA58] text-white shadow-xs'
+                        ? 'bg-[#55B957] text-white shadow-xs'
                         : 'bg-slate-50 text-slate-700 hover:bg-slate-100 border border-slate-200'
                     }`}
                   >
@@ -247,7 +234,7 @@ export const HomeLiveClassesSection: React.FC = () => {
             {/* View All Classes Navigation Link */}
             <Link
               to="/live-classes"
-              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#267A36] hover:text-[#5DBA58] transition-colors self-start lg:self-auto group"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#267A36] hover:text-[#55B957] transition-colors self-start lg:self-auto group"
             >
               <span>View All Classes Catalog</span>
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -264,7 +251,7 @@ export const HomeLiveClassesSection: React.FC = () => {
                 placeholder="Search classes or topics..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-9 pr-8 py-2 text-xs rounded-xl border border-slate-200 bg-slate-50 text-slate-800 placeholder-slate-400 focus:outline-hidden focus:border-[#5DBA58] focus:bg-white transition-all shadow-2xs"
+                className="w-full pl-9 pr-8 py-2 text-xs rounded-xl border border-slate-200 bg-slate-50 text-slate-800 placeholder-slate-400 focus:outline-hidden focus:border-[#55B957] focus:bg-white transition-all shadow-2xs"
               />
               {searchTerm && (
                 <button
@@ -281,7 +268,7 @@ export const HomeLiveClassesSection: React.FC = () => {
               <select
                 value={selectedCourseId}
                 onChange={(e) => setSelectedCourseId(e.target.value)}
-                className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 bg-slate-50 text-slate-700 focus:outline-hidden focus:border-[#5DBA58] focus:bg-white transition-all shadow-2xs"
+                className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 bg-slate-50 text-slate-700 focus:outline-hidden focus:border-[#55B957] focus:bg-white transition-all shadow-2xs"
               >
                 <option value="ALL">All Courses</option>
                 {courseOptions.map((c) => (
@@ -297,7 +284,7 @@ export const HomeLiveClassesSection: React.FC = () => {
               <select
                 value={selectedMentorId}
                 onChange={(e) => setSelectedMentorId(e.target.value)}
-                className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 bg-slate-50 text-slate-700 focus:outline-hidden focus:border-[#5DBA58] focus:bg-white transition-all shadow-2xs"
+                className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 bg-slate-50 text-slate-700 focus:outline-hidden focus:border-[#55B957] focus:bg-white transition-all shadow-2xs"
               >
                 <option value="ALL">All Mentors</option>
                 {mentorOptions.map((m) => (
@@ -330,7 +317,7 @@ export const HomeLiveClassesSection: React.FC = () => {
             </div>
           ) : filteredClasses.length === 0 ? (
             <div className="text-center py-16 px-6 bg-white rounded-3xl border border-dashed border-slate-300 shadow-2xs max-w-lg mx-auto space-y-3">
-              <div className="w-14 h-14 rounded-2xl bg-[#EAF5EA] text-[#5DBA58] flex items-center justify-center mx-auto shadow-xs">
+              <div className="w-14 h-14 rounded-2xl bg-[#EAF5EA] text-[#55B957] flex items-center justify-center mx-auto shadow-xs">
                 <Video className="w-7 h-7" />
               </div>
               <h3 className="text-lg font-bold text-[#000000]">No live classes match your filter</h3>
@@ -390,7 +377,7 @@ export const HomeLiveClassesSection: React.FC = () => {
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.35 }}
-                    className="group bg-white rounded-2xl border border-slate-200 hover:border-[#5DBA58]/60 p-5 shadow-xs hover:shadow-xl hover:shadow-[#5DBA58]/10 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1 overflow-hidden"
+                    className="group bg-white rounded-2xl border border-slate-200 hover:border-[#55B957]/60 p-5 shadow-xs hover:shadow-xl hover:shadow-[#55B957]/10 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1 overflow-hidden"
                   >
                     <div>
                       {/* Course Thumbnail or Topic Visual */}
@@ -402,7 +389,7 @@ export const HomeLiveClassesSection: React.FC = () => {
                             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                           />
                         ) : (
-                          <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-[#EAF5EA] to-slate-100 text-[#5DBA58]">
+                          <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-[#EAF5EA] to-slate-100 text-[#55B957]">
                             <Video className="w-10 h-10 mb-1" />
                             <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
                               Live Interactive Classroom
@@ -422,8 +409,8 @@ export const HomeLiveClassesSection: React.FC = () => {
                             </span>
                           )}
                           {isScheduled && (
-                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-[#EAF5EA] text-[#267A36] border border-[#5DBA58]/30 shadow-xs backdrop-blur-xs">
-                              <Clock className="w-3 h-3 text-[#5DBA58]" />
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-[#EAF5EA] text-[#267A36] border border-[#55B957]/30 shadow-xs backdrop-blur-xs">
+                              <Clock className="w-3 h-3 text-[#55B957]" />
                               <span>UPCOMING</span>
                             </span>
                           )}
@@ -449,18 +436,18 @@ export const HomeLiveClassesSection: React.FC = () => {
                       </span>
 
                       {/* Class Title */}
-                      <h3 className="font-extrabold text-[#000000] text-base sm:text-lg leading-snug group-hover:text-[#5DBA58] transition-colors line-clamp-2 mt-1">
+                      <h3 className="font-extrabold text-[#000000] text-base sm:text-lg leading-snug group-hover:text-[#55B957] transition-colors line-clamp-2 mt-1">
                         {item.title}
                       </h3>
 
                       {/* Schedule Meta */}
                       <div className="mt-3.5 py-2.5 px-3 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-between text-xs text-slate-600">
                         <div className="flex items-center gap-1.5 font-medium">
-                          <Calendar className="w-3.5 h-3.5 text-[#5DBA58]" />
+                          <Calendar className="w-3.5 h-3.5 text-[#55B957]" />
                           <span>{formattedDate}</span>
                         </div>
                         <div className="flex items-center gap-1.5 font-semibold text-[#171717]">
-                          <Clock className="w-3.5 h-3.5 text-[#5DBA58]" />
+                          <Clock className="w-3.5 h-3.5 text-[#55B957]" />
                           <span>{formattedTime}</span>
                         </div>
                       </div>
@@ -504,7 +491,7 @@ export const HomeLiveClassesSection: React.FC = () => {
                             className="w-8 h-8 rounded-full object-cover border border-slate-200 shrink-0"
                           />
                         ) : (
-                          <div className="w-8 h-8 rounded-full bg-[#EAF5EA] text-[#267A36] font-bold text-xs flex items-center justify-center shrink-0 border border-[#5DBA58]/20">
+                          <div className="w-8 h-8 rounded-full bg-[#EAF5EA] text-[#267A36] font-bold text-xs flex items-center justify-center shrink-0 border border-[#55B957]/20">
                             {mentorName.charAt(0).toUpperCase()}
                           </div>
                         )}
@@ -524,7 +511,7 @@ export const HomeLiveClassesSection: React.FC = () => {
                               navigate(`/live-classes/${item.id}`);
                             }
                           }}
-                          className="px-4 py-2 rounded-xl bg-[#5DBA58] hover:bg-[#4ea849] active:scale-95 text-white text-xs font-bold shadow-xs hover:shadow-md transition-all flex items-center gap-1.5 shrink-0 cursor-pointer"
+                          className="px-4 py-2 rounded-xl bg-[#55B957] hover:bg-[#46a548] active:scale-95 text-white text-xs font-bold shadow-xs hover:shadow-md transition-all flex items-center gap-1.5 shrink-0 cursor-pointer"
                         >
                           <Video className="w-3.5 h-3.5" />
                           <span>Join Class</span>
@@ -540,7 +527,7 @@ export const HomeLiveClassesSection: React.FC = () => {
                       ) : item.courseId && !item.isCourseEnrolled ? (
                         <Link
                           to={`/courses/${item.course?.slug || item.courseId}`}
-                          className="px-3.5 py-2 rounded-xl bg-[#EAF5EA] hover:bg-[#5DBA58] text-[#267A36] hover:text-white border border-[#5DBA58]/30 text-xs font-bold transition-all flex items-center gap-1 shrink-0"
+                          className="px-3.5 py-2 rounded-xl bg-[#EAF5EA] hover:bg-[#55B957] text-[#267A36] hover:text-white border border-[#55B957]/30 text-xs font-bold transition-all flex items-center gap-1 shrink-0"
                           title="Purchase this course to access its live classes"
                         >
                           <span>Enroll Course</span>
@@ -549,7 +536,7 @@ export const HomeLiveClassesSection: React.FC = () => {
                       ) : (
                         <Link
                           to={`/live-classes`}
-                          className="px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-[#EAF5EA] text-slate-700 hover:text-[#267A36] border border-slate-200 hover:border-[#5DBA58]/40 text-xs font-bold transition-all flex items-center gap-1 shrink-0"
+                          className="px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-[#EAF5EA] text-slate-700 hover:text-[#267A36] border border-slate-200 hover:border-[#55B957]/40 text-xs font-bold transition-all flex items-center gap-1 shrink-0"
                         >
                           <span>Details</span>
                           <ChevronRight className="w-3.5 h-3.5" />

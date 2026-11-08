@@ -275,7 +275,7 @@ export const ProtectedPdfViewerModal: React.FC<ProtectedPdfViewerModalProps> = (
           }`}
       >
         <div className="flex items-center gap-2.5 overflow-hidden">
-          <div className="w-8 h-8 rounded-lg bg-indigo-600/20 text-indigo-400 flex items-center justify-center shrink-0 border border-indigo-500/30">
+          <div className="w-8 h-8 rounded-lg bg-[#55B957]/20 text-indigo-400 flex items-center justify-center shrink-0 border border-indigo-500/30">
             <Lock className="w-4 h-4 text-amber-400" />
           </div>
           <div className="overflow-hidden">
@@ -419,7 +419,7 @@ export const ProtectedPdfViewerModal: React.FC<ProtectedPdfViewerModalProps> = (
               {passwordError && <p className="text-[11px] text-red-400">{passwordError}</p>}
               <button
                 type="submit"
-                className="w-full py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-lg transition-colors cursor-pointer"
+                className="w-full py-2 bg-[#55B957] hover:bg-[#EAF5EA]0 text-white text-xs font-bold rounded-lg transition-colors cursor-pointer"
               >
                 Unlock Document
               </button>
@@ -457,7 +457,7 @@ export const ProtectedPdfViewerModal: React.FC<ProtectedPdfViewerModalProps> = (
             <div className="relative shadow-2xl bg-white border border-slate-300 rounded-sm my-auto max-w-full">
               {isRenderingPage && (
                 <div className="absolute inset-0 bg-white/70 backdrop-blur-xs flex items-center justify-center z-10">
-                  <Loader2 className="w-6 h-6 animate-spin text-indigo-600" />
+                  <Loader2 className="w-6 h-6 animate-spin text-[#55B957]" />
                 </div>
               )}
               <canvas

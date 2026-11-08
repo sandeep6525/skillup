@@ -40,7 +40,7 @@ export const MentorsPage: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
       <div>
-        <span className="text-xs font-bold uppercase tracking-wider text-[#5DBA58]">Expert Guidance</span>
+        <span className="text-xs font-bold uppercase tracking-wider text-[#55B957]">Expert Guidance</span>
         <h1 className="text-3xl font-extrabold text-indigo-950 mt-1">SkillUp 1-on-1 Mentor Network</h1>
         <p className="text-sm text-slate-500 mt-1">
           Accelerate your engineering decisions, system designs, and code quality with verified staff engineers.
@@ -68,7 +68,7 @@ export const MentorsPage: React.FC = () => {
                   />
                   <div>
                     <h3 className="text-lg font-bold text-indigo-950">{mentor.user.name}</h3>
-                    <p className="text-xs font-medium text-[#5DBA58]">{mentor.user.title}</p>
+                    <p className="text-xs font-medium text-[#55B957]">{mentor.user.title}</p>
                     <div className="flex items-center gap-1.5 text-xs text-amber-500 font-bold mt-1">
                       <Star className="w-3.5 h-3.5 fill-amber-400" />
                       <span>{mentor.rating || '5.0'}</span>
@@ -88,7 +88,7 @@ export const MentorsPage: React.FC = () => {
                   {mentor.expertise.split(',').map((skill: string, i: number) => (
                     <span
                       key={i}
-                      className="px-2.5 py-1 text-[11px] font-semibold bg-[#EAF5EA] text-[#4ea849] rounded-md"
+                      className="px-2.5 py-1 text-[11px] font-semibold bg-[#EAF5EA] text-[#46a548] rounded-md"
                     >
                       {skill.trim()}
                     </span>
@@ -107,7 +107,7 @@ export const MentorsPage: React.FC = () => {
                       <button
                         key={slot.id}
                         onClick={() => bookSlotMutation.mutate(slot.id)}
-                        className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-indigo-50 hover:bg-indigo-600 hover:text-white text-indigo-700 transition-colors flex items-center gap-1.5 border border-indigo-100"
+                        className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-[#EAF5EA] hover:bg-[#55B957] hover:text-white text-[#267A36] transition-colors flex items-center gap-1.5 border border-[#55B957]/30"
                       >
                         <Calendar className="w-3.5 h-3.5" />
                         <span>{new Date(slot.startTime).toLocaleString([], { dateStyle: 'short', timeStyle: 'short' })}</span>

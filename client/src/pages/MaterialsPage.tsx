@@ -4,6 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { api } from '../api/client';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
+import { PageHeader } from '../components/PageHeader';
 import {
   FolderDown,
   FileText,
@@ -248,29 +249,23 @@ export const MaterialsPage: React.FC = () => {
   });
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-10">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-[#E4E9F0] pb-8">
-        <div className="space-y-3">
-           
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-[#14233B] tracking-tight">
-            Learning Materials & Architecture Handouts
-          </h1>
-          <p className="text-xs sm:text-sm text-[#667085] max-w-2xl leading-relaxed">
-            Download production-ready system architecture diagrams, cheatsheets, configuration blueprints, and curriculum resources.
-          </p>
-        </div>
-
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-8">
+      {/* Reusable Page Header */}
+      <PageHeader
+        title="Learning Materials &"
+        highlight="Architecture Handouts"
+        subtitle="Download production-ready system architecture diagrams, cheatsheets, configuration blueprints, and curriculum resources."
+      >
         {user && (
           <button
             onClick={() => navigate('/dashboard/materials')}
-            className="flex items-center gap-2 text-xs font-bold text-[#2563EB] bg-[#EFF6FF] hover:bg-[#DBEAFE] px-4 py-2.5 rounded-xl border border-[#2563EB]/20 transition-colors cursor-pointer"
+            className="flex items-center gap-2 text-xs font-bold text-[#142B4F] bg-[#EAF5EA] hover:bg-[#d8eed8] px-4 py-2.5 rounded-xl border border-[#55B957]/30 transition-colors cursor-pointer"
           >
-            <FolderDown className="w-4 h-4" />
+            <FolderDown className="w-4 h-4 text-[#55B957]" />
             <span>Go to My Materials</span>
           </button>
         )}
-      </div>
+      </PageHeader>
 
       {/* Filter / Search Bar */}
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4">

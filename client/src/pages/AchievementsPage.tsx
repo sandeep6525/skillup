@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { api } from '../api/client';
 import { getMediaUrl } from '../utils/mediaUrl';
+import { PageHeader } from '../components/PageHeader';
 import {
   Trophy,
   Calendar,
@@ -83,55 +84,40 @@ export const AchievementsPage: React.FC = () => {
   const getCategoryIcon = (slug: string) => {
     switch (slug) {
       case 'awards-recognition':
-        return <Trophy className="w-3.5 h-3.5 text-[#5DBA58]" />;
+        return <Trophy className="w-3.5 h-3.5 text-[#55B957]" />;
       case 'events-workshops':
-        return <CalendarDays className="w-3.5 h-3.5 text-[#5DBA58]" />;
+        return <CalendarDays className="w-3.5 h-3.5 text-[#55B957]" />;
       case 'student-achievements':
         return <Users className="w-3.5 h-3.5 text-slate-700" />;
       case 'projects-innovations':
         return <Code2 className="w-3.5 h-3.5 text-slate-700" />;
       case 'partnerships-collaborations':
-        return <Handshake className="w-3.5 h-3.5 text-[#5DBA58]" />;
+        return <Handshake className="w-3.5 h-3.5 text-[#55B957]" />;
       case 'company-milestones':
         return <Star className="w-3.5 h-3.5 text-amber-500" />;
       case 'certifications':
-        return <Award className="w-3.5 h-3.5 text-[#5DBA58]" />;
+        return <Award className="w-3.5 h-3.5 text-[#55B957]" />;
       default:
-        return <CheckCircle2 className="w-3.5 h-3.5 text-[#5DBA58]" />;
+        return <CheckCircle2 className="w-3.5 h-3.5 text-[#55B957]" />;
     }
   };
 
   return (
     <div className="min-h-screen bg-white text-[#171717] font-sans">
       {/* ========================================================
-          1. HERO SECTION (SkillUp Green Theme)
-          - Left: Title "Our Achievements", Subtitle & Green Accent line
-          - Center & Right: Golden Trophy with Laurel Wreath & Flowing Satin Ribbon
+          1. HERO SECTION WITH UNIFIED PAGEHEADER
       ======================================================== */}
-      <section className="relative overflow-hidden bg-white pt-8 pb-4 sm:pt-12 sm:pb-6">
+      <section className="bg-white border-b border-[#E2E8F0]">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 relative">
-            {/* Left Content */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="text-left space-y-3 max-w-xl z-10"
-            >
-              <h1 className="text-4xl sm:text-5xl lg:text-[56px] font-black tracking-tight text-[#000000] leading-none">
-                Our{' '}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#5DBA58] via-[#4ea849] to-[#3a8b36]">
-                  Achievements
-                </span>
-              </h1>
-
-              <p className="text-base sm:text-lg text-slate-600 font-medium leading-relaxed max-w-md">
-                Celebrating milestones, partnerships and student success.
-              </p>
-
-              {/* Green accent bar */}
-              <div className="w-16 h-1 bg-[#5DBA58] rounded-full mt-2" />
-            </motion.div>
+            {/* Left Content using PageHeader */}
+            <div className="w-full md:max-w-xl">
+              <PageHeader
+                title="Our"
+                highlight="Achievements"
+                subtitle="Celebrating milestones, partnerships and student success."
+              />
+            </div>
 
             {/* Right Hero Visual: Trophy with Laurel and Green Ribbon */}
             <motion.div
@@ -149,14 +135,14 @@ export const AchievementsPage: React.FC = () => {
                 <defs>
                   <linearGradient id="greenRibbonM1" x1="0%" y1="0%" x2="100%" y2="50%">
                     <stop offset="0%" stopColor="#EAF5EA" stopOpacity="0.4" />
-                    <stop offset="30%" stopColor="#5DBA58" stopOpacity="0.85" />
-                    <stop offset="60%" stopColor="#4ea849" stopOpacity="0.9" />
+                    <stop offset="30%" stopColor="#55B957" stopOpacity="0.85" />
+                    <stop offset="60%" stopColor="#46a548" stopOpacity="0.9" />
                     <stop offset="100%" stopColor="#A3E635" stopOpacity="0.5" />
                   </linearGradient>
 
                   <linearGradient id="greenRibbonMShadow" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stopColor="#2E692B" stopOpacity="0.8" />
-                    <stop offset="100%" stopColor="#4ea849" stopOpacity="0.1" />
+                    <stop offset="100%" stopColor="#46a548" stopOpacity="0.1" />
                   </linearGradient>
 
                   <linearGradient id="goldCupM" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -193,7 +179,7 @@ export const AchievementsPage: React.FC = () => {
 
                 {/* Confetti flakes */}
                 <rect x="230" y="50" width="7" height="4" rx="1" fill="#F59E0B" opacity="0.8" transform="rotate(25 230 50)" />
-                <rect x="290" y="70" width="6" height="4" rx="1" fill="#5DBA58" opacity="0.7" transform="rotate(-15 290 70)" />
+                <rect x="290" y="70" width="6" height="4" rx="1" fill="#55B957" opacity="0.7" transform="rotate(-15 290 70)" />
                 <rect x="330" y="30" width="8" height="5" rx="1" fill="#FBBF24" opacity="0.85" transform="rotate(40 330 30)" />
                 <rect x="490" y="45" width="7" height="4" rx="1" fill="#F59E0B" opacity="0.7" transform="rotate(18 490 45)" />
                 <rect x="520" y="80" width="8" height="5" rx="1" fill="#A3E635" opacity="0.8" transform="rotate(-25 520 80)" />
@@ -255,7 +241,7 @@ export const AchievementsPage: React.FC = () => {
                 placeholder="Search achievements..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full pl-9 pr-8 py-2 text-xs bg-slate-50 border border-slate-200 rounded-full text-slate-800 placeholder-slate-400 focus:outline-hidden focus:border-[#5DBA58] focus:bg-white transition-all shadow-2xs"
+                className="w-full pl-9 pr-8 py-2 text-xs bg-slate-50 border border-slate-200 rounded-full text-slate-800 placeholder-slate-400 focus:outline-hidden focus:border-[#55B957] focus:bg-white transition-all shadow-2xs"
               />
               {search && (
                 <button
@@ -274,7 +260,7 @@ export const AchievementsPage: React.FC = () => {
                 onClick={() => setSelectedCategory('all')}
                 className={`px-5 py-2 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer whitespace-nowrap shadow-xs ${
                   selectedCategory === 'all'
-                    ? 'bg-[#5DBA58] text-white shadow-[#5DBA58]/30'
+                    ? 'bg-[#55B957] text-white shadow-[#55B957]/30'
                     : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50'
                 }`}
               >
@@ -290,7 +276,7 @@ export const AchievementsPage: React.FC = () => {
                     onClick={() => setSelectedCategory(cat.slug)}
                     className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 cursor-pointer shadow-xs ${
                       isActive
-                        ? 'bg-[#5DBA58] text-white shadow-[#5DBA58]/30 border-transparent'
+                        ? 'bg-[#55B957] text-white shadow-[#55B957]/30 border-transparent'
                         : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50'
                     }`}
                   >
@@ -333,7 +319,7 @@ export const AchievementsPage: React.FC = () => {
         {/* Empty State */}
         {!isLoading && allAchievements.length === 0 && (
           <div className="max-w-md mx-auto text-center py-16 px-6 bg-slate-50/80 rounded-3xl border border-slate-200 shadow-2xs space-y-3">
-            <div className="w-14 h-14 rounded-2xl bg-[#EAF5EA] text-[#5DBA58] flex items-center justify-center mx-auto shadow-xs">
+            <div className="w-14 h-14 rounded-2xl bg-[#EAF5EA] text-[#55B957] flex items-center justify-center mx-auto shadow-xs">
               <Trophy className="w-7 h-7" />
             </div>
             <h3 className="text-lg font-bold text-[#000000]">Our next milestone is on its way.</h3>
@@ -343,7 +329,7 @@ export const AchievementsPage: React.FC = () => {
             {search && (
               <button
                 onClick={() => setSearch('')}
-                className="mt-2 inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white border border-slate-200 text-xs font-semibold text-[#5DBA58] hover:bg-[#EAF5EA] transition-colors"
+                className="mt-2 inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-white border border-slate-200 text-xs font-semibold text-[#55B957] hover:bg-[#EAF5EA] transition-colors"
               >
                 Clear Search Filter
               </button>
@@ -370,7 +356,7 @@ export const AchievementsPage: React.FC = () => {
                   >
                     <Link
                       to={`/achievements/${item.slug || item.id}`}
-                      className="group block bg-white rounded-2xl border border-slate-200/90 overflow-hidden shadow-2xs hover:shadow-xl hover:border-[#5DBA58]/50 transition-all duration-300 transform hover:-translate-y-1"
+                      className="group block bg-white rounded-2xl border border-slate-200/90 overflow-hidden shadow-2xs hover:shadow-xl hover:border-[#55B957]/50 transition-all duration-300 transform hover:-translate-y-1"
                     >
                       {/* Image container */}
                       <div className={`relative ${cardAspect} bg-slate-100 overflow-hidden`}>
@@ -390,7 +376,7 @@ export const AchievementsPage: React.FC = () => {
                         {/* Top-Left Date Pill */}
                         <div className="absolute top-3 left-3 z-10">
                           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-[11px] font-bold bg-white/95 text-slate-800 shadow-sm backdrop-blur-xs">
-                            <Calendar className="w-3.5 h-3.5 text-[#5DBA58]" />
+                            <Calendar className="w-3.5 h-3.5 text-[#55B957]" />
                             <span>
                               {item.eventDate
                                 ? new Date(item.eventDate).toLocaleDateString('en-US', {
@@ -406,7 +392,7 @@ export const AchievementsPage: React.FC = () => {
                         {/* Multiple photos badge indicator */}
                         {item.images && item.images.length > 0 && (
                           <div className="absolute bottom-3 right-3 px-2 py-0.5 rounded-full bg-slate-900/75 backdrop-blur-xs text-white text-[10px] font-semibold flex items-center gap-1 shadow-xs">
-                            <ImageIcon className="w-3 h-3 text-[#5DBA58]" />
+                            <ImageIcon className="w-3 h-3 text-[#55B957]" />
                             <span>{item.images.length} photos</span>
                           </div>
                         )}
@@ -415,7 +401,7 @@ export const AchievementsPage: React.FC = () => {
                       {/* Card Body */}
                       <div className="p-5 space-y-2">
                         {/* Event Title */}
-                        <h3 className="font-extrabold text-[#000000] text-base sm:text-lg leading-snug group-hover:text-[#5DBA58] transition-colors line-clamp-2">
+                        <h3 className="font-extrabold text-[#000000] text-base sm:text-lg leading-snug group-hover:text-[#55B957] transition-colors line-clamp-2">
                           {item.title}
                         </h3>
 
@@ -427,12 +413,12 @@ export const AchievementsPage: React.FC = () => {
 
                       {/* Card Footer */}
                       <div className="px-5 py-3.5 border-t border-slate-100 flex items-center justify-between">
-                        <span className="inline-flex items-center gap-1 text-xs font-bold text-[#5DBA58] group-hover:text-[#4ea849] transition-colors">
+                        <span className="inline-flex items-center gap-1 text-xs font-bold text-[#55B957] group-hover:text-[#46a548] transition-colors">
                           <span>View Details</span>
                           <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
                         </span>
 
-                        <div className="w-7 h-7 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-500 group-hover:bg-[#5DBA58] group-hover:text-white group-hover:border-[#5DBA58] transition-colors">
+                        <div className="w-7 h-7 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-500 group-hover:bg-[#55B957] group-hover:text-white group-hover:border-[#55B957] transition-colors">
                           <ArrowRight className="w-3.5 h-3.5" />
                         </div>
                       </div>
@@ -448,11 +434,11 @@ export const AchievementsPage: React.FC = () => {
             4. BOTTOM CTA BANNER
         ======================================================== */}
         <section className="relative rounded-2xl bg-[#000000] border border-zinc-800 p-6 sm:p-8 text-white shadow-md overflow-hidden mt-6">
-          <div className="absolute -right-20 -bottom-20 w-80 h-80 rounded-full bg-[#5DBA58]/20 blur-[100px] pointer-events-none" />
+          <div className="absolute -right-20 -bottom-20 w-80 h-80 rounded-full bg-[#55B957]/20 blur-[100px] pointer-events-none" />
           <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-4 text-center sm:text-left">
-              <div className="w-12 h-12 rounded-2xl bg-[#5DBA58]/20 border border-[#5DBA58]/30 flex items-center justify-center shrink-0">
-                <Rocket className="w-6 h-6 text-[#5DBA58]" />
+              <div className="w-12 h-12 rounded-2xl bg-[#55B957]/20 border border-[#55B957]/30 flex items-center justify-center shrink-0">
+                <Rocket className="w-6 h-6 text-[#55B957]" />
               </div>
               <div>
                 <h4 className="text-lg sm:text-xl font-bold tracking-tight">Together for a brighter future</h4>
@@ -464,7 +450,7 @@ export const AchievementsPage: React.FC = () => {
 
             <Link
               to="/courses"
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#5DBA58] hover:bg-[#4ea849] text-white text-xs font-bold shadow-md hover:shadow-lg transition-all shrink-0"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#55B957] hover:bg-[#46a548] text-white text-xs font-bold shadow-md hover:shadow-lg transition-all shrink-0"
             >
               <span>Explore Courses</span>
               <ArrowRight className="w-3.5 h-3.5" />

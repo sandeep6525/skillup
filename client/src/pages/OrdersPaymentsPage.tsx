@@ -15,7 +15,7 @@ export const OrdersPaymentsPage: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
       <div>
-        <span className="text-xs font-bold uppercase tracking-wider text-[#5DBA58]">Financial History</span>
+        <span className="text-xs font-bold uppercase tracking-wider text-[#55B957]">Financial History</span>
         <h1 className="text-3xl font-extrabold text-indigo-950 mt-1">Orders & Invoices</h1>
         <p className="text-sm text-slate-500 mt-1">
           Review all verified transactions, course enrollment fees, and mentor bookings.
@@ -92,7 +92,7 @@ export const OrdersPaymentsPage: React.FC = () => {
                       </span>
                     )}
                     {p.isPartial && Number(p.remainingBalance) > 0 && (
-                      <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#EAF5EA] text-[#4ea849] border border-[#5DBA58]/30">
+                      <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#EAF5EA] text-[#46a548] border border-[#55B957]/30">
                         Remaining Balance: ₹{Number(p.remainingBalance).toLocaleString()}
                       </span>
                     )}
@@ -128,7 +128,7 @@ export const OrdersPaymentsPage: React.FC = () => {
                   <div className="flex items-center gap-1 text-xs font-medium mt-1">
                     {p.status === 'COMPLETED' || p.status === 'PAID' ? (
                       p.razorpayPaymentId?.startsWith('pay_test_') || p.razorpayOrderId?.startsWith('order_test_') ? (
-                        <div className="flex items-center gap-1 text-blue-600">
+                        <div className="flex items-center gap-1 text-[#55B957]">
                           <ShieldCheck className="w-3.5 h-3.5" />
                           <span>Verified Test Mode Payment</span>
                         </div>

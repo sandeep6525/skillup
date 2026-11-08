@@ -229,7 +229,7 @@ export const StudentLiveClassesView: React.FC = () => {
                           href={item.recordingUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="px-3.5 py-1.5 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 text-[11px] font-bold flex items-center gap-1 transition"
+                          className="px-3.5 py-1.5 rounded-lg bg-[#EAF5EA] text-blue-700 hover:bg-blue-100 text-[11px] font-bold flex items-center gap-1 transition"
                         >
                           <Video className="w-3.5 h-3.5" />
                           <span>Watch Recording</span>

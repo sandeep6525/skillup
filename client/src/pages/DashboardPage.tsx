@@ -6,6 +6,7 @@ import { api } from '../api/client';
 import { useAuth } from '../context/AuthContext';
 import { OrdersPaymentsPage } from './OrdersPaymentsPage';
 import { getMediaUrl } from '../utils/mediaUrl';
+import { PageHeader } from '../components/PageHeader';
 import {
   LayoutDashboard,
   BookOpen,
@@ -262,12 +263,11 @@ export const DashboardPage: React.FC = () => {
           ) : (
             <>
               {/* Welcome Title */}
-              <div>
-                <h1 className="text-2xl font-extrabold text-[#14233B] flex items-center gap-2">
-                  Welcome Back, {user?.name || 'Student'}! 👋
-                </h1>
-                <p className="text-xs text-[#667085] mt-1">Here is your verified learning progress and upcoming schedule.</p>
-              </div>
+              <PageHeader
+                title="Welcome Back,"
+                highlight={user?.name || 'Student'}
+                subtitle="Here is your verified learning progress, assignments and cohort schedule."
+              />
 
               {/* 5 Stats Summary Cards (Without Live Classes) */}
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-4">
@@ -329,15 +329,15 @@ export const DashboardPage: React.FC = () => {
 
                 {/* 5. Earned Certificates */}
                 <div className="p-4 sm:p-5 rounded-2xl bg-white border border-[#E4E9F0] shadow-xs flex flex-col justify-between">
-                  <div className="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 mb-3 border border-blue-100">
-                    <Award className="w-4 h-4 text-blue-600" />
+                  <div className="w-9 h-9 rounded-xl bg-[#EAF5EA] text-[#55B957] flex items-center justify-center shrink-0 mb-3 border border-blue-100">
+                    <Award className="w-4 h-4 text-[#55B957]" />
                   </div>
                   <div>
                     <span className="text-[11px] text-[#667085] font-medium block">Certificates</span>
                     <span className="text-xl sm:text-2xl font-black text-[#14233B] block leading-tight">
                       {totalCertificates}
                     </span>
-                    <span className="text-[10px] text-blue-600 font-semibold mt-0.5 block">Verified Badges</span>
+                    <span className="text-[10px] text-[#55B957] font-semibold mt-0.5 block">Verified Badges</span>
                   </div>
                 </div>
               </div>
@@ -552,7 +552,7 @@ export const DashboardPage: React.FC = () => {
                       key={notif.id}
                       className="p-4 rounded-2xl bg-white border border-[#E4E9F0] shadow-xs flex items-start gap-3"
                     >
-                      <div className="w-8 h-8 rounded-lg bg-blue-50 text-[#2563EB] flex items-center justify-center shrink-0 mt-0.5">
+                      <div className="w-8 h-8 rounded-lg bg-[#EAF5EA] text-[#2563EB] flex items-center justify-center shrink-0 mt-0.5">
                         <Bell className="w-4 h-4" />
                       </div>
                       <div className="min-w-0 flex-1">
@@ -923,12 +923,12 @@ export const DashboardPage: React.FC = () => {
                                 <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
                                   Direct Purchase
                                 </span>
-                                <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#EAF5EA] text-[#4ea849] border border-[#5DBA58]/30">
+                                <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#EAF5EA] text-[#46a548] border border-[#55B957]/30">
                                   Course Included
                                 </span>
                               </>
                             ) : p.accessSource === 'COURSE_INCLUDED' || p.paymentStatus === 'INCLUDED_IN_COURSE' || p.isCourseIncluded ? (
-                              <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#EAF5EA] text-[#4ea849] border border-[#5DBA58]/30">
+                              <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#EAF5EA] text-[#46a548] border border-[#55B957]/30">
                                 Course Included
                               </span>
                             ) : p.paidAmount > 0 ? (
@@ -936,7 +936,7 @@ export const DashboardPage: React.FC = () => {
                                 Direct Purchase
                               </span>
                             ) : (
-                              <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-blue-50 text-blue-700 border border-blue-200">
+                              <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#EAF5EA] text-blue-700 border border-blue-200">
                                 Free Resource
                               </span>
                             )}

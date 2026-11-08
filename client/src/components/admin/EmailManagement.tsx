@@ -613,7 +613,7 @@ export const EmailManagement: React.FC = () => {
                     <div className="text-[11px] font-bold text-emerald-700">Reminders Triggered</div>
                     <div className="text-lg font-bold text-emerald-800">{reminderOutput.remindersSent}</div>
                   </div>
-                  <div className="bg-blue-50 p-3.5 rounded-lg border border-blue-100">
+                  <div className="bg-[#EAF5EA] p-3.5 rounded-lg border border-blue-100">
                     <div className="text-[11px] font-bold text-blue-700">Fully Settled (Skipped)</div>
                     <div className="text-lg font-bold text-blue-800">{reminderOutput.skippedPaid}</div>
                   </div>

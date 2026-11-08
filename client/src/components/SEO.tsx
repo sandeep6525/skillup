@@ -8,77 +8,97 @@ interface RouteSEO {
 
 const ROUTE_SEO_MAP: Record<string, RouteSEO> = {
   '/': {
-    title: 'SkillUp - Student Skill Development Platform',
+    title: 'SkillUp | Home',
     description: 'SkillUp - Next-generation tech skill development platform offering cohort courses, live classes, internships, and capstone projects.',
   },
-  '/about': {
-    title: 'About Us | SkillUp',
-    description: 'About SkillUp - Learn our mission, industry mentor network, hiring partners, and our commitment to practical tech education.',
-  },
   '/courses': {
-    title: 'Explore Courses | SkillUp',
+    title: 'SkillUp | Courses',
     description: 'Explore industry-curated courses in Full Stack Web Development, Cloud Computing, AI & Data Science, DevOps, and Cybersecurity.',
   },
   '/internship': {
-    title: 'Internship Program | SkillUp',
+    title: 'SkillUp | Internships',
     description: 'Hands-on virtual internship program with verified industry projects, letter of recommendation, and mentor code reviews.',
   },
   '/internships': {
-    title: 'Internship Program | SkillUp',
+    title: 'SkillUp | Internships',
     description: 'Hands-on virtual internship program with verified industry projects, letter of recommendation, and mentor code reviews.',
   },
   '/hackathons': {
-    title: 'Hackathons & Contests | SkillUp',
+    title: 'SkillUp | Hackathons',
     description: 'Compete in live coding hackathons, build innovative real-world software, win prizes, and get noticed by tech recruiters.',
   },
   '/materials': {
-    title: 'Study Materials & Notes | SkillUp',
+    title: 'SkillUp | Study Materials',
     description: 'Download curated cheat-sheets, syllabus notes, code templates, interview question banks, and learning roadmaps.',
   },
   '/metrals': {
-    title: 'Study Materials & Notes | SkillUp',
+    title: 'SkillUp | Study Materials',
     description: 'Download curated cheat-sheets, syllabus notes, code templates, interview question banks, and learning roadmaps.',
   },
   '/live-classes': {
-    title: 'Live Interactive Classes | SkillUp',
+    title: 'SkillUp | Live Classes',
     description: 'Attend scheduled live interactive sessions, real-time doubt clearing with industry leads, and hands-on workshops.',
   },
+  '/achievements': {
+    title: 'SkillUp | Achievements',
+    description: 'Explore verified student milestones, hackathon awards, career placements, and certified community achievements.',
+  },
+  '/gallery': {
+    title: 'SkillUp | Achievements',
+    description: 'Explore verified student milestones, hackathon awards, career placements, and certified community achievements.',
+  },
+  '/dashboard': {
+    title: 'SkillUp | Student Dashboard',
+    description: 'Track your ongoing courses, enrolled internships, upcoming live sessions, and achievements.',
+  },
+  '/admin': {
+    title: 'SkillUp | Admin Dashboard',
+    description: 'SkillUp Super Admin platform command center and operational oversight.',
+  },
+  '/mentor-dashboard': {
+    title: 'SkillUp | Mentor Dashboard',
+    description: 'Mentor cohort roster, scheduled live classes, and student submissions.',
+  },
+  '/about': {
+    title: 'SkillUp | About Us',
+    description: 'About SkillUp - Learn our mission, industry mentor network, hiring partners, and our commitment to practical tech education.',
+  },
   '/blog': {
-    title: 'Tech Blog & Articles | SkillUp',
+    title: 'SkillUp | Blog',
     description: 'Tech tutorials, career guidance, programming roadmaps, interview preparation tips, and developer insights.',
   },
   '/contact': {
-    title: 'Contact Us | SkillUp',
+    title: 'SkillUp | Contact Us',
     description: 'Get in touch with SkillUp admissions, technical support, student grievance cell, and corporate partnership teams.',
   },
   '/mentors': {
-    title: 'Our Mentors | SkillUp',
+    title: 'SkillUp | Mentors',
     description: 'Learn directly from top industry software engineers, architects, and instructors dedicated to your growth.',
   },
   '/feedback': {
-    title: 'Student Reviews & Feedback | SkillUp',
+    title: 'SkillUp | Reviews & Feedback',
     description: 'Read reviews and verified testimonials from students and learners who transformed their careers with SkillUp.',
   },
   '/privacy': {
-    title: 'Privacy Policy | SkillUp',
+    title: 'SkillUp | Privacy Policy',
     description: 'Read the privacy policy of SkillUp outlining how your data and account information are safely handled.',
   },
   '/terms': {
-    title: 'Terms of Service | SkillUp',
+    title: 'SkillUp | Terms of Service',
     description: 'Review the terms of service and conditions for using the SkillUp skill development platform.',
   },
   '/login': {
-    title: 'Sign In | SkillUp',
+    title: 'SkillUp | Login',
     description: 'Sign in to your SkillUp student or instructor account to access learning tracks, live classes, and certificates.',
   },
   '/register': {
-    title: 'Create an Account | SkillUp',
+    title: 'SkillUp | Sign Up',
     description: 'Join SkillUp today to learn in-demand tech skills, enroll in cohort courses, and earn verified certifications.',
   },
 };
 
 const DEFAULT_SEO: RouteSEO = {
-  title: 'SkillUp - Student Skill Development Platform',
+  title: 'SkillUp | Home',
   description: 'Next-generation tech skill development platform offering cohort courses, live classes, internships, and capstone projects.',
 };
 
@@ -104,32 +124,42 @@ export const SEO: React.FC = () => {
     if (!config) {
       if (location.pathname.startsWith('/courses/')) {
         config = {
-          title: 'Course Details | SkillUp',
+          title: 'SkillUp | Course Details',
           description: 'Detailed syllabus, mentor information, live schedule, and prerequisites for this SkillUp course.',
         };
       } else if (location.pathname.startsWith('/internships/')) {
         config = {
-          title: 'Internship Details | SkillUp',
+          title: 'SkillUp | Internship Details',
           description: 'Explore real-world deliverables, industry mentorship, and certification requirements for this internship.',
         };
       } else if (location.pathname.startsWith('/hackathons/')) {
         config = {
-          title: 'Hackathon Details | SkillUp',
+          title: 'SkillUp | Hackathon Details',
           description: 'Problem statements, timeline, submission criteria, and prizes for this coding competition.',
         };
       } else if (location.pathname.startsWith('/materials/')) {
         config = {
-          title: 'Study Material | SkillUp',
+          title: 'SkillUp | Study Material',
           description: 'Detailed study resource, downloadable code assets, and reference guides.',
         };
       } else if (location.pathname.startsWith('/dashboard')) {
         config = {
-          title: 'Student Dashboard | SkillUp',
+          title: 'SkillUp | Student Dashboard',
           description: 'Track your ongoing courses, enrolled internships, upcoming live sessions, and achievements.',
+        };
+      } else if (location.pathname.startsWith('/admin')) {
+        config = {
+          title: 'SkillUp | Admin Dashboard',
+          description: 'SkillUp Super Admin platform command center and operational oversight.',
+        };
+      } else if (location.pathname.startsWith('/live-classes/')) {
+        config = {
+          title: 'SkillUp | Live Classroom',
+          description: 'Interactive live session, mentor video stream, and cohort workspace.',
         };
       } else if (location.pathname.startsWith('/classroom/')) {
         config = {
-          title: 'Classroom Player | SkillUp',
+          title: 'SkillUp | Classroom Player',
           description: 'Watch video modules, follow course timelines, and track lesson progress on SkillUp.',
         };
       } else {

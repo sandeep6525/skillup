@@ -541,7 +541,7 @@ export const CourseManagementPage: React.FC = () => {
               </div>
 
               {/* Installment Options Configuration */}
-              <div className="p-3 bg-blue-50/50 rounded-xl border border-blue-200/60 space-y-2.5">
+              <div className="p-3 bg-[#EAF5EA]/50 rounded-xl border border-blue-200/60 space-y-2.5">
                 <div className="flex items-center justify-between">
                   <label className="font-bold text-[#14233B]">Enable Custom / Installment Payment</label>
                   <input
@@ -675,7 +675,7 @@ export const CourseManagementPage: React.FC = () => {
                   setModuleOrder(String(modules.length + 1));
                   setIsModuleModalOpen(true);
                 }}
-                className="px-4 py-2 rounded-xl bg-white text-[#173B73] hover:bg-blue-50 text-xs font-bold transition flex items-center gap-1.5 shadow-xs"
+                className="px-4 py-2 rounded-xl bg-white text-[#173B73] hover:bg-[#EAF5EA] text-xs font-bold transition flex items-center gap-1.5 shadow-xs"
               >
                 <PlusCircle className="w-3.5 h-3.5 text-[#2563EB]" />
                 <span>Add Day / Module</span>

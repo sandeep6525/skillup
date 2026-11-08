@@ -343,7 +343,7 @@ export const InternshipLearningPage: React.FC = () => {
             <span
               className={`px-3 py-1 rounded-full text-[11px] font-bold border ${
                 isPrivileged
-                  ? 'bg-[#EAF5EA] text-[#4ea849] border-[#5DBA58]/30'
+                  ? 'bg-[#EAF5EA] text-[#46a548] border-[#55B957]/30'
                   : 'bg-emerald-50 text-emerald-700 border-emerald-200'
               }`}
             >
@@ -865,7 +865,7 @@ export const InternshipLearningPage: React.FC = () => {
                           <div className="flex items-center gap-2">
                             <h4 className="text-sm font-bold text-[#14233B]">{asgn.title}</h4>
                             {asgn.module && (
-                              <span className="text-[10px] px-2 py-0.5 rounded-md bg-blue-50 text-[#2563EB] font-bold">
+                              <span className="text-[10px] px-2 py-0.5 rounded-md bg-[#EAF5EA] text-[#2563EB] font-bold">
                                 {asgn.module}
                               </span>
                             )}
@@ -887,7 +887,7 @@ export const InternshipLearningPage: React.FC = () => {
                                   ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                                   : isNeedsRevision
                                   ? 'bg-amber-50 text-amber-800 border border-amber-300'
-                                  : 'bg-blue-50 text-[#2563EB] border border-blue-200'
+                                  : 'bg-[#EAF5EA] text-[#2563EB] border border-blue-200'
                               }`}
                             >
                               {isGraded
@@ -1012,7 +1012,7 @@ export const InternshipLearningPage: React.FC = () => {
                   >
                     <div className="space-y-1.5 min-w-0 flex-1">
                       <div className="flex items-center gap-2">
-                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-blue-50 text-[#2563EB]">
+                        <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-[#EAF5EA] text-[#2563EB]">
                           {cls.status}
                         </span>
                         <span className="text-xs text-slate-400">

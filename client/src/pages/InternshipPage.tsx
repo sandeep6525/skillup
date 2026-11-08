@@ -4,6 +4,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useNavigate, Link } from 'react-router-dom';
 import { api } from '../api/client';
 import { useAuth } from '../context/AuthContext';
+import { PageHeader } from '../components/PageHeader';
 import {
   Briefcase,
   Clock,
@@ -202,29 +203,23 @@ export const InternshipPage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[#EDF0F4]">
-        <div>
-           
-          <h1 className="text-3xl font-extrabold text-[#14233B] mt-1">
-            SkillUp Student Internship Program
-          </h1>
-          <p className="text-sm text-[#667085] mt-1 max-w-2xl">
-            Gain verified industry exposure and build production features through our partner hiring network. Only verified enrollments unlock cohort tasks and mentor review.
-          </p>
-        </div>
-
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-8">
+      {/* Reusable Page Header */}
+      <PageHeader
+        title="SkillUp Student"
+        highlight="Internship Program"
+        subtitle="Gain verified industry exposure and build production features through our partner hiring network."
+      >
         {user && (
           <button
             onClick={() => navigate('/dashboard')}
-            className="px-5 py-2.5 rounded-xl border border-[#D5E5FA] text-xs font-bold text-[#0866E8] hover:bg-[#EAF4FF] transition shadow-2xs flex items-center gap-2 cursor-pointer shrink-0"
+            className="px-5 py-2.5 rounded-xl border border-[#E2E8F0] text-xs font-bold text-[#142B4F] hover:bg-[#EAF5EA] hover:border-[#55B957] transition shadow-2xs flex items-center gap-2 cursor-pointer shrink-0"
           >
-            <Briefcase className="w-4 h-4" />
+            <Briefcase className="w-4 h-4 text-[#55B957]" />
             <span>Go to My Internships</span>
           </button>
         )}
-      </div>
+      </PageHeader>
 
       {/* Internships Grid */}
       {isLoading ? (

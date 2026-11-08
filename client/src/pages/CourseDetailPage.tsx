@@ -587,7 +587,7 @@ export const CourseDetailPage: React.FC = () => {
                   </div>
 
                   {!course.isEnrolled && (
-                    <div className="bg-blue-50/60 border border-blue-200/60 rounded-xl p-4 flex items-start gap-3 text-xs text-blue-900">
+                    <div className="bg-[#EAF5EA]/60 border border-blue-200/60 rounded-xl p-4 flex items-start gap-3 text-xs text-blue-900">
                       <Lock className="w-4 h-4 text-[#0866E8] shrink-0 mt-0.5" />
                       <div>
                         <span className="font-bold block">Enroll in this course to unlock all lessons, videos, and study notes.</span>
@@ -693,7 +693,7 @@ export const CourseDetailPage: React.FC = () => {
                                                 {lesson.resources.map((res: any) => (
                                                   <span
                                                     key={res.id}
-                                                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-blue-50/80 text-[#0866E8] text-[10px] font-medium border border-blue-200/50"
+                                                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#EAF5EA]/80 text-[#0866E8] text-[10px] font-medium border border-blue-200/50"
                                                   >
                                                     <FileText className="w-3 h-3 text-[#0866E8]" />
                                                     <span>{res.title} ({res.type})</span>
@@ -1084,7 +1084,7 @@ export const CourseDetailPage: React.FC = () => {
 
             {/* Installments Option Selector if Allowed */}
             {course.allowInstallments && (
-              <div className="p-3.5 rounded-xl bg-blue-50/60 border border-blue-200 space-y-3 text-xs">
+              <div className="p-3.5 rounded-xl bg-[#EAF5EA]/60 border border-blue-200 space-y-3 text-xs">
                 <div className="flex justify-between items-center">
                   <span className="font-bold text-[#092653]">Payment Method</span>
                   <span className="text-[10px] font-bold text-blue-700 bg-blue-100 px-2 py-0.5 rounded-full">

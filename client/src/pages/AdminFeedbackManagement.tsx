@@ -189,14 +189,14 @@ export const AdminFeedbackManagement: React.FC = () => {
 
         <div className="bg-white p-4 rounded-xl border border-blue-200 shadow-2xs">
           <span className="text-[11px] font-semibold text-blue-700 uppercase tracking-wider block">Students</span>
-          <span className="text-xl font-black text-blue-600 mt-1 block">
+          <span className="text-xl font-black text-[#55B957] mt-1 block">
             {loadingAnalytics ? '...' : analytics?.studentFeedbackCount ?? 0}
           </span>
         </div>
 
-        <div className="bg-white p-4 rounded-xl border border-[#5DBA58]/30 shadow-2xs">
-          <span className="text-[11px] font-semibold text-[#4ea849] uppercase tracking-wider block">Mentors</span>
-          <span className="text-xl font-black text-[#5DBA58] mt-1 block">
+        <div className="bg-white p-4 rounded-xl border border-[#55B957]/30 shadow-2xs">
+          <span className="text-[11px] font-semibold text-[#46a548] uppercase tracking-wider block">Mentors</span>
+          <span className="text-xl font-black text-[#55B957] mt-1 block">
             {loadingAnalytics ? '...' : analytics?.mentorFeedbackCount ?? 0}
           </span>
         </div>
@@ -343,8 +343,8 @@ export const AdminFeedbackManagement: React.FC = () => {
                         <span
                           className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${
                             isMentor
-                              ? 'bg-[#EAF5EA] text-[#4ea849] border border-[#5DBA58]/30'
-                              : 'bg-blue-50 text-blue-700 border border-blue-200'
+                              ? 'bg-[#EAF5EA] text-[#46a548] border border-[#55B957]/30'
+                              : 'bg-[#EAF5EA] text-blue-700 border border-blue-200'
                           }`}
                         >
                           {isMentor ? 'Mentor' : 'Student'}
@@ -385,7 +385,7 @@ export const AdminFeedbackManagement: React.FC = () => {
                             }
                             className={`inline-flex items-center gap-1 px-2 py-1 rounded-lg text-[11px] font-bold cursor-pointer transition ${
                               f.isPublished
-                                ? 'bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200'
+                                ? 'bg-[#EAF5EA] text-blue-700 hover:bg-blue-100 border border-blue-200'
                                 : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                             }`}
                             title={f.isPublished ? 'Click to hide from homepage' : 'Click to feature on homepage'}
@@ -496,8 +496,8 @@ export const AdminFeedbackManagement: React.FC = () => {
                 <span
                   className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold uppercase ${
                     activeDetail.feedbackType === 'MENTOR'
-                      ? 'bg-[#EAF5EA] text-[#4ea849] border border-[#5DBA58]/30'
-                      : 'bg-blue-50 text-blue-700 border border-blue-200'
+                      ? 'bg-[#EAF5EA] text-[#46a548] border border-[#55B957]/30'
+                      : 'bg-[#EAF5EA] text-blue-700 border border-blue-200'
                   }`}
                 >
                   {activeDetail.feedbackType === 'MENTOR' ? 'Mentor Feedback' : 'Student Feedback'}
@@ -562,7 +562,7 @@ export const AdminFeedbackManagement: React.FC = () => {
               {activeDetail.suggestions && (
                 <div>
                   <span className="text-slate-500 block font-semibold mb-0.5">Improvement Suggestions:</span>
-                  <p className="text-slate-700 bg-blue-50/50 p-3 rounded-xl border border-blue-100">
+                  <p className="text-slate-700 bg-[#EAF5EA]/50 p-3 rounded-xl border border-blue-100">
                     {activeDetail.suggestions}
                   </p>
                 </div>
@@ -592,7 +592,7 @@ export const AdminFeedbackManagement: React.FC = () => {
                     className={`px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer ${
                       activeDetail.isPublished
                         ? 'bg-amber-100 text-amber-800 hover:bg-amber-200'
-                        : 'bg-blue-600 text-white hover:bg-blue-700'
+                        : 'bg-[#55B957] text-white hover:bg-[#46a548]'
                     }`}
                   >
                     {activeDetail.isPublished ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}

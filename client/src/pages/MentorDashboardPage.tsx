@@ -444,7 +444,7 @@ export const MentorDashboardPage: React.FC = () => {
               <img src="/logo.png" alt="SkillUp Logo" className="h-8 w-auto object-contain" />
               <div>
                 <span className="text-lg font-bold text-[#14233B] tracking-tight block leading-none">
-                  Skill<span className="text-[#5DBA58]">Up</span>
+                  Skill<span className="text-[#55B957]">Up</span>
                 </span>
                 <span className="text-[10px] font-semibold text-[#2563EB] uppercase tracking-wider block mt-1">
                   Mentor Portal
@@ -893,7 +893,7 @@ export const MentorDashboardPage: React.FC = () => {
 
                           {/* Upcoming Live Classes Widget */}
                           {course.upcomingLiveClassesList && course.upcomingLiveClassesList.length > 0 ? (
-                            <div className="p-2.5 rounded-xl bg-blue-50/60 border border-blue-100 space-y-1">
+                            <div className="p-2.5 rounded-xl bg-[#EAF5EA]/60 border border-blue-100 space-y-1">
                               <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#173B73]">
                                 <Video className="w-3.5 h-3.5 text-[#2563EB]" />
                                 <span>Upcoming Live Session:</span>

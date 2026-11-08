@@ -613,7 +613,7 @@ export const CoursePaymentsManagement: React.FC = () => {
                       <td className="py-3.5 px-4">
                         {course.allowInstallments ? (
                           <div className="space-y-0.5">
-                            <span className="px-2 py-0.5 text-[9px] font-bold rounded-full bg-blue-50 text-[#2563EB] border border-blue-200">
+                            <span className="px-2 py-0.5 text-[9px] font-bold rounded-full bg-[#EAF5EA] text-[#2563EB] border border-blue-200">
                               Enabled (Min: ₹{course.minInstallmentAmount})
                             </span>
                             <span className="text-[9px] text-[#667085] block font-medium">
@@ -942,7 +942,7 @@ export const CoursePaymentsManagement: React.FC = () => {
                   Verified course receipts, installment status, and individual balances.
                 </p>
               </div>
-              <span className="text-[11px] font-medium text-[#2563EB] bg-blue-50 px-2.5 py-1 rounded-lg">
+              <span className="text-[11px] font-medium text-[#2563EB] bg-[#EAF5EA] px-2.5 py-1 rounded-lg">
                 14 Audit Columns Enabled
               </span>
             </div>
@@ -1034,7 +1034,7 @@ export const CoursePaymentsManagement: React.FC = () => {
                           <span
                             className={`px-2 py-0.5 text-[9px] font-bold rounded-md uppercase ${
                               student.paymentPlan === 'INSTALLMENT' || student.paymentType === 'Installment'
-                                ? 'bg-blue-50 text-[#2563EB] border border-blue-200'
+                                ? 'bg-[#EAF5EA] text-[#2563EB] border border-blue-200'
                                 : 'bg-slate-100 text-slate-700'
                             }`}
                           >
@@ -1307,7 +1307,7 @@ export const CoursePaymentsManagement: React.FC = () => {
                           <span>&bull;</span>
                           <span className="font-semibold text-slate-500">{tx.paymentPlan} Plan</span>
                           {tx.couponCode && (
-                            <span className="px-1.5 py-0.2 bg-blue-50 text-blue-700 text-[10px] font-bold rounded">
+                            <span className="px-1.5 py-0.2 bg-[#EAF5EA] text-blue-700 text-[10px] font-bold rounded">
                               Coupon: {tx.couponCode} (-₹{tx.discountAmount})
                             </span>
                           )}

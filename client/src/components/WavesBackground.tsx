@@ -40,18 +40,18 @@ export const WavesBackground: React.FC<WavesBackgroundProps> = ({ className = ''
 
     let step = 0;
 
-    // Harmonized neon flowing wave strands: Vibrant Purples (#5DBA58, #5DBA58) and Electric Blues (#4F46E5, #38BDF8, #6366F1)
+    // Harmonized neon flowing wave strands: Vibrant Purples (#55B957, #55B957) and Electric Blues (#4F46E5, #38BDF8, #6366F1)
     const waveStrands = [
-      { speed: 0.007, amplitude: 65, freq: 0.0018, yOffset: 0.50, color: 'rgba(168, 85, 247, 0.65)', glowColor: '#5DBA58', lineWidth: 2.2 },
+      { speed: 0.007, amplitude: 65, freq: 0.0018, yOffset: 0.50, color: 'rgba(168, 85, 247, 0.65)', glowColor: '#55B957', lineWidth: 2.2 },
       { speed: 0.005, amplitude: 55, freq: 0.0015, yOffset: 0.53, color: 'rgba(79, 70, 229, 0.70)', glowColor: '#4F46E5', lineWidth: 2.0 },
-      { speed: 0.008, amplitude: 45, freq: 0.0022, yOffset: 0.47, color: 'rgba(192, 132, 252, 0.55)', glowColor: '#5DBA58', lineWidth: 1.8 },
+      { speed: 0.008, amplitude: 45, freq: 0.0022, yOffset: 0.47, color: 'rgba(192, 132, 252, 0.55)', glowColor: '#55B957', lineWidth: 1.8 },
       { speed: 0.006, amplitude: 75, freq: 0.0012, yOffset: 0.58, color: 'rgba(99, 102, 241, 0.60)', glowColor: '#6366F1', lineWidth: 2.0 },
       { speed: 0.009, amplitude: 35, freq: 0.0026, yOffset: 0.44, color: 'rgba(56, 189, 248, 0.45)', glowColor: '#38BDF8', lineWidth: 1.5 },
-      { speed: 0.004, amplitude: 85, freq: 0.0010, yOffset: 0.62, color: 'rgba(139, 92, 246, 0.50)', glowColor: '#5DBA58', lineWidth: 1.6 },
+      { speed: 0.004, amplitude: 85, freq: 0.0010, yOffset: 0.62, color: 'rgba(139, 92, 246, 0.50)', glowColor: '#55B957', lineWidth: 1.6 },
       { speed: 0.007, amplitude: 60, freq: 0.0019, yOffset: 0.56, color: 'rgba(79, 70, 229, 0.40)', glowColor: '#4F46E5', lineWidth: 1.4 },
-      { speed: 0.005, amplitude: 70, freq: 0.0014, yOffset: 0.66, color: 'rgba(168, 85, 247, 0.35)', glowColor: '#5DBA58', lineWidth: 1.2 },
+      { speed: 0.005, amplitude: 70, freq: 0.0014, yOffset: 0.66, color: 'rgba(168, 85, 247, 0.35)', glowColor: '#55B957', lineWidth: 1.2 },
       { speed: 0.003, amplitude: 95, freq: 0.0009, yOffset: 0.70, color: 'rgba(99, 102, 241, 0.30)', glowColor: '#6366F1', lineWidth: 1.0 },
-      { speed: 0.006, amplitude: 80, freq: 0.0011, yOffset: 0.75, color: 'rgba(192, 132, 252, 0.25)', glowColor: '#5DBA58', lineWidth: 0.9 },
+      { speed: 0.006, amplitude: 80, freq: 0.0011, yOffset: 0.75, color: 'rgba(192, 132, 252, 0.25)', glowColor: '#55B957', lineWidth: 0.9 },
     ];
 
     const render = () => {
@@ -95,7 +95,7 @@ export const WavesBackground: React.FC<WavesBackgroundProps> = ({ className = ''
       ctx.ellipse(arcCenterX, arcCenterY, arcRadius * 1.35, arcRadius * 0.68, -0.12, Math.PI * 0.95, Math.PI * 2.05);
       ctx.strokeStyle = 'rgba(168, 85, 247, 0.95)';
       ctx.lineWidth = 3.5;
-      ctx.shadowColor = '#5DBA58';
+      ctx.shadowColor = '#55B957';
       ctx.shadowBlur = 35;
       ctx.stroke();
 

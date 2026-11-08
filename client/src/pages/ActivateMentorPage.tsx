@@ -145,7 +145,7 @@ export const ActivateMentorPage: React.FC = () => {
         {/* Active Activation Form */}
         {!isValidating && !tokenError && !isSuccess && mentorInfo && (
           <form onSubmit={handleActivate} className="space-y-4">
-            <div className="p-3.5 bg-blue-50/70 border border-blue-100 rounded-2xl space-y-1">
+            <div className="p-3.5 bg-[#EAF5EA]/70 border border-blue-100 rounded-2xl space-y-1">
               <div className="flex items-center justify-between">
                 <span className="text-[11px] font-semibold text-[#667085]">Invited Mentor</span>
                 <span className="px-2 py-0.5 text-[9px] font-bold bg-[#EFF6FF] text-[#2563EB] rounded-md border border-[#2563EB]/20 uppercase">

@@ -39,17 +39,17 @@ export const Navbar: React.FC = () => {
   };
 
   const navLinkClass = ({ isActive }: { isActive: boolean }) =>
-    `relative text-[14px] font-medium transition-colors hover:text-[#5DBA58] py-1 px-3 whitespace-nowrap ${
+    `relative text-[14px] font-medium transition-colors hover:text-[#55B957] py-1 px-3 whitespace-nowrap ${
       isActive
-        ? 'text-[#5DBA58] font-semibold after:content-[""] after:absolute after:bottom-[-6px] after:left-1/2 after:-translate-x-1/2 after:w-8 after:h-[2.5px] after:bg-[#5DBA58] after:rounded-full after:shadow-[0_0_8px_rgba(93,186,88,0.4)]'
-        : 'text-slate-600 hover:text-[#5DBA58]'
+        ? 'text-[#55B957] font-semibold after:content-[""] after:absolute after:bottom-[-6px] after:left-1/2 after:-translate-x-1/2 after:w-8 after:h-[2.5px] after:bg-[#55B957] after:rounded-full after:shadow-[0_0_8px_rgba(85,185,87,0.4)]'
+        : 'text-[#64748B] hover:text-[#55B957]'
     }`;
 
   const mobileNavLinkClass = ({ isActive }: { isActive: boolean }) =>
     `block px-3.5 py-2.5 text-sm font-medium rounded-xl transition-colors ${
       isActive
-        ? 'text-[#5DBA58] bg-[#EAF5EA] border border-[#5DBA58]/30 font-semibold'
-        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+        ? 'text-[#55B957] bg-[#EAF5EA] border border-[#55B957]/30 font-semibold'
+        : 'text-[#64748B] hover:text-[#111111] hover:bg-slate-50'
     }`;
 
   const isAdminActive = location.pathname.startsWith('/admin');
@@ -69,7 +69,7 @@ export const Navbar: React.FC = () => {
             />
             <div className="flex items-center gap-2.5">
               <span className="text-[22px] font-bold text-[#000000] tracking-tight leading-none">
-                Skill<span className="text-[#5DBA58]">Up</span>
+                Skill<span className="text-[#55B957]">Up</span>
               </span>
               <div className="hidden sm:block w-[1px] h-4 bg-slate-200" />
             </div>
@@ -119,7 +119,7 @@ export const Navbar: React.FC = () => {
             <Link
               to="/courses"
               title="Search courses & materials"
-              className="p-2 text-slate-500 hover:text-[#5DBA58] hover:bg-slate-100 rounded-full transition-all cursor-pointer"
+              className="p-2 text-[#64748B] hover:text-[#55B957] hover:bg-slate-100 rounded-full transition-all cursor-pointer"
             >
               <Search className="w-4 h-4" />
             </Link>
@@ -129,7 +129,7 @@ export const Navbar: React.FC = () => {
               <Link
                 to="/notifications"
                 title="Notifications"
-                className="relative p-2 text-slate-500 hover:text-[#5DBA58] hover:bg-slate-100 rounded-full transition-all"
+                className="relative p-2 text-[#64748B] hover:text-[#55B957] hover:bg-slate-100 rounded-full transition-all"
                 aria-label="View notifications"
               >
                 <Bell className="w-4 h-4" />
@@ -143,7 +143,7 @@ export const Navbar: React.FC = () => {
 
             {/* Authentication Buttons / Profile Avatar */}
             {user ? (
-              <div className="flex items-center gap-3 pl-2 border-l border-slate-200">
+              <div className="flex items-center gap-3 pl-2 border-l border-[#E2E8F0]">
                 <Link
                   to={
                     user.role === 'STUDENT'
@@ -155,7 +155,7 @@ export const Navbar: React.FC = () => {
                   title={`Signed in as ${user.name} (${user.role})`}
                   className="flex items-center gap-2.5 group"
                 >
-                  <div className="w-8 h-8 rounded-full bg-[#5DBA58] text-white flex items-center justify-center font-bold text-xs shadow-xs overflow-hidden group-hover:ring-2 group-hover:ring-[#5DBA58]/50 transition-all">
+                  <div className="w-8 h-8 rounded-full bg-[#55B957] text-white flex items-center justify-center font-bold text-xs shadow-xs overflow-hidden group-hover:ring-2 group-hover:ring-[#55B957]/50 transition-all">
                     {user.avatarUrl ? (
                       <img src={getMediaUrl(user.avatarUrl)} alt={user.name} className="w-full h-full object-cover" />
                     ) : (
@@ -163,10 +163,10 @@ export const Navbar: React.FC = () => {
                     )}
                   </div>
                   <div className="hidden xl:block text-left">
-                    <span className="text-xs font-semibold text-[#171717] block leading-tight truncate max-w-[110px]">
+                    <span className="text-xs font-semibold text-[#111111] block leading-tight truncate max-w-[110px]">
                       {user.name}
                     </span>
-                    <span className="text-[10px] text-[#5DBA58] font-medium block capitalize">
+                    <span className="text-[10px] text-[#55B957] font-medium block capitalize">
                       {user.role.toLowerCase()}
                     </span>
                   </div>
@@ -185,14 +185,14 @@ export const Navbar: React.FC = () => {
               <div className="flex items-center gap-3">
                 <Link
                   to="/login"
-                  className="px-4 py-1.5 text-sm font-semibold text-slate-700 hover:text-[#5DBA58] transition-colors"
+                  className="px-4 py-1.5 text-sm font-semibold text-[#64748B] hover:text-[#55B957] transition-colors"
                 >
                   Login
                 </Link>
 
                 <Link
                   to="/register"
-                  className="inline-flex items-center gap-1.5 px-5 py-2 text-sm font-semibold text-white bg-[#5DBA58] hover:bg-[#4ea849] active:scale-95 rounded-full shadow-[0_4px_16px_rgba(93,186,88,0.35)] transition-all"
+                  className="inline-flex items-center gap-1.5 px-5 py-2 text-sm font-semibold text-white bg-[#55B957] hover:bg-[#46a548] active:scale-95 rounded-full shadow-[0_4px_16px_rgba(85,185,87,0.35)] transition-all"
                 >
                   <span>Sign Up</span>
                   <span className="text-xs font-bold leading-none">→</span>
@@ -257,7 +257,7 @@ export const Navbar: React.FC = () => {
               <Link
                 to={user.role === 'STUDENT' ? '/dashboard' : user.role === 'INSTRUCTOR' ? '/mentor-dashboard' : '/admin'}
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-[#EAF5EA] border border-[#5DBA58]/30 text-[#5DBA58] text-xs font-semibold"
+                className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-[#EAF5EA] border border-[#55B957]/30 text-[#55B957] text-xs font-semibold"
               >
                 <span>Open {user.role === 'STUDENT' ? 'Student Dashboard' : user.role === 'INSTRUCTOR' ? 'Mentor Portal' : 'Admin Hub'}</span>
               </Link>
@@ -284,7 +284,7 @@ export const Navbar: React.FC = () => {
               <Link
                 to="/register"
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex-1 py-2.5 text-center text-xs font-semibold text-white bg-[#5DBA58] hover:bg-[#4ea849] rounded-xl shadow-xs"
+                className="flex-1 py-2.5 text-center text-xs font-semibold text-white bg-[#55B957] hover:bg-[#46a548] rounded-xl shadow-xs"
               >
                 Sign Up
               </Link>

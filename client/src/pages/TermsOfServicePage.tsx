@@ -41,7 +41,7 @@ export const TermsOfServicePage: React.FC = () => {
           {/* Section 1 */}
           <section className="space-y-3">
             <div className="flex items-center gap-2.5 text-[#092653]">
-              <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+              <div className="w-8 h-8 rounded-lg bg-[#EAF5EA] text-[#55B957] flex items-center justify-center font-bold">
                 <ShieldCheck className="w-4 h-4" />
               </div>
               <h2 className="text-lg sm:text-xl font-bold">1. User Accounts & Eligibility</h2>
@@ -59,7 +59,7 @@ export const TermsOfServicePage: React.FC = () => {
           {/* Section 2 */}
           <section className="space-y-3">
             <div className="flex items-center gap-2.5 text-[#092653]">
-              <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+              <div className="w-8 h-8 rounded-lg bg-[#EAF5EA] text-[#55B957] flex items-center justify-center font-bold">
                 <CreditCard className="w-4 h-4" />
               </div>
               <h2 className="text-lg sm:text-xl font-bold">2. Course Enrollments, Purchases & Access</h2>
@@ -77,7 +77,7 @@ export const TermsOfServicePage: React.FC = () => {
           {/* Section 3 */}
           <section className="space-y-3">
             <div className="flex items-center gap-2.5 text-[#092653]">
-              <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+              <div className="w-8 h-8 rounded-lg bg-[#EAF5EA] text-[#55B957] flex items-center justify-center font-bold">
                 <Lock className="w-4 h-4" />
               </div>
               <h2 className="text-lg sm:text-xl font-bold">3. Intellectual Property & Digital Rights Management (DRM)</h2>
@@ -100,7 +100,7 @@ export const TermsOfServicePage: React.FC = () => {
           {/* Section 4 */}
           <section className="space-y-3">
             <div className="flex items-center gap-2.5 text-[#092653]">
-              <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+              <div className="w-8 h-8 rounded-lg bg-[#EAF5EA] text-[#55B957] flex items-center justify-center font-bold">
                 <Ban className="w-4 h-4" />
               </div>
               <h2 className="text-lg sm:text-xl font-bold">4. Prohibited Student Conduct</h2>
@@ -116,7 +116,7 @@ export const TermsOfServicePage: React.FC = () => {
           {/* Section 5 */}
           <section className="space-y-3">
             <div className="flex items-center gap-2.5 text-[#092653]">
-              <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+              <div className="w-8 h-8 rounded-lg bg-[#EAF5EA] text-[#55B957] flex items-center justify-center font-bold">
                 <CheckCircle className="w-4 h-4" />
               </div>
               <h2 className="text-lg sm:text-xl font-bold">5. Certificates of Completion</h2>
@@ -129,7 +129,7 @@ export const TermsOfServicePage: React.FC = () => {
           {/* Section 6 */}
           <section className="space-y-3">
             <div className="flex items-center gap-2.5 text-[#092653]">
-              <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+              <div className="w-8 h-8 rounded-lg bg-[#EAF5EA] text-[#55B957] flex items-center justify-center font-bold">
                 <AlertTriangle className="w-4 h-4" />
               </div>
               <h2 className="text-lg sm:text-xl font-bold">6. Disclaimers & Limitation of Liability</h2>
@@ -142,7 +142,7 @@ export const TermsOfServicePage: React.FC = () => {
           {/* Section 7 */}
           <section className="space-y-3 border-t border-slate-100 pt-8">
             <div className="flex items-center gap-2.5 text-[#092653]">
-              <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+              <div className="w-8 h-8 rounded-lg bg-[#EAF5EA] text-[#55B957] flex items-center justify-center font-bold">
                 <Mail className="w-4 h-4" />
               </div>
               <h2 className="text-lg sm:text-xl font-bold">7. Inquiries & Governing Jurisdiction</h2>
@@ -152,7 +152,7 @@ export const TermsOfServicePage: React.FC = () => {
             </p>
             <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-1 text-xs sm:text-sm text-slate-700">
               <p><strong>Platform:</strong> SkillUp (TRI-CUBE DIGITAL SOLUTIONS)</p>
-              <p><strong>Legal & Support Desk:</strong> <a href="mailto:support@skillup.com" className="text-blue-600 hover:underline">support@skillup.com</a></p>
+              <p><strong>Legal & Support Desk:</strong> <a href="mailto:support@skillup.com" className="text-[#55B957] hover:underline">support@skillup.com</a></p>
             </div>
           </section>
 
@@ -160,7 +160,7 @@ export const TermsOfServicePage: React.FC = () => {
           <div className="pt-6 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-500">
             <p>© 2026 SkillUp – All rights reserved.</p>
             <div className="flex items-center gap-4">
-              <Link to="/privacy" className="text-blue-600 hover:underline font-medium">Privacy Policy</Link>
+              <Link to="/privacy" className="text-[#55B957] hover:underline font-medium">Privacy Policy</Link>
               <Link to="/" className="text-slate-600 hover:underline">Return to Home</Link>
             </div>
           </div>

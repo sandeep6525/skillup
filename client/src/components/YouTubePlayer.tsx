@@ -357,7 +357,7 @@ export const YouTubePlayer: React.FC<YouTubePlayerProps> = ({
       {!isPlaying && (
         <button
           onClick={togglePlay}
-          className="absolute z-20 w-16 h-16 rounded-full bg-indigo-600/90 text-white flex items-center justify-center shadow-2xl hover:scale-110 hover:bg-indigo-600 transition-all cursor-pointer pointer-events-auto"
+          className="absolute z-20 w-16 h-16 rounded-full bg-[#55B957]/90 text-white flex items-center justify-center shadow-2xl hover:scale-110 hover:bg-[#55B957] transition-all cursor-pointer pointer-events-auto"
         >
           <Play className="w-8 h-8 ml-1" />
         </button>

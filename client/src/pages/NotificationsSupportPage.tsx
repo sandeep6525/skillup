@@ -103,7 +103,7 @@ export const NotificationsSupportPage: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
       <div>
-        <span className="text-xs font-bold uppercase tracking-wider text-[#5DBA58]">Communication Center</span>
+        <span className="text-xs font-bold uppercase tracking-wider text-[#55B957]">Communication Center</span>
         <h1 className="text-3xl font-extrabold text-indigo-950 mt-1">Notifications & Technical Support</h1>
         <p className="text-sm text-slate-500 mt-1">
           Stay updated on session reminders, system announcements, and file support tickets.
@@ -115,10 +115,10 @@ export const NotificationsSupportPage: React.FC = () => {
         <div className="space-y-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Bell className="w-5 h-5 text-indigo-600" />
+              <Bell className="w-5 h-5 text-[#55B957]" />
               <h2 className="text-xl font-bold text-indigo-950">In-App Notifications</h2>
               {notifications && notifications.length > 0 && (
-                <span className="px-2 py-0.5 text-xs font-semibold rounded-full bg-indigo-50 text-indigo-600">
+                <span className="px-2 py-0.5 text-xs font-semibold rounded-full bg-[#EAF5EA] text-[#55B957]">
                   {notifications.length}
                 </span>
               )}
@@ -127,7 +127,7 @@ export const NotificationsSupportPage: React.FC = () => {
               {notifications && notifications.some((n: any) => !n.isRead) && (
                 <button
                   onClick={handleMarkAllRead}
-                  className="inline-flex items-center gap-1 text-xs font-semibold text-indigo-600 hover:text-indigo-800 transition-colors"
+                  className="inline-flex items-center gap-1 text-xs font-semibold text-[#55B957] hover:text-indigo-800 transition-colors"
                   title="Mark all as read"
                 >
                   <CheckCheck className="w-3.5 h-3.5" />
@@ -158,7 +158,7 @@ export const NotificationsSupportPage: React.FC = () => {
                     <div className="flex items-center gap-2">
                       <h4 className="text-sm font-bold text-indigo-950 truncate">{n.title}</h4>
                       {!n.isRead && (
-                        <span className="w-2 h-2 rounded-full bg-indigo-600 shrink-0" title="Unread" />
+                        <span className="w-2 h-2 rounded-full bg-[#55B957] shrink-0" title="Unread" />
                       )}
                     </div>
                     <p className="text-xs text-slate-500 mt-0.5 break-words">{n.message}</p>
@@ -191,7 +191,7 @@ export const NotificationsSupportPage: React.FC = () => {
         {/* Right: Support Tickets */}
         <div className="space-y-6">
           <div className="flex items-center gap-2">
-            <LifeBuoy className="w-5 h-5 text-[#5DBA58]" />
+            <LifeBuoy className="w-5 h-5 text-[#55B957]" />
             <h2 className="text-xl font-bold text-indigo-950">Raise Support Ticket</h2>
           </div>
 
@@ -205,7 +205,7 @@ export const NotificationsSupportPage: React.FC = () => {
                   placeholder="e.g. Video player playback latency or billing inquiry"
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
-                  className="w-full px-4 py-2.5 text-sm rounded-xl border border-[#5DBA58]/30 focus:outline-hidden focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                  className="w-full px-4 py-2.5 text-sm rounded-xl border border-[#55B957]/30 focus:outline-hidden focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
                 />
               </div>
 
@@ -217,14 +217,14 @@ export const NotificationsSupportPage: React.FC = () => {
                   placeholder="Provide details about the issue you are experiencing..."
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="w-full px-4 py-2.5 text-sm rounded-xl border border-[#5DBA58]/30 focus:outline-hidden focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                  className="w-full px-4 py-2.5 text-sm rounded-xl border border-[#55B957]/30 focus:outline-hidden focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-3 text-xs font-bold text-white bg-gradient-to-r from-indigo-600 to-[#4ea849] hover:from-indigo-700 hover:to-[#3a8b36] rounded-xl shadow-md transition-all flex items-center justify-center gap-2"
+                className="w-full py-3 text-xs font-bold text-white bg-gradient-to-r bg-[#55B957] hover:bg-[#46a548]  rounded-xl shadow-md transition-all flex items-center justify-center gap-2"
               >
                 <Send className="w-3.5 h-3.5" />
                 <span>{isSubmitting ? 'Submitting Ticket...' : 'Submit Support Ticket'}</span>
@@ -242,7 +242,7 @@ export const NotificationsSupportPage: React.FC = () => {
                         <span className="font-bold text-slate-800">{t.subject}</span>
                         <span className="text-[10px] text-slate-400 block">{new Date(t.createdAt).toLocaleDateString()}</span>
                       </div>
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-white text-[#4ea849] border border-[#5DBA58]/30">
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-white text-[#46a548] border border-[#55B957]/30">
                         {t.status}
                       </span>
                     </div>

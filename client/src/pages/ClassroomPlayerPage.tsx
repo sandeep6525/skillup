@@ -187,7 +187,7 @@ export const ClassroomPlayerPage: React.FC = () => {
                   className={`px-4 py-2 text-xs font-bold rounded-xl transition-all flex items-center gap-2 shrink-0 ${
                     lessonData?.progress?.isCompleted
                       ? 'bg-emerald-600/20 text-emerald-400 border border-emerald-500/30'
-                      : 'bg-[#2563EB] hover:bg-blue-600 text-white shadow-md'
+                      : 'bg-[#2563EB] hover:bg-[#55B957] text-white shadow-md'
                   }`}
                 >
                   <CheckCircle className="w-4 h-4" />
@@ -259,7 +259,7 @@ export const ClassroomPlayerPage: React.FC = () => {
                         href={res.fileUrl.startsWith('http') ? res.fileUrl : `${api.defaults.baseURL || ''}/learning/resources/${res.id}/download`}
                         target="_blank"
                         rel="noreferrer"
-                        className="p-2 rounded-lg bg-[#2563EB] hover:bg-blue-600 text-white transition shrink-0"
+                        className="p-2 rounded-lg bg-[#2563EB] hover:bg-[#55B957] text-white transition shrink-0"
                         title="Download Note"
                       >
                         <Download className="w-3.5 h-3.5" />

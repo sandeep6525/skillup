@@ -6,7 +6,7 @@ export const Footer: React.FC = () => {
   return (
     <footer className="relative bg-[#000000] text-[#A1A1AA] pt-16 pb-12 border-t border-emerald-900/30 overflow-hidden">
       {/* Subtle Green Ambient Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[220px] bg-[#5DBA58]/10 blur-[140px] rounded-full pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[220px] bg-[#55B957]/10 blur-[140px] rounded-full pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
@@ -19,7 +19,7 @@ export const Footer: React.FC = () => {
                 className="h-8 w-auto object-contain group-hover:scale-105 transition-transform"
               />
               <span className="text-xl font-extrabold text-[#FFFFFF] tracking-tight">
-                Skill<span className="text-[#5DBA58]">Up</span>
+                Skill<span className="text-[#55B957]">Up</span>
               </span>
             </Link>
 
@@ -55,7 +55,7 @@ export const Footer: React.FC = () => {
 
             {/* Certification Badge with Dark Glass Effect & Green Border */}
             <div className="inline-flex items-center gap-2 text-xs text-emerald-200 bg-emerald-950/40 border border-emerald-500/30 py-1.5 px-3 rounded-xl backdrop-blur-md shadow-[0_0_15px_rgba(93,186,88,0.15)] mt-2">
-              <ShieldCheck className="w-4 h-4 text-[#5DBA58]" />
+              <ShieldCheck className="w-4 h-4 text-[#55B957]" />
               <span className="font-medium">Certified Learning Standard</span>
             </div>
           </div>
@@ -63,7 +63,7 @@ export const Footer: React.FC = () => {
           {/* Column 2 – Platform */}
           <div>
             <h4 className="text-[#FFFFFF] font-bold mb-4 text-xs tracking-wider uppercase flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#5DBA58]" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#55B957]" />
               Platform
             </h4>
             <ul className="space-y-2.5 text-sm">
@@ -93,7 +93,7 @@ export const Footer: React.FC = () => {
           {/* Column 3 – Top Domains */}
           <div>
             <h4 className="text-[#FFFFFF] font-bold mb-4 text-xs tracking-wider uppercase flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#5DBA58]" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#55B957]" />
               Top Domains
             </h4>
             <ul className="space-y-2.5 text-sm">
@@ -118,7 +118,7 @@ export const Footer: React.FC = () => {
           {/* Column 4 – Legal & Policies */}
           <div>
             <h4 className="text-[#FFFFFF] font-bold mb-4 text-xs tracking-wider uppercase flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#5DBA58]" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#55B957]" />
               Legal & Support
             </h4>
             <ul className="space-y-2.5 text-sm">
@@ -133,7 +133,7 @@ export const Footer: React.FC = () => {
                 </Link>
               </li>
               <li className="flex items-center gap-2 text-zinc-400 pt-1">
-                <Mail className="w-4 h-4 text-[#5DBA58] shrink-0" />
+                <Mail className="w-4 h-4 text-[#55B957] shrink-0" />
                 <a href="mailto:support@skillup.com" className="hover:text-emerald-300 transition-colors">
                   support@skillup.com
                 </a>

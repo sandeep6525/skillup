@@ -207,7 +207,7 @@ export const StudentMyMaterialsView: React.FC = () => {
                         Direct Purchase
                       </span>
                     ) : (
-                      <span className="px-2 py-0.5 rounded text-[9px] font-bold bg-blue-50 text-blue-700 border border-blue-200">
+                      <span className="px-2 py-0.5 rounded text-[9px] font-bold bg-[#EAF5EA] text-blue-700 border border-blue-200">
                         Free Resource
                       </span>
                     )}

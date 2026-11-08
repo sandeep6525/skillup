@@ -151,7 +151,7 @@ export const LiveClassRoomPage: React.FC = () => {
           <div className="flex items-center justify-center gap-3 pt-2">
             <button
               onClick={() => window.location.reload()}
-              className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-xl transition-all"
+              className="px-4 py-2 bg-[#55B957] hover:bg-[#46a548] text-white text-xs font-semibold rounded-xl transition-all"
             >
               Retry Connection
             </button>
@@ -403,7 +403,7 @@ const ClassroomInterface: React.FC<ClassroomInterfaceProps> = ({
           <div className="pt-2">
             <button
               onClick={() => navigate('/live-classes')}
-              className="px-6 py-2.5 bg-gradient-to-r from-indigo-600 to-[#4ea849] hover:from-indigo-700 hover:to-[#3a8b36] text-white font-bold text-xs rounded-xl shadow-lg shadow-indigo-600/30 transition-all"
+              className="px-6 py-2.5 bg-gradient-to-r bg-[#55B957] hover:bg-[#46a548]  text-white font-bold text-xs rounded-xl shadow-lg shadow-emerald-500/20/30 transition-all"
             >
               Return to Live Classes
             </button>
@@ -557,7 +557,7 @@ const ClassroomInterface: React.FC<ClassroomInterfaceProps> = ({
               onClick={toggleScreenShare}
               className={`p-3 rounded-xl transition-all shadow-md ${
                 localParticipant?.isScreenShareEnabled
-                  ? 'bg-indigo-600 text-white hover:bg-indigo-700 shadow-indigo-900/40'
+                  ? 'bg-[#55B957] text-white hover:bg-[#46a548] shadow-emerald-500/20/40'
                   : 'bg-slate-800 text-white hover:bg-slate-700 border border-slate-600/50'
               }`}
               title={localParticipant?.isScreenShareEnabled ? 'Stop Sharing' : 'Share Screen'}
@@ -570,7 +570,7 @@ const ClassroomInterface: React.FC<ClassroomInterfaceProps> = ({
               onClick={() => setActiveTab('chat')}
               className={`p-3 rounded-xl transition-all relative ${
                 activeTab === 'chat'
-                  ? 'bg-indigo-600 text-white shadow-indigo-900/40'
+                  ? 'bg-[#55B957] text-white shadow-emerald-500/20/40'
                   : 'bg-slate-800 text-white hover:bg-slate-700 border border-slate-600/50'
               }`}
               title="Live Chat Panel"
@@ -583,7 +583,7 @@ const ClassroomInterface: React.FC<ClassroomInterfaceProps> = ({
               onClick={() => setActiveTab('participants')}
               className={`p-3 rounded-xl transition-all ${
                 activeTab === 'participants'
-                  ? 'bg-indigo-600 text-white shadow-indigo-900/40'
+                  ? 'bg-[#55B957] text-white shadow-emerald-500/20/40'
                   : 'bg-slate-800 text-white hover:bg-slate-700 border border-slate-600/50'
               }`}
               title="Participants List"
@@ -696,7 +696,7 @@ const ClassroomInterface: React.FC<ClassroomInterfaceProps> = ({
                 <button
                   type="submit"
                   disabled={!newMessage.trim()}
-                  className="p-2.5 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-40 rounded-xl text-white transition-colors"
+                  className="p-2.5 bg-[#55B957] hover:bg-[#46a548] disabled:opacity-40 rounded-xl text-white transition-colors"
                 >
                   <Send className="w-4 h-4" />
                 </button>
@@ -718,7 +718,7 @@ const ClassroomInterface: React.FC<ClassroomInterfaceProps> = ({
                     className="flex items-center justify-between py-2 px-2.5 rounded-xl bg-slate-800/50 border border-slate-800 text-xs"
                   >
                     <div className="flex items-center gap-2.5 overflow-hidden">
-                      <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-indigo-600 to-[#4ea849] flex items-center justify-center text-white font-bold text-[11px] shrink-0">
+                      <div className="w-7 h-7 rounded-full bg-gradient-to-tr bg-[#55B957] hover:bg-[#46a548] flex items-center justify-center text-white font-bold text-[11px] shrink-0">
                         {(p.name || p.identity).charAt(0).toUpperCase()}
                       </div>
                       <div className="overflow-hidden">

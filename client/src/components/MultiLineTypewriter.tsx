@@ -17,7 +17,7 @@ export const MultiLineTypewriter: React.FC<MultiLineTypewriterProps> = ({
   typingSpeed = 50,
   pauseDuration = 2400,
   showCursor = true,
-  cursorColor = '#5DBA58',
+  cursorColor = '#55B957',
   cursorCharacter = '_',
 }) => {
   // Track typed characters count across all lines

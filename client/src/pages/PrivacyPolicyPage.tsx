@@ -32,7 +32,7 @@ export const PrivacyPolicyPage: React.FC = () => {
           {/* Section 1 */}
           <section className="space-y-3">
             <div className="flex items-center gap-2.5 text-[#092653]">
-              <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+              <div className="w-8 h-8 rounded-lg bg-[#EAF5EA] text-[#55B957] flex items-center justify-center font-bold">
                 <Database className="w-4 h-4" />
               </div>
               <h2 className="text-lg sm:text-xl font-bold">1. Information We Collect</h2>
@@ -57,7 +57,7 @@ export const PrivacyPolicyPage: React.FC = () => {
           {/* Section 2 */}
           <section className="space-y-3">
             <div className="flex items-center gap-2.5 text-[#092653]">
-              <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+              <div className="w-8 h-8 rounded-lg bg-[#EAF5EA] text-[#55B957] flex items-center justify-center font-bold">
                 <Lock className="w-4 h-4" />
               </div>
               <h2 className="text-lg sm:text-xl font-bold">2. Payment Security & Financial Data</h2>
@@ -65,7 +65,7 @@ export const PrivacyPolicyPage: React.FC = () => {
             <p>
               Your transaction security is our top priority. We do <strong>not</strong> store or hold your sensitive payment credentials (such as credit card numbers, CVVs, debit card PINs, or UPI netbanking passwords) on our servers.
             </p>
-            <p className="bg-blue-50/70 border border-blue-100 rounded-xl p-4 text-xs sm:text-sm text-blue-900">
+            <p className="bg-[#EAF5EA]/70 border border-blue-100 rounded-xl p-4 text-xs sm:text-sm text-blue-900">
               All transactions are processed through authorized, RBI-compliant payment gateways (including Razorpay). Transactions use 256-bit SSL/TLS end-to-end encryption complying with PCI-DSS standards.
             </p>
           </section>
@@ -73,7 +73,7 @@ export const PrivacyPolicyPage: React.FC = () => {
           {/* Section 3 */}
           <section className="space-y-3">
             <div className="flex items-center gap-2.5 text-[#092653]">
-              <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+              <div className="w-8 h-8 rounded-lg bg-[#EAF5EA] text-[#55B957] flex items-center justify-center font-bold">
                 <Eye className="w-4 h-4" />
               </div>
               <h2 className="text-lg sm:text-xl font-bold">3. DRM & Protected Document Watermarking</h2>
@@ -91,7 +91,7 @@ export const PrivacyPolicyPage: React.FC = () => {
           {/* Section 4 */}
           <section className="space-y-3">
             <div className="flex items-center gap-2.5 text-[#092653]">
-              <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+              <div className="w-8 h-8 rounded-lg bg-[#EAF5EA] text-[#55B957] flex items-center justify-center font-bold">
                 <FileText className="w-4 h-4" />
               </div>
               <h2 className="text-lg sm:text-xl font-bold">4. How We Use Your Information</h2>
@@ -108,7 +108,7 @@ export const PrivacyPolicyPage: React.FC = () => {
           {/* Section 5 */}
           <section className="space-y-3">
             <div className="flex items-center gap-2.5 text-[#092653]">
-              <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+              <div className="w-8 h-8 rounded-lg bg-[#EAF5EA] text-[#55B957] flex items-center justify-center font-bold">
                 <UserCheck className="w-4 h-4" />
               </div>
               <h2 className="text-lg sm:text-xl font-bold">5. Zero Data Brokering Policy</h2>
@@ -121,7 +121,7 @@ export const PrivacyPolicyPage: React.FC = () => {
           {/* Section 6 */}
           <section className="space-y-3">
             <div className="flex items-center gap-2.5 text-[#092653]">
-              <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+              <div className="w-8 h-8 rounded-lg bg-[#EAF5EA] text-[#55B957] flex items-center justify-center font-bold">
                 <Bell className="w-4 h-4" />
               </div>
               <h2 className="text-lg sm:text-xl font-bold">6. Your Rights & Data Retention</h2>
@@ -134,7 +134,7 @@ export const PrivacyPolicyPage: React.FC = () => {
           {/* Section 7 */}
           <section className="space-y-3 border-t border-slate-100 pt-8">
             <div className="flex items-center gap-2.5 text-[#092653]">
-              <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+              <div className="w-8 h-8 rounded-lg bg-[#EAF5EA] text-[#55B957] flex items-center justify-center font-bold">
                 <Mail className="w-4 h-4" />
               </div>
               <h2 className="text-lg sm:text-xl font-bold">7. Contact & Grievance Officer</h2>
@@ -144,7 +144,7 @@ export const PrivacyPolicyPage: React.FC = () => {
             </p>
             <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-1 text-xs sm:text-sm text-slate-700">
               <p><strong>Entity:</strong> TRI-CUBE DIGITAL SOLUTIONS (SkillUp Platform)</p>
-              <p><strong>Email:</strong> <a href="mailto:support@skillup.com" className="text-blue-600 hover:underline">support@skillup.com</a></p>
+              <p><strong>Email:</strong> <a href="mailto:support@skillup.com" className="text-[#55B957] hover:underline">support@skillup.com</a></p>
               <p><strong>Response Time:</strong> We review and resolve privacy requests within 48 business hours.</p>
             </div>
           </section>
@@ -153,7 +153,7 @@ export const PrivacyPolicyPage: React.FC = () => {
           <div className="pt-6 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-500">
             <p>© 2026 SkillUp – All rights reserved.</p>
             <div className="flex items-center gap-4">
-              <Link to="/terms" className="text-blue-600 hover:underline font-medium">Terms of Service</Link>
+              <Link to="/terms" className="text-[#55B957] hover:underline font-medium">Terms of Service</Link>
               <Link to="/" className="text-slate-600 hover:underline">Return to Home</Link>
             </div>
           </div>

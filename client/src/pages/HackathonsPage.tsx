@@ -4,6 +4,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useNavigate, Link } from 'react-router-dom';
 import { api } from '../api/client';
 import { useAuth } from '../context/AuthContext';
+import { PageHeader } from '../components/PageHeader';
 import {
   Trophy,
   Calendar,
@@ -221,29 +222,23 @@ export const HackathonsPage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-[#EDF0F4]">
-        <div>
-          
-          <h1 className="text-3xl font-extrabold text-[#14233B] mt-1">
-            SkillUp National & Global Hackathons
-          </h1>
-          <p className="text-sm text-[#667085] mt-1 max-w-2xl">
-            Compete in 48-hour build challenges, solve real partner problem statements, and earn verified credentials and cash prizes.
-          </p>
-        </div>
-
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-8">
+      {/* Reusable Page Header */}
+      <PageHeader
+        title="SkillUp National &"
+        highlight="Global Hackathons"
+        subtitle="Compete in 48-hour build challenges, solve real partner problem statements, and earn verified credentials and cash prizes."
+      >
         {user && (
           <button
             onClick={() => navigate('/dashboard')}
-            className="px-5 py-2.5 rounded-xl border border-[#D5E5FA] text-xs font-bold text-[#0866E8] hover:bg-[#EAF4FF] transition shadow-2xs flex items-center gap-2 cursor-pointer shrink-0"
+            className="px-5 py-2.5 rounded-xl border border-[#E2E8F0] text-xs font-bold text-[#142B4F] hover:bg-[#EAF5EA] hover:border-[#55B957] transition shadow-2xs flex items-center gap-2 cursor-pointer shrink-0"
           >
-            <Trophy className="w-4 h-4" />
+            <Trophy className="w-4 h-4 text-[#55B957]" />
             <span>My Hackathons</span>
           </button>
         )}
-      </div>
+      </PageHeader>
 
       {/* Hackathons Grid */}
       {isLoading ? (

@@ -279,7 +279,7 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
                 className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${
                   confirmDialog.options.isDestructive
                     ? 'bg-rose-50 text-rose-600 border border-rose-100'
-                    : 'bg-blue-50 text-blue-600 border border-blue-100'
+                    : 'bg-[#EAF5EA] text-[#55B957] border border-blue-100'
                 }`}
               >
                 {confirmDialog.options.isDestructive ? (

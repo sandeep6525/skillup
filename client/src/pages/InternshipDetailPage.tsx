@@ -396,11 +396,11 @@ export const InternshipDetailPage: React.FC = () => {
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
                   <span>{internship.organization || 'SkillUp Partner Network'}</span>
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-[#2563EB] text-xs font-semibold border border-blue-200">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EAF5EA] text-[#2563EB] text-xs font-semibold border border-blue-200">
                   <Clock className="w-3.5 h-3.5 text-[#2563EB]" />
                   <span>{internship.duration || '3 Months'}</span>
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EAF5EA] text-[#5DBA58] text-xs font-semibold border border-[#5DBA58]/30 uppercase">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EAF5EA] text-[#55B957] text-xs font-semibold border border-[#55B957]/30 uppercase">
                   <span>{internship.deliveryMode} Mode</span>
                 </span>
               </div>
@@ -438,7 +438,7 @@ export const InternshipDetailPage: React.FC = () => {
             {/* Eligibility & Qualifications */}
             <div className="bg-white rounded-2xl border border-[#E2E8F0] p-6 sm:p-8 shadow-xs space-y-4">
               <h2 className="text-lg font-bold text-[#102A56] tracking-tight flex items-center gap-2">
-                <ShieldCheck className="w-5 h-5 text-[#5DBA58]" />
+                <ShieldCheck className="w-5 h-5 text-[#55B957]" />
                 <span>Eligibility & Recommended Skills</span>
               </h2>
               <div className="text-sm text-[#64748B] space-y-2">
@@ -462,7 +462,7 @@ export const InternshipDetailPage: React.FC = () => {
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-blue-50 text-[#2563EB]">
+                    <div className="w-full h-full flex items-center justify-center bg-[#EAF5EA] text-[#2563EB]">
                       <User className="w-7 h-7" />
                     </div>
                   )}
@@ -503,7 +503,7 @@ export const InternshipDetailPage: React.FC = () => {
               {/* Main CTA Action */}
               <button
                 onClick={handleOpenEnrollment}
-                className="w-full py-3.5 px-4 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-[#2563EB] to-[#4ea849] hover:brightness-110 active:scale-98 transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full py-3.5 px-4 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-[#2563EB] to-[#46a548] hover:brightness-110 active:scale-98 transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
               >
                 {isEnrolledOrAccepted ? (
                   <>
@@ -570,7 +570,7 @@ export const InternshipDetailPage: React.FC = () => {
             {/* Modal Header */}
             <div className="flex justify-between items-start border-b border-slate-100 pb-3">
               <div>
-                <span className="text-[10px] font-bold text-[#2563EB] bg-blue-50 px-2.5 py-0.5 rounded uppercase">
+                <span className="text-[10px] font-bold text-[#2563EB] bg-[#EAF5EA] px-2.5 py-0.5 rounded uppercase">
                   Candidate Application Form
                 </span>
                 <h3 className="text-lg font-bold text-[#102A56] mt-1">{internship.title}</h3>
@@ -696,7 +696,7 @@ export const InternshipDetailPage: React.FC = () => {
                   Upload Resume (PDF or DOC - Max 10MB)
                 </label>
                 <div className="flex items-center gap-3">
-                  <label className="px-3 py-2 rounded-xl border border-dashed border-[#2563EB] bg-blue-50 text-[#2563EB] text-xs font-semibold hover:bg-blue-100 transition-colors cursor-pointer flex items-center gap-2">
+                  <label className="px-3 py-2 rounded-xl border border-dashed border-[#2563EB] bg-[#EAF5EA] text-[#2563EB] text-xs font-semibold hover:bg-blue-100 transition-colors cursor-pointer flex items-center gap-2">
                     <UploadCloud className="w-4 h-4" />
                     <span>{isUploadingResume ? 'Uploading...' : 'Choose Resume File'}</span>
                     <input
@@ -800,7 +800,7 @@ export const InternshipDetailPage: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isApplying || isUploadingResume}
-                  className="w-1/2 py-2.5 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#4ea849] hover:brightness-110 text-white text-xs font-bold transition shadow-xs disabled:opacity-50 flex items-center justify-center gap-1.5 cursor-pointer"
+                  className="w-1/2 py-2.5 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#46a548] hover:brightness-110 text-white text-xs font-bold transition shadow-xs disabled:opacity-50 flex items-center justify-center gap-1.5 cursor-pointer"
                 >
                   {isApplying
                     ? 'Submitting...'

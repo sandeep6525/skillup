@@ -125,7 +125,7 @@ export const HomePage: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-w-0 bg-[#F7FAF7] text-[#171717] font-sans overflow-x-hidden selection:bg-[#5DBA58] selection:text-white">
+    <div className="min-w-0 bg-[#F7FAF7] text-[#171717] font-sans overflow-x-hidden selection:bg-[#55B957] selection:text-white">
       {/* ========================================================
           1. CLEAN CENTERED HERO SECTION WITH RESPONSIVE BACKGROUND
           - Desktop (1440px+): 680 shards (~48% reduction), smooth 60fps cinematic flow
@@ -133,7 +133,7 @@ export const HomePage: React.FC = () => {
           - Tablet (768px - 1023px): 260 shards, lightweight rendering
           - Mobile (< 768px): Completely disabled, clean white background, zero canvas overhead
           - Completely center-aligned headline, description, and action buttons
-          - Palette: #5DBA58, #000000, #FFFFFF, #F7FAF7, #EAF5EA, #171717
+          - Palette: #55B957, #000000, #FFFFFF, #F7FAF7, #EAF5EA, #171717
       ======================================================== */}
       <section className="relative flex flex-col justify-center items-center overflow-hidden bg-white text-[#171717] pt-20 sm:pt-28 pb-18 sm:pb-24 border-b border-slate-200/70">
         
@@ -141,7 +141,7 @@ export const HomePage: React.FC = () => {
         {deviceTier !== 'mobile' && (
           <div className="hidden md:block absolute inset-0 z-0 pointer-events-auto motion-reduce:hidden will-change-transform">
             <AeroShards
-              shardColor="#5DBA58"
+              shardColor="#55B957"
               accentColor="#267A36"
               backgroundColor="transparent"
               placement="full"
@@ -193,7 +193,7 @@ export const HomePage: React.FC = () => {
                 {
                   text: 'Build Projects.',
                   className:
-                    'text-transparent bg-clip-text bg-gradient-to-r from-[#5DBA58] via-[#4ea849] to-[#3a8b36]',
+                    'text-transparent bg-clip-text bg-gradient-to-r from-[#55B957] via-[#46a548] to-[#3a8b36]',
                 },
                 {
                   text: 'Launch Your Career.',
@@ -202,7 +202,7 @@ export const HomePage: React.FC = () => {
               ]}
               typingSpeed={45}
               pauseDuration={2400}
-              cursorColor="#5DBA58"
+              cursorColor="#55B957"
               cursorCharacter="_"
             />
           </motion.h1>
@@ -226,7 +226,7 @@ export const HomePage: React.FC = () => {
           >
             <Link
               to="/courses"
-              className="inline-flex items-center justify-center gap-2 px-8 py-3.5 text-sm sm:text-base font-semibold text-white bg-[#5DBA58] hover:bg-[#4ea849] active:scale-95 rounded-full shadow-[0_8px_24px_rgba(93,186,88,0.35)] transition-all group cursor-pointer"
+              className="inline-flex items-center justify-center gap-2 px-8 py-3.5 text-sm sm:text-base font-semibold text-white bg-[#55B957] hover:bg-[#46a548] active:scale-95 rounded-full shadow-[0_8px_24px_rgba(93,186,88,0.35)] transition-all group cursor-pointer"
             >
               <span>Explore Courses</span>
               <span className="transition-transform group-hover:translate-x-1 font-bold">→</span>
@@ -234,9 +234,9 @@ export const HomePage: React.FC = () => {
 
             <Link
               to={user ? "/courses" : "/register"}
-              className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 text-sm sm:text-base font-medium text-[#171717] hover:text-[#5DBA58] bg-[#EAF5EA] hover:bg-[#d8eed8] border border-[#5DBA58]/30 active:scale-95 rounded-full transition-all cursor-pointer shadow-xs"
+              className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 text-sm sm:text-base font-medium text-[#171717] hover:text-[#55B957] bg-[#EAF5EA] hover:bg-[#d8eed8] border border-[#55B957]/30 active:scale-95 rounded-full transition-all cursor-pointer shadow-xs"
             >
-              <div className="w-5 h-5 rounded-full bg-[#5DBA58] flex items-center justify-center text-white">
+              <div className="w-5 h-5 rounded-full bg-[#55B957] flex items-center justify-center text-white">
                 <Play className="w-2.5 h-2.5 fill-white text-white ml-0.5" />
               </div>
               <span>Start Your Journey</span>
@@ -276,7 +276,7 @@ export const HomePage: React.FC = () => {
 
           <Link
             to="/courses"
-            className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white bg-[#5DBA58] hover:bg-[#4ea849] active:scale-95 rounded-xl shadow-xs transition-all self-start sm:self-auto group cursor-pointer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white bg-[#55B957] hover:bg-[#46a548] active:scale-95 rounded-xl shadow-xs transition-all self-start sm:self-auto group cursor-pointer"
           >
             <span>View All Courses</span>
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -324,7 +324,7 @@ export const HomePage: React.FC = () => {
                 >
                   <Link
                     to={`/courses/${course.slug}`}
-                    className="group bg-white rounded-2xl border border-[#E2E8F0] hover:border-[#5DBA58]/50 p-4 shadow-xs hover:shadow-xl hover:shadow-[#5DBA58]/10 transition-all duration-300 flex flex-col justify-between h-full hover:-translate-y-1.5"
+                    className="group bg-white rounded-2xl border border-[#E2E8F0] hover:border-[#55B957]/50 p-4 shadow-xs hover:shadow-xl hover:shadow-[#55B957]/10 transition-all duration-300 flex flex-col justify-between h-full hover:-translate-y-1.5"
                   >
                     <div>
                       {/* Course Thumbnail */}
@@ -338,7 +338,7 @@ export const HomePage: React.FC = () => {
                           />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#EAF5EA] to-slate-100">
-                            <Code className="w-10 h-10 text-[#5DBA58]" />
+                            <Code className="w-10 h-10 text-[#55B957]" />
                           </div>
                         )}
 
@@ -358,7 +358,7 @@ export const HomePage: React.FC = () => {
                       </div>
 
                       {/* Course Title */}
-                      <h3 className="text-base font-bold text-[#102A56] group-hover:text-[#5DBA58] transition-colors leading-snug line-clamp-2">
+                      <h3 className="text-base font-bold text-[#102A56] group-hover:text-[#55B957] transition-colors leading-snug line-clamp-2">
                         {course.title}
                       </h3>
 
@@ -381,7 +381,7 @@ export const HomePage: React.FC = () => {
                         )}
                       </div>
 
-                      <span className="inline-flex items-center gap-1 text-xs font-bold text-[#5DBA58] group-hover:text-[#4ea849] transition-colors">
+                      <span className="inline-flex items-center gap-1 text-xs font-bold text-[#55B957] group-hover:text-[#46a548] transition-colors">
                         <span>Explore</span>
                         <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
                       </span>
@@ -400,16 +400,16 @@ export const HomePage: React.FC = () => {
       <section className="relative mt-14 sm:mt-20 overflow-hidden">
         <div className="relative bg-[#000000] border-t border-b border-zinc-800 text-white py-12 sm:py-14 px-4 sm:px-6 lg:px-8">
           {/* Subtle green ambient gradient glow */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[220px] bg-[#5DBA58]/10 blur-[140px] rounded-full pointer-events-none" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[220px] bg-[#55B957]/10 blur-[140px] rounded-full pointer-events-none" />
 
           <div className="max-w-[1340px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 relative z-10 divide-y sm:divide-y-0 lg:divide-x divide-zinc-800">
             {/* 1. Experienced Mentors */}
             <div className="flex items-center gap-4 group p-2 transition-all">
-              <div className="w-13 h-13 rounded-2xl bg-zinc-900 border border-[#5DBA58]/30 flex items-center justify-center shrink-0 text-[#5DBA58] backdrop-blur-md shadow-[0_0_15px_rgba(93,186,88,0.15)] group-hover:border-[#5DBA58] group-hover:shadow-[0_0_20px_rgba(93,186,88,0.35)] group-hover:scale-105 transition-all">
-                <UserCheck className="w-6 h-6 text-[#5DBA58] group-hover:text-[#5DBA58] transition-colors" />
+              <div className="w-13 h-13 rounded-2xl bg-zinc-900 border border-[#55B957]/30 flex items-center justify-center shrink-0 text-[#55B957] backdrop-blur-md shadow-[0_0_15px_rgba(93,186,88,0.15)] group-hover:border-[#55B957] group-hover:shadow-[0_0_20px_rgba(93,186,88,0.35)] group-hover:scale-105 transition-all">
+                <UserCheck className="w-6 h-6 text-[#55B957] group-hover:text-[#55B957] transition-colors" />
               </div>
               <div>
-                <h3 className="text-sm sm:text-base font-bold text-[#FFFFFF] leading-snug group-hover:text-[#5DBA58] transition-colors">
+                <h3 className="text-sm sm:text-base font-bold text-[#FFFFFF] leading-snug group-hover:text-[#55B957] transition-colors">
                   Experienced Mentors
                 </h3>
                 <p className="text-xs text-[#A1A1AA] mt-0.5 leading-relaxed">
@@ -420,11 +420,11 @@ export const HomePage: React.FC = () => {
 
             {/* 2. Scheduled Live Classes */}
             <div className="flex items-center gap-4 group p-2 pt-6 sm:pt-2 lg:pl-8 transition-all">
-              <div className="w-13 h-13 rounded-2xl bg-zinc-900 border border-[#5DBA58]/30 flex items-center justify-center shrink-0 text-[#5DBA58] backdrop-blur-md shadow-[0_0_15px_rgba(93,186,88,0.15)] group-hover:border-[#5DBA58] group-hover:shadow-[0_0_20px_rgba(93,186,88,0.35)] group-hover:scale-105 transition-all">
-                <Video className="w-6 h-6 text-[#5DBA58] group-hover:text-[#5DBA58] transition-colors" />
+              <div className="w-13 h-13 rounded-2xl bg-zinc-900 border border-[#55B957]/30 flex items-center justify-center shrink-0 text-[#55B957] backdrop-blur-md shadow-[0_0_15px_rgba(93,186,88,0.15)] group-hover:border-[#55B957] group-hover:shadow-[0_0_20px_rgba(93,186,88,0.35)] group-hover:scale-105 transition-all">
+                <Video className="w-6 h-6 text-[#55B957] group-hover:text-[#55B957] transition-colors" />
               </div>
               <div>
-                <h3 className="text-sm sm:text-base font-bold text-[#FFFFFF] leading-snug group-hover:text-[#5DBA58] transition-colors">
+                <h3 className="text-sm sm:text-base font-bold text-[#FFFFFF] leading-snug group-hover:text-[#55B957] transition-colors">
                   Scheduled Live Classes
                 </h3>
                 <p className="text-xs text-[#A1A1AA] mt-0.5 leading-relaxed">
@@ -435,11 +435,11 @@ export const HomePage: React.FC = () => {
 
             {/* 3. Practical Projects */}
             <div className="flex items-center gap-4 group p-2 pt-6 sm:pt-2 lg:pl-8 transition-all">
-              <div className="w-13 h-13 rounded-2xl bg-zinc-900 border border-[#5DBA58]/30 flex items-center justify-center shrink-0 text-[#5DBA58] backdrop-blur-md shadow-[0_0_15px_rgba(93,186,88,0.15)] group-hover:border-[#5DBA58] group-hover:shadow-[0_0_20px_rgba(93,186,88,0.35)] group-hover:scale-105 transition-all">
-                <FileCode2 className="w-6 h-6 text-[#5DBA58] group-hover:text-[#5DBA58] transition-colors" />
+              <div className="w-13 h-13 rounded-2xl bg-zinc-900 border border-[#55B957]/30 flex items-center justify-center shrink-0 text-[#55B957] backdrop-blur-md shadow-[0_0_15px_rgba(93,186,88,0.15)] group-hover:border-[#55B957] group-hover:shadow-[0_0_20px_rgba(93,186,88,0.35)] group-hover:scale-105 transition-all">
+                <FileCode2 className="w-6 h-6 text-[#55B957] group-hover:text-[#55B957] transition-colors" />
               </div>
               <div>
-                <h3 className="text-sm sm:text-base font-bold text-[#FFFFFF] leading-snug group-hover:text-[#5DBA58] transition-colors">
+                <h3 className="text-sm sm:text-base font-bold text-[#FFFFFF] leading-snug group-hover:text-[#55B957] transition-colors">
                   Practical Projects
                 </h3>
                 <p className="text-xs text-[#A1A1AA] mt-0.5 leading-relaxed">
@@ -450,11 +450,11 @@ export const HomePage: React.FC = () => {
 
             {/* 4. Course Certificates */}
             <div className="flex items-center gap-4 group p-2 pt-6 sm:pt-2 lg:pl-8 transition-all">
-              <div className="w-13 h-13 rounded-2xl bg-zinc-900 border border-[#5DBA58]/30 flex items-center justify-center shrink-0 text-[#5DBA58] backdrop-blur-md shadow-[0_0_15px_rgba(93,186,88,0.15)] group-hover:border-[#5DBA58] group-hover:shadow-[0_0_20px_rgba(93,186,88,0.35)] group-hover:scale-105 transition-all">
-                <Award className="w-6 h-6 text-[#5DBA58] group-hover:text-[#5DBA58] transition-colors" />
+              <div className="w-13 h-13 rounded-2xl bg-zinc-900 border border-[#55B957]/30 flex items-center justify-center shrink-0 text-[#55B957] backdrop-blur-md shadow-[0_0_15px_rgba(93,186,88,0.15)] group-hover:border-[#55B957] group-hover:shadow-[0_0_20px_rgba(93,186,88,0.35)] group-hover:scale-105 transition-all">
+                <Award className="w-6 h-6 text-[#55B957] group-hover:text-[#55B957] transition-colors" />
               </div>
               <div>
-                <h3 className="text-sm sm:text-base font-bold text-[#FFFFFF] leading-snug group-hover:text-[#5DBA58] transition-colors">
+                <h3 className="text-sm sm:text-base font-bold text-[#FFFFFF] leading-snug group-hover:text-[#55B957] transition-colors">
                   Course Certificates
                 </h3>
                 <p className="text-xs text-[#A1A1AA] mt-0.5 leading-relaxed">
@@ -480,8 +480,8 @@ export const HomePage: React.FC = () => {
           {/* Header */}
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 sm:mb-10">
             <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EAF5EA] border border-[#5DBA58]/30 text-[#5DBA58] text-xs font-semibold tracking-wide mb-2.5">
-                <FileText className="w-3.5 h-3.5 text-[#5DBA58]" />
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EAF5EA] border border-[#55B957]/30 text-[#55B957] text-xs font-semibold tracking-wide mb-2.5">
+                <FileText className="w-3.5 h-3.5 text-[#55B957]" />
                 <span>KNOWLEDGE REPOSITORY</span>
               </div>
               <h2 className="text-3xl sm:text-4xl font-extrabold text-[#102A56] tracking-tight">
@@ -494,7 +494,7 @@ export const HomePage: React.FC = () => {
 
             <Link
               to="/materials"
-              className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-[#102A56] hover:text-[#5DBA58] bg-white border border-[#E2E8F0] hover:border-[#5DBA58]/40 rounded-xl shadow-2xs hover:shadow-md transition-all self-start sm:self-auto group cursor-pointer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-[#102A56] hover:text-[#55B957] bg-white border border-[#E2E8F0] hover:border-[#55B957]/40 rounded-xl shadow-2xs hover:shadow-md transition-all self-start sm:self-auto group cursor-pointer"
             >
               <span>View All Materials</span>
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -523,7 +523,7 @@ export const HomePage: React.FC = () => {
                   transition={{ duration: 0.4, delay: idx * 0.07 }}
                   className="h-full"
                 >
-                  <div className="group bg-white rounded-2xl border border-[#E2E8F0] hover:border-[#5DBA58]/50 p-5 shadow-xs hover:shadow-xl hover:shadow-[#5DBA58]/10 transition-all duration-300 flex flex-col justify-between h-full hover:-translate-y-1.5">
+                  <div className="group bg-white rounded-2xl border border-[#E2E8F0] hover:border-[#55B957]/50 p-5 shadow-xs hover:shadow-xl hover:shadow-[#55B957]/10 transition-all duration-300 flex flex-col justify-between h-full hover:-translate-y-1.5">
                     <div>
                       {/* Top Badges: File Type & Price */}
                       <div className="flex items-center justify-between mb-4">
@@ -532,7 +532,7 @@ export const HomePage: React.FC = () => {
                             isPdf
                               ? 'bg-rose-50 text-rose-700 border border-rose-200'
                               : isCode
-                              ? 'bg-[#EAF5EA] text-[#5DBA58] border border-[#5DBA58]/30'
+                              ? 'bg-[#EAF5EA] text-[#55B957] border border-[#55B957]/30'
                               : isZip
                               ? 'bg-amber-50 text-amber-700 border border-amber-200'
                               : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
@@ -548,7 +548,7 @@ export const HomePage: React.FC = () => {
                         <span
                           className={`text-xs font-black px-2.5 py-0.5 rounded-full ${
                             isFree
-                              ? 'bg-[#EAF5EA] text-[#5DBA58] border border-[#5DBA58]/30'
+                              ? 'bg-[#EAF5EA] text-[#55B957] border border-[#55B957]/30'
                               : 'bg-[#102A56]/5 text-[#102A56] font-bold'
                           }`}
                         >
@@ -557,7 +557,7 @@ export const HomePage: React.FC = () => {
                       </div>
 
                       {/* Title */}
-                      <h3 className="text-base font-bold text-[#102A56] group-hover:text-[#5DBA58] transition-colors leading-snug line-clamp-2">
+                      <h3 className="text-base font-bold text-[#102A56] group-hover:text-[#55B957] transition-colors leading-snug line-clamp-2">
                         {mat.title}
                       </h3>
 
@@ -575,7 +575,7 @@ export const HomePage: React.FC = () => {
 
                       <Link
                         to="/materials"
-                        className="inline-flex items-center gap-1.5 text-xs font-bold text-[#5DBA58] group-hover:text-[#4ea849] transition-colors"
+                        className="inline-flex items-center gap-1.5 text-xs font-bold text-[#55B957] group-hover:text-[#46a548] transition-colors"
                       >
                         <span>View Details</span>
                         <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
@@ -598,7 +598,7 @@ export const HomePage: React.FC = () => {
           {/* Header */}
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 sm:mb-10">
             <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-[#2563EB] text-xs font-semibold tracking-wide mb-2.5">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EAF5EA] border border-blue-200 text-[#2563EB] text-xs font-semibold tracking-wide mb-2.5">
                 <Building className="w-3.5 h-3.5 text-[#2563EB]" />
                 <span>INDUSTRY IMMERSION</span>
               </div>
@@ -670,7 +670,7 @@ export const HomePage: React.FC = () => {
                         </span>
 
                         <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#64748B]">
-                          <Clock className="w-3.5 h-3.5 text-blue-600" />
+                          <Clock className="w-3.5 h-3.5 text-[#55B957]" />
                           <span>{duration}</span>
                         </span>
                       </div>
@@ -704,7 +704,7 @@ export const HomePage: React.FC = () => {
                       {/* Eligibility Note */}
                       {item.eligibility && (
                         <div className="mt-4 flex items-center gap-2 text-xs text-[#64748B]">
-                          <ShieldCheck className="w-4 h-4 text-[#5DBA58] shrink-0" />
+                          <ShieldCheck className="w-4 h-4 text-[#55B957] shrink-0" />
                           <span className="truncate">Eligibility: {item.eligibility}</span>
                         </div>
                       )}
@@ -721,7 +721,7 @@ export const HomePage: React.FC = () => {
 
                       <Link
                         to={user ? `/internship/${item.id}?action=apply` : `/login?redirect=${encodeURIComponent(`/internship/${item.id}?action=apply`)}`}
-                        className="inline-flex items-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-semibold text-white bg-[#5DBA58] hover:bg-[#4ea849] active:scale-95 rounded-xl shadow-xs transition-all cursor-pointer"
+                        className="inline-flex items-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-semibold text-white bg-[#55B957] hover:bg-[#46a548] active:scale-95 rounded-xl shadow-xs transition-all cursor-pointer"
                       >
                         <span>Apply Now</span>
                         <ArrowRight className="w-3.5 h-3.5" />
@@ -748,7 +748,7 @@ export const HomePage: React.FC = () => {
       {gallerySettings.isEnabled !== false && (galleryItems.length > 0 || isGalleryLoading) && (
         <section className="relative w-full bg-[#000000] border-t border-b border-zinc-800 py-20 px-4 sm:px-6 lg:px-8 mt-16 overflow-hidden">
           {/* Subtle background ambient green glow */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-[#5DBA58]/10 blur-[130px] rounded-full pointer-events-none -z-0" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-[#55B957]/10 blur-[130px] rounded-full pointer-events-none -z-0" />
 
           <div className="relative max-w-[1340px] mx-auto z-10">
             {/* Section Header */}
@@ -767,7 +767,7 @@ export const HomePage: React.FC = () => {
             {/* Accordion Gallery Component */}
             {isGalleryLoading ? (
               <div className="w-full h-[520px] rounded-3xl bg-zinc-900/60 border border-zinc-800/80 animate-pulse flex items-center justify-center">
-                <span className="text-sm font-medium text-[#5DBA58]">Loading gallery showcase...</span>
+                <span className="text-sm font-medium text-[#55B957]">Loading gallery showcase...</span>
               </div>
             ) : galleryItems.length > 0 ? (
               <div className="w-full">
@@ -790,7 +790,7 @@ export const HomePage: React.FC = () => {
       )}
 
       {/* ========================================================
-          10. CALL TO ACTION BANNER – BLACK & GREEN (#5DBA58)
+          10. CALL TO ACTION BANNER – BLACK & GREEN (#55B957)
       ======================================================== */}
       <section className="max-w-[1340px] mx-auto px-4 sm:px-6 lg:px-8 mt-14 sm:mt-20">
         <motion.div
@@ -801,8 +801,8 @@ export const HomePage: React.FC = () => {
           className="relative rounded-[24px] bg-[#000000] border border-zinc-800 text-white p-8 sm:p-12 lg:p-14 overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.2)] flex flex-col lg:flex-row items-center justify-between gap-8 group"
         >
           {/* Subtle Green Gradient Glows */}
-          <div className="absolute -right-20 -bottom-20 w-80 h-80 rounded-full bg-[#5DBA58]/15 blur-[100px] pointer-events-none group-hover:bg-[#5DBA58]/25 transition-all duration-700" />
-          <div className="absolute -left-20 -top-20 w-80 h-80 rounded-full bg-[#5DBA58]/10 blur-[90px] pointer-events-none" />
+          <div className="absolute -right-20 -bottom-20 w-80 h-80 rounded-full bg-[#55B957]/15 blur-[100px] pointer-events-none group-hover:bg-[#55B957]/25 transition-all duration-700" />
+          <div className="absolute -left-20 -top-20 w-80 h-80 rounded-full bg-[#55B957]/10 blur-[90px] pointer-events-none" />
 
           {/* Heading & Supporting Content */}
           <div className="space-y-3 max-w-xl text-center lg:text-left z-10">
@@ -819,7 +819,7 @@ export const HomePage: React.FC = () => {
             {/* Primary Action Button: Green */}
             <Link
               to="/register"
-              className="w-full sm:w-auto px-8 py-3.5 text-xs sm:text-sm font-semibold text-white bg-[#5DBA58] hover:bg-[#4ea849] active:scale-95 rounded-full shadow-[0_0_25px_rgba(93,186,88,0.4)] transition-all flex items-center justify-center gap-2 group/btn"
+              className="w-full sm:w-auto px-8 py-3.5 text-xs sm:text-sm font-semibold text-white bg-[#55B957] hover:bg-[#46a548] active:scale-95 rounded-full shadow-[0_0_25px_rgba(93,186,88,0.4)] transition-all flex items-center justify-center gap-2 group/btn"
             >
               <span>Create Free Account</span>
               <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
@@ -828,7 +828,7 @@ export const HomePage: React.FC = () => {
             {/* Secondary Action Button: Clean bordered */}
             <Link
               to="/courses"
-              className="w-full sm:w-auto px-7 py-3.5 text-xs sm:text-sm font-semibold text-white hover:text-[#5DBA58] bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 hover:border-[#5DBA58]/60 rounded-full transition-all flex items-center justify-center shadow-xs active:scale-95"
+              className="w-full sm:w-auto px-7 py-3.5 text-xs sm:text-sm font-semibold text-white hover:text-[#55B957] bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 hover:border-[#55B957]/60 rounded-full transition-all flex items-center justify-center shadow-xs active:scale-95"
             >
               Browse All Courses
             </Link>
@@ -850,7 +850,7 @@ export const HomePage: React.FC = () => {
             >
               <div className="flex items-center justify-between p-4 px-6 border-b border-slate-800">
                 <div className="flex items-center gap-2">
-                  <PlayCircle className="w-5 h-5 text-[#5DBA58]" />
+                  <PlayCircle className="w-5 h-5 text-[#55B957]" />
                   <span className="font-semibold text-white text-sm sm:text-base">SkillUp Overview</span>
                 </div>
                 <button

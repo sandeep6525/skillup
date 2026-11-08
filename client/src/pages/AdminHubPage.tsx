@@ -64,6 +64,7 @@ import { ProfileEditTab } from '../components/common/ProfileEditTab';
 import { GalleryManagement } from '../components/admin/GalleryManagement';
 import { AchievementManagement } from '../components/admin/AchievementManagement';
 import { getMediaUrl } from '../utils/mediaUrl';
+import { PageHeader } from '../components/PageHeader';
 
 type AdminTab =
   | 'overview'
@@ -974,7 +975,7 @@ export const AdminHubPage: React.FC = () => {
               <img src="/logo.png" alt="SkillUp Logo" className="h-8 w-auto object-contain" />
               <div>
                 <span className="text-lg font-bold text-[#14233B] tracking-tight block leading-none">
-                  Skill<span className="text-[#5DBA58]">Up</span>
+                  Skill<span className="text-[#55B957]">Up</span>
                 </span>
                 <span className="text-[10px] font-semibold text-[#2563EB] uppercase tracking-wider block mt-1">
                   Admin Hub
@@ -1119,6 +1120,12 @@ export const AdminHubPage: React.FC = () => {
           ======================================================== */}
           {activeTab === 'overview' && (
             <div className="space-y-6">
+              <PageHeader
+                title="Admin"
+                highlight="Control Center"
+                subtitle="Central administration, telemetry, user management and system operations."
+              />
+
               {/* Summary Cards */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="p-4 rounded-xl bg-white border border-[#E4E9F0] shadow-2xs">
@@ -2687,9 +2694,9 @@ export const AdminHubPage: React.FC = () => {
                                       : itemType === 'Material'
                                       ? 'bg-amber-50 text-amber-700'
                                       : itemType === 'Course'
-                                      ? 'bg-blue-50 text-blue-700'
+                                      ? 'bg-[#EAF5EA] text-blue-700'
                                       : itemType === 'Hackathon'
-                                      ? 'bg-[#EAF5EA] text-[#4ea849]'
+                                      ? 'bg-[#EAF5EA] text-[#46a548]'
                                       : 'bg-emerald-50 text-emerald-700'
                                   }`}>
                                     {itemType}
@@ -4347,7 +4354,7 @@ export const AdminHubPage: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="p-3 bg-blue-50/60 border border-blue-100 rounded-xl text-[11px] text-[#2563EB] space-y-1">
+                <div className="p-3 bg-[#EAF5EA]/60 border border-blue-100 rounded-xl text-[11px] text-[#2563EB] space-y-1">
                   <span className="font-bold block">Security & Invitation Policy:</span>
                   <p className="text-slate-600">
                     Mentors are not given default passwords. A secure, single-use activation token valid for 48 hours is generated, allowing the mentor to set their own password securely.

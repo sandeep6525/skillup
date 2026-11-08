@@ -2,67 +2,68 @@
 @import "@livekit/components-styles";
 
 @theme {
-  --color-primary-green: #5DBA58;
-  --color-primary-green-hover: #4ea849;
+  --color-primary-green: #55B957;
+  --color-primary-green-hover: #46a548;
   --color-secondary-green: #EAF5EA;
-  --color-theme-black: #000000;
+  --color-theme-black: #111111;
   --color-theme-white: #FFFFFF;
-  --color-theme-bg: #F7FAF7;
-  --color-theme-text: #171717;
+  --color-theme-bg: #F8FAFC;
+  --color-theme-text: #111111;
   
-  --color-primary-navy: #10264B;
-  --color-deep-navy: #10264B;
+  --color-primary-navy: #142B4F;
+  --color-deep-navy: #142B4F;
   
-  --color-app-bg: #F7FAF7;
+  --color-app-bg: #F8FAFC;
   --color-card-bg: #FFFFFF;
-  --color-text-primary: #171717;
-  --color-text-secondary: #525252;
-  --color-text-muted: #737373;
-  --color-app-border: #E5E7EB;
-  --color-app-divider: #F3F4F6;
+  --color-text-primary: #111111;
+  --color-text-secondary: #64748B;
+  --color-text-muted: #94A3B8;
+  --color-app-border: #E2E8F0;
+  --color-app-divider: #F1F5F9;
   
-  --color-success-val: #5DBA58;
+  --color-success-val: #55B957;
   --color-success-bg: #EAF5EA;
-  --color-warning-val: #B7791F;
-  --color-warning-bg: #FFF6E5;
-  --color-error-val: #C03945;
-  --color-error-bg: #FFF0F0;
+  --color-warning-val: #D97706;
+  --color-warning-bg: #FFFBEB;
+  --color-error-val: #EF4444;
+  --color-error-bg: #FEF2F2;
   
-  --color-accent-teal: #5DBA58;
+  --color-accent-teal: #55B957;
 }
 
 @layer base {
   :root {
-    --primary-green: #5DBA58;
+    --primary-green: #55B957;
+    --primary-green-hover: #46a548;
     --secondary-green: #EAF5EA;
-    --theme-black: #000000;
+    --theme-black: #111111;
     --theme-white: #FFFFFF;
-    --theme-bg: #F7FAF7;
-    --theme-text: #171717;
+    --theme-bg: #F8FAFC;
+    --theme-text: #111111;
 
-    --primary-navy: #10264B;
-    --deep-navy: #10264B;
+    --primary-navy: #142B4F;
+    --deep-navy: #142B4F;
 
-    --bg-main: #F7FAF7;
+    --bg-main: #F8FAFC;
     --bg-card: #FFFFFF;
-    --text-primary: #171717;
-    --text-secondary: #525252;
-    --text-muted: #737373;
-    --border-color: #E5E7EB;
-    --divider-color: #F3F4F6;
+    --text-primary: #111111;
+    --text-secondary: #64748B;
+    --text-muted: #94A3B8;
+    --border-color: #E2E8F0;
+    --divider-color: #F1F5F9;
 
-    --success: #5DBA58;
+    --success: #55B957;
     --success-bg: #EAF5EA;
-    --warning: #B7791F;
-    --warning-bg: #FFF6E5;
-    --error: #C03945;
-    --error-bg: #FFF0F0;
-    --accent-teal: #5DBA58;
+    --warning: #D97706;
+    --warning-bg: #FFFBEB;
+    --error: #EF4444;
+    --error-bg: #FEF2F2;
+    --accent-teal: #55B957;
   }
 
   body {
-    background-color: #F7FAF7;
-    color: #171717;
+    background-color: #F8FAFC;
+    color: #111111;
     font-family: 'Plus Jakarta Sans', 'Noto Sans Tamil', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     letter-spacing: -0.015em;

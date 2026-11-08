@@ -908,7 +908,7 @@ export const InternshipManagement: React.FC = () => {
                         .map((tech, idx) => (
                           <span
                             key={idx}
-                            className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-blue-50 text-[#2563EB] text-[10px] font-semibold border border-blue-200"
+                            className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#EAF5EA] text-[#2563EB] text-[10px] font-semibold border border-blue-200"
                           >
                             <span>{tech}</span>
                           </span>

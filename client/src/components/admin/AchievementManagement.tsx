@@ -492,7 +492,7 @@ export const AchievementManagement: React.FC = () => {
                   href={`/achievements/${item.slug || item.id}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-1 text-[11px] font-semibold text-blue-600 hover:text-blue-800"
+                  className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#55B957] hover:text-blue-800"
                 >
                   <ExternalLink className="w-3.5 h-3.5" />
                   View Public

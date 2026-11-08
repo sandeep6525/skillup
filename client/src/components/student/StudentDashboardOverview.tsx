@@ -250,15 +250,15 @@ export const StudentDashboardOverview: React.FC = () => {
           to="/dashboard/certificates"
           className="p-4 sm:p-5 rounded-2xl bg-white border border-[#E4E9F0] shadow-xs flex flex-col justify-between hover:shadow-md transition"
         >
-          <div className="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 mb-3 border border-blue-100">
-            <Award className="w-4 h-4 text-blue-600" />
+          <div className="w-9 h-9 rounded-xl bg-[#EAF5EA] text-[#55B957] flex items-center justify-center shrink-0 mb-3 border border-blue-100">
+            <Award className="w-4 h-4 text-[#55B957]" />
           </div>
           <div>
             <span className="text-[11px] text-[#667085] font-medium block">Certificates</span>
             <span className="text-xl sm:text-2xl font-black text-[#14233B] block leading-tight">
               {totalCertificates}
             </span>
-            <span className="text-[10px] text-blue-600 font-semibold mt-0.5 block">
+            <span className="text-[10px] text-[#55B957] font-semibold mt-0.5 block">
               Badges
             </span>
           </div>
@@ -459,7 +459,7 @@ export const StudentDashboardOverview: React.FC = () => {
                             ? 'bg-emerald-50 text-emerald-700 animate-pulse'
                             : item.status === 'COMPLETED'
                             ? 'bg-slate-100 text-slate-600'
-                            : 'bg-blue-50 text-blue-700'
+                            : 'bg-[#EAF5EA] text-blue-700'
                         }`}
                       >
                         {item.status}
@@ -626,7 +626,7 @@ export const StudentDashboardOverview: React.FC = () => {
                   key={notif.id}
                   className="p-4 rounded-2xl bg-white border border-[#E4E9F0] shadow-xs flex items-start gap-3"
                 >
-                  <div className="w-8 h-8 rounded-lg bg-blue-50 text-[#2563EB] flex items-center justify-center shrink-0 mt-0.5">
+                  <div className="w-8 h-8 rounded-lg bg-[#EAF5EA] text-[#2563EB] flex items-center justify-center shrink-0 mt-0.5">
                     <Bell className="w-4 h-4" />
                   </div>
                   <div className="min-w-0 flex-1">

@@ -153,7 +153,7 @@ export const StudentMyFeedbackView: React.FC = () => {
       {/* Header Overview Card */}
       <div className="bg-white p-6 rounded-2xl border border-[#E2E8F0] shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-[#2563EB] text-xs font-bold tracking-wide uppercase mb-2">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EAF5EA] text-[#2563EB] text-xs font-bold tracking-wide uppercase mb-2">
             <MessageSquareQuote className="w-3.5 h-3.5" />
             <span>Student Course Reviews</span>
           </div>
@@ -186,7 +186,7 @@ export const StudentMyFeedbackView: React.FC = () => {
         </div>
       ) : myFeedbacks.length === 0 ? (
         <div className="text-center py-16 px-6 bg-white rounded-2xl border border-[#E2E8F0] shadow-xs">
-          <div className="w-14 h-14 mx-auto mb-3 rounded-2xl bg-blue-50 flex items-center justify-center text-[#2563EB]">
+          <div className="w-14 h-14 mx-auto mb-3 rounded-2xl bg-[#EAF5EA] flex items-center justify-center text-[#2563EB]">
             <MessageSquareQuote className="w-7 h-7" />
           </div>
           <h3 className="text-base font-bold text-[#14233B]">No feedback submitted yet</h3>
@@ -354,7 +354,7 @@ export const StudentMyFeedbackView: React.FC = () => {
                           <span
                             className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold ${
                               f.isPublished
-                                ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                                ? 'bg-[#EAF5EA] text-blue-700 border border-blue-200'
                                 : 'bg-slate-100 text-slate-600'
                             }`}
                             title={
@@ -409,7 +409,7 @@ export const StudentMyFeedbackView: React.FC = () => {
 
                     {/* Suggestions if any */}
                     {f.suggestions && (
-                      <div className="text-xs text-slate-600 bg-blue-50/50 p-3 rounded-xl border border-blue-100">
+                      <div className="text-xs text-slate-600 bg-[#EAF5EA]/50 p-3 rounded-xl border border-blue-100">
                         <strong className="text-blue-900 block mb-0.5">Your Improvement Suggestion:</strong>
                         {f.suggestions}
                       </div>
@@ -425,7 +425,7 @@ export const StudentMyFeedbackView: React.FC = () => {
                           onClick={() => handleStartEdit(f)}
                           className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 font-bold transition cursor-pointer"
                         >
-                          <Edit3 className="w-3.5 h-3.5 text-blue-600" />
+                          <Edit3 className="w-3.5 h-3.5 text-[#55B957]" />
                           <span>Edit</span>
                         </button>
 

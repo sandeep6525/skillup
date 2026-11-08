@@ -33,7 +33,7 @@ export const AssignmentsPage: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
       <div>
-        <span className="text-xs font-bold uppercase tracking-wider text-[#5DBA58]">Practical Assessments</span>
+        <span className="text-xs font-bold uppercase tracking-wider text-[#55B957]">Practical Assessments</span>
         <h1 className="text-3xl font-extrabold text-indigo-950 mt-1">Assignments & Capstone Projects</h1>
         <p className="text-sm text-slate-500 mt-1">
           Complete hands-on engineering challenges to reinforce learning and earn accreditation.
@@ -48,7 +48,7 @@ export const AssignmentsPage: React.FC = () => {
         </div>
       ) : !assignments || assignments.length === 0 ? (
         <div className="text-center py-16 bg-white rounded-3xl border border-slate-200 p-8 space-y-4">
-          <div className="w-14 h-14 rounded-2xl bg-[#EAF5EA] text-indigo-600 mx-auto flex items-center justify-center">
+          <div className="w-14 h-14 rounded-2xl bg-[#EAF5EA] text-[#55B957] mx-auto flex items-center justify-center">
             <FileText className="w-7 h-7" />
           </div>
           <h3 className="text-lg font-bold text-indigo-950">No assignments active right now</h3>
@@ -68,7 +68,7 @@ export const AssignmentsPage: React.FC = () => {
               >
                 <div className="space-y-3 max-w-2xl">
                   <div className="flex items-center gap-2">
-                    <span className="px-3 py-1 text-xs font-semibold bg-[#EAF5EA] text-[#4ea849] rounded-md">
+                    <span className="px-3 py-1 text-xs font-semibold bg-[#EAF5EA] text-[#46a548] rounded-md">
                       {item.course?.title}
                     </span>
                     <span className="text-xs font-bold text-indigo-950">{item.totalPoints} Points</span>
@@ -79,7 +79,7 @@ export const AssignmentsPage: React.FC = () => {
 
                   <div className="flex items-center gap-4 text-xs text-slate-400">
                     <div className="flex items-center gap-1.5">
-                      <Calendar className="w-4 h-4 text-[#5DBA58]" />
+                      <Calendar className="w-4 h-4 text-[#55B957]" />
                       <span>Due: {item.dueDate ? new Date(item.dueDate).toLocaleDateString() : 'Self-paced'}</span>
                     </div>
                   </div>
@@ -102,7 +102,7 @@ export const AssignmentsPage: React.FC = () => {
                   ) : (
                     <button
                       onClick={() => handleSubmitAssignment(item.id)}
-                      className="px-6 py-3 text-xs font-bold text-white bg-gradient-to-r from-indigo-600 to-[#4ea849] hover:from-indigo-700 hover:to-[#3a8b36] rounded-xl shadow-md shadow-indigo-200 transition-all flex items-center gap-2"
+                      className="px-6 py-3 text-xs font-bold text-white bg-gradient-to-r bg-[#55B957] hover:bg-[#46a548]  rounded-xl shadow-md shadow-emerald-500/20 transition-all flex items-center gap-2"
                     >
                       <Upload className="w-4 h-4" />
                       <span>Submit Solution</span>

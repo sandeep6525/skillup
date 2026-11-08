@@ -39,7 +39,7 @@ export const ProfileSettingsPage: React.FC = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
       <div>
-        <span className="text-xs font-bold uppercase tracking-wider text-[#5DBA58]">Account Governance</span>
+        <span className="text-xs font-bold uppercase tracking-wider text-[#55B957]">Account Governance</span>
         <h1 className="text-3xl font-extrabold text-indigo-950 mt-1">Profile & Preferences</h1>
         <p className="text-sm text-slate-500 mt-1">
           Update your public portfolio info, contact details, and role credentials.
@@ -48,12 +48,12 @@ export const ProfileSettingsPage: React.FC = () => {
 
       <div className="bg-white p-8 sm:p-10 rounded-3xl border border-slate-200 shadow-sm space-y-8">
         <div className="flex items-center gap-4 pb-6 border-b border-slate-100">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-indigo-500 to-[#4ea849] text-white font-extrabold text-2xl flex items-center justify-center shadow-md">
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-indigo-500 to-[#46a548] text-white font-extrabold text-2xl flex items-center justify-center shadow-md">
             {user?.name?.charAt(0) || 'U'}
           </div>
           <div>
             <h3 className="text-lg font-bold text-indigo-950">{user?.name}</h3>
-            <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#EAF5EA] text-[#4ea849] inline-block mt-0.5">
+            <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-[#EAF5EA] text-[#46a548] inline-block mt-0.5">
               {user?.role}
             </span>
           </div>
@@ -75,7 +75,7 @@ export const ProfileSettingsPage: React.FC = () => {
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-4 py-2.5 text-sm rounded-xl border border-[#5DBA58]/30 focus:outline-hidden focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                className="w-full px-4 py-2.5 text-sm rounded-xl border border-[#55B957]/30 focus:outline-hidden focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
               />
             </div>
 
@@ -98,7 +98,7 @@ export const ProfileSettingsPage: React.FC = () => {
                 placeholder="e.g. Senior Full-Stack Engineer"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="w-full px-4 py-2.5 text-sm rounded-xl border border-[#5DBA58]/30 focus:outline-hidden focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                className="w-full px-4 py-2.5 text-sm rounded-xl border border-[#55B957]/30 focus:outline-hidden focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
               />
             </div>
 
@@ -109,7 +109,7 @@ export const ProfileSettingsPage: React.FC = () => {
                 placeholder="+91 98765 43210"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="w-full px-4 py-2.5 text-sm rounded-xl border border-[#5DBA58]/30 focus:outline-hidden focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                className="w-full px-4 py-2.5 text-sm rounded-xl border border-[#55B957]/30 focus:outline-hidden focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
               />
             </div>
           </div>
@@ -121,14 +121,14 @@ export const ProfileSettingsPage: React.FC = () => {
               placeholder="Tell mentors and instructors about your technical background and career goals..."
               value={bio}
               onChange={(e) => setBio(e.target.value)}
-              className="w-full px-4 py-2.5 text-sm rounded-xl border border-[#5DBA58]/30 focus:outline-hidden focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+              className="w-full px-4 py-2.5 text-sm rounded-xl border border-[#55B957]/30 focus:outline-hidden focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="px-6 py-3 text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl shadow-md transition-colors"
+            className="px-6 py-3 text-xs font-bold text-white bg-[#55B957] hover:bg-[#46a548] rounded-xl shadow-md transition-colors"
           >
             {loading ? 'Saving Changes...' : 'Save Profile Changes'}
           </button>

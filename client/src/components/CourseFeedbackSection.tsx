@@ -122,7 +122,7 @@ export const CourseFeedbackSection: React.FC<CourseFeedbackSectionProps> = ({
       {/* Header & Submit Button */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-[#2563EB] text-xs font-bold tracking-wide uppercase mb-1.5">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EAF5EA] text-[#2563EB] text-xs font-bold tracking-wide uppercase mb-1.5">
             <MessageSquareQuote className="w-3.5 h-3.5" />
             <span>Course Reviews & Ratings</span>
           </div>
@@ -177,7 +177,7 @@ export const CourseFeedbackSection: React.FC<CourseFeedbackSectionProps> = ({
         ) : !currentUser ? (
           <Link
             to="/login"
-            className="text-xs font-bold text-[#2563EB] bg-blue-50 hover:bg-blue-100 px-3.5 py-2 rounded-xl transition"
+            className="text-xs font-bold text-[#2563EB] bg-[#EAF5EA] hover:bg-blue-100 px-3.5 py-2 rounded-xl transition"
           >
             Log in to submit feedback
           </Link>
@@ -217,7 +217,7 @@ export const CourseFeedbackSection: React.FC<CourseFeedbackSectionProps> = ({
         {/* Mentor Rating Card */}
         <div className="bg-[#EAF5EA]/50 p-4 rounded-xl border border-slate-200 flex items-center justify-between">
           <div>
-            <span className="text-[11px] font-bold text-[#4ea849] uppercase block">Mentor Rating</span>
+            <span className="text-[11px] font-bold text-[#46a548] uppercase block">Mentor Rating</span>
             <div className="flex items-center gap-1.5 mt-1">
               <span className="text-2xl font-black text-slate-900">
                 {stats.avgMentorRating > 0 ? stats.avgMentorRating.toFixed(1) : '0.0'}
@@ -233,11 +233,11 @@ export const CourseFeedbackSection: React.FC<CourseFeedbackSectionProps> = ({
                 ))}
               </div>
             </div>
-            <span className="text-[11px] text-[#5DBA58] mt-0.5 block">
+            <span className="text-[11px] text-[#55B957] mt-0.5 block">
               {stats.mentorReviewsCount} faculty review{stats.mentorReviewsCount === 1 ? '' : 's'}
             </span>
           </div>
-          <div className="w-10 h-10 rounded-xl bg-[#EAF5EA]/70 flex items-center justify-center text-[#4ea849]">
+          <div className="w-10 h-10 rounded-xl bg-[#EAF5EA]/70 flex items-center justify-center text-[#46a548]">
             <Award className="w-5 h-5" />
           </div>
         </div>
@@ -340,7 +340,7 @@ export const CourseFeedbackSection: React.FC<CourseFeedbackSectionProps> = ({
                     <span
                       className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${
                         isMentor
-                          ? 'bg-[#EAF5EA] text-[#4ea849] border border-[#5DBA58]/30'
+                          ? 'bg-[#EAF5EA] text-[#46a548] border border-[#55B957]/30'
                           : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                       }`}
                     >

@@ -6,6 +6,7 @@ import { api } from '../api/client';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 import { getMediaUrl } from '../utils/mediaUrl';
+import { PageHeader } from '../components/PageHeader';
 import {
   Video,
   Calendar,
@@ -385,7 +386,7 @@ export const LiveClassesPage: React.FC = () => {
             name: user.name,
             email: user.email,
           },
-          theme: { color: '#10264B' },
+          theme: { color: '#142B4F' },
           modal: {
             ondismiss: () => setIsProcessingPayment(false),
           },
@@ -549,78 +550,58 @@ export const LiveClassesPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#FBFBFE] text-[#10264B] flex flex-col">
+    <div className="min-h-screen bg-[#FBFBFE] text-[#142B4F] flex flex-col">
       {/* ========================================================
-          1. PAGE HERO SECTION
+          1. PAGE HERO SECTION WITH UNIFIED PAGEHEADER
       ======================================================== */}
-      <section className="relative overflow-hidden bg-white border-b border-slate-200/80 pt-10 pb-12 sm:pt-14 sm:pb-16">
-        {/* Subtle background ambient gradients */}
-        <div className="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 rounded-full bg-gradient-to-br from-[#EAF5EA] to-[#F7FAF7] blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-1/4 -mb-20 w-80 h-80 rounded-full bg-[#EAF5EA]/50 blur-2xl pointer-events-none" />
+      <section className="bg-white border-b border-[#E2E8F0]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <PageHeader
+            title="Live Learning"
+            highlight="Sessions"
+            subtitle="Learn directly from industry mentors through interactive live classes. Participate in hands-on code reviews, real-time Q&A, and cohort teardowns."
+            badge={
+              liveNowCount > 0 ? (
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EAF5EA] border border-[#55B957]/40 shadow-xs text-xs font-bold text-[#267A36] animate-pulse">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#55B957] opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#55B957]" />
+                  </span>
+                  <span>{liveNowCount} {liveNowCount === 1 ? 'Class Live Now' : 'Classes Live Now'}</span>
+                </div>
+              ) : null
+            }
+          >
+            {isAdmin && (
+              <button
+                onClick={() => openUpsertModal()}
+                className="px-4 py-2.5 rounded-xl bg-[#55B957] hover:bg-[#46a548] text-white text-xs font-bold shadow-md shadow-[#55B957]/20 hover:shadow-lg transition flex items-center gap-2 cursor-pointer"
+              >
+                <PlusCircle className="w-4 h-4" />
+                <span>Create Live Session</span>
+              </button>
+            )}
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <div className="space-y-4 max-w-3xl">
-              {/* Live Now Indicator Pill */}
-              <div className="flex flex-wrap items-center gap-3">
-                 
+            {isMentor && (
+              <Link
+                to="/mentor-dashboard"
+                className="px-4 py-2.5 rounded-xl bg-[#142B4F] text-white text-xs font-bold hover:bg-slate-900 transition flex items-center gap-2 shadow-2xs"
+              >
+                <Video className="w-4 h-4 text-[#55B957]" />
+                <span>Mentor Schedule</span>
+              </Link>
+            )}
 
-                {liveNowCount > 0 && (
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EAF5EA] border border-[#5DBA58]/40 shadow-xs text-xs font-bold text-[#267A36] animate-pulse">
-                    <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#5DBA58] opacity-75" />
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-[#5DBA58]" />
-                    </span>
-                    <span>{liveNowCount} {liveNowCount === 1 ? 'Class Live Now' : 'Classes Live Now'}</span>
-                  </div>
-                )}
-              </div>
-
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#171717] tracking-tight leading-tight">
-                Live Learning{' '}
-                <span className="text-[#5DBA58]">
-                  Sessions
-                </span>
-              </h1>
-
-              <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-                Learn directly from industry mentors through interactive live classes. Participate in hands-on code reviews, real-time Q&A, and cohort teardowns.
-              </p>
-            </div>
-
-            {/* Quick Actions for Staff or Student */}
-            <div className="flex flex-wrap items-center gap-3 shrink-0">
-              {isAdmin && (
-                <button
-                  onClick={() => openUpsertModal()}
-                  className="px-4 py-2.5 rounded-xl bg-[#5DBA58] hover:bg-[#4ea849] text-white text-xs font-bold shadow-md shadow-[#5DBA58]/20 hover:shadow-lg transition flex items-center gap-2 cursor-pointer"
-                >
-                  <PlusCircle className="w-4 h-4" />
-                  <span>Create Live Session</span>
-                </button>
-              )}
-
-              {isMentor && (
-                <Link
-                  to="/mentor-dashboard"
-                  className="px-4 py-2.5 rounded-xl bg-[#10264B] text-white text-xs font-bold hover:bg-slate-900 transition flex items-center gap-2 shadow-2xs"
-                >
-                  <Video className="w-4 h-4 text-emerald-300" />
-                  <span>Mentor Schedule</span>
-                </Link>
-              )}
-
-              {user && (
-                <button
-                  onClick={() => setActiveCategoryTab('ENROLLED')}
-                  className="px-4 py-2.5 rounded-xl bg-white border border-slate-200 text-[#10264B] hover:border-[#5DBA58] text-xs font-bold transition flex items-center gap-2 shadow-2xs cursor-pointer"
-                >
-                  <GraduationCap className="w-4 h-4 text-[#5DBA58]" />
-                  <span>My Enrolled ({enrolledSessionsCount})</span>
-                </button>
-              )}
-            </div>
-          </div>
+            {user && (
+              <button
+                onClick={() => setActiveCategoryTab('ENROLLED')}
+                className="px-4 py-2.5 rounded-xl bg-white border border-[#E2E8F0] text-[#142B4F] hover:border-[#55B957] text-xs font-bold transition flex items-center gap-2 shadow-2xs cursor-pointer"
+              >
+                <GraduationCap className="w-4 h-4 text-[#55B957]" />
+                <span>My Enrolled ({enrolledSessionsCount})</span>
+              </button>
+            )}
+          </PageHeader>
         </div>
       </section>
 
@@ -663,7 +644,7 @@ export const LiveClassesPage: React.FC = () => {
                   onClick={() => setActiveCategoryTab(tab.id)}
                   className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-200 flex items-center gap-2 cursor-pointer shadow-xs ${
                     isActive
-                      ? 'bg-[#10264B] text-white shadow-slate-300'
+                      ? 'bg-[#142B4F] text-white shadow-slate-300'
                       : 'bg-slate-50 text-slate-700 hover:bg-slate-100 border border-slate-200/80'
                   }`}
                 >
@@ -693,7 +674,7 @@ export const LiveClassesPage: React.FC = () => {
                 placeholder="Search sessions, mentors, or topics..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full pl-9 pr-8 py-2 text-xs bg-slate-50 border border-slate-200 rounded-full text-slate-800 placeholder-slate-400 focus:outline-hidden focus:border-[#5DBA58] focus:bg-white transition shadow-2xs"
+                className="w-full pl-9 pr-8 py-2 text-xs bg-slate-50 border border-slate-200 rounded-full text-slate-800 placeholder-slate-400 focus:outline-hidden focus:border-[#55B957] focus:bg-white transition shadow-2xs"
               />
               {search && (
                 <button
@@ -776,11 +757,11 @@ export const LiveClassesPage: React.FC = () => {
         {isMentor && (
           <div className="p-5 rounded-2xl bg-gradient-to-r from-emerald-50/80 via-emerald-50/40 to-slate-50 border border-emerald-200/80 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-[#5DBA58] text-white flex items-center justify-center font-bold shadow-xs">
+              <div className="w-10 h-10 rounded-xl bg-[#55B957] text-white flex items-center justify-center font-bold shadow-xs">
                 <Video className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="text-sm font-bold text-[#10264B]">
+                <h3 className="text-sm font-bold text-[#142B4F]">
                   Welcome Mentor, {user?.name}
                 </h3>
                 <p className="text-xs text-slate-600">
@@ -792,7 +773,7 @@ export const LiveClassesPage: React.FC = () => {
             <div className="flex items-center gap-2">
               <Link
                 to="/mentor-dashboard"
-                className="px-4 py-2 rounded-xl bg-white border border-[#5DBA58]/50 text-xs font-bold text-[#5DBA58] hover:bg-[#EAF5EA] transition shadow-2xs"
+                className="px-4 py-2 rounded-xl bg-white border border-[#55B957]/50 text-xs font-bold text-[#55B957] hover:bg-[#EAF5EA] transition shadow-2xs"
               >
                 Open Mentor Portal
               </Link>
@@ -829,7 +810,7 @@ export const LiveClassesPage: React.FC = () => {
                     </span>
                   ) : (
                     <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-white/95 text-slate-800 shadow-sm backdrop-blur-xs">
-                      <Sparkles className="w-3.5 h-3.5 text-[#5DBA58]" />
+                      <Sparkles className="w-3.5 h-3.5 text-[#55B957]" />
                       <span>Featured Masterclass</span>
                     </span>
                   )}
@@ -848,7 +829,7 @@ export const LiveClassesPage: React.FC = () => {
               <div className="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between space-y-6">
                 <div className="space-y-4">
                   <div className="flex flex-wrap items-center justify-between gap-2">
-                    <span className="text-xs font-extrabold text-[#5DBA58] bg-[#EAF5EA] px-3 py-1 rounded-full border border-emerald-200/60">
+                    <span className="text-xs font-extrabold text-[#55B957] bg-[#EAF5EA] px-3 py-1 rounded-full border border-emerald-200/60">
                       {featuredSession.course?.title || 'Core Engineering Session'}
                     </span>
 
@@ -862,7 +843,7 @@ export const LiveClassesPage: React.FC = () => {
                     </span>
                   </div>
 
-                  <h2 className="text-xl sm:text-2xl font-extrabold text-[#10264B] leading-snug">
+                  <h2 className="text-xl sm:text-2xl font-extrabold text-[#142B4F] leading-snug">
                     {featuredSession.title}
                   </h2>
 
@@ -888,7 +869,7 @@ export const LiveClassesPage: React.FC = () => {
                         )}
                       </div>
                       <div>
-                        <span className="font-bold text-[#10264B] block text-xs">
+                        <span className="font-bold text-[#142B4F] block text-xs">
                           {featuredSession.instructor?.name || 'Assigned Mentor'}
                         </span>
                         <span className="text-[11px] text-slate-500">
@@ -898,9 +879,9 @@ export const LiveClassesPage: React.FC = () => {
                     </div>
 
                     <div className="flex items-center gap-2 text-slate-600">
-                      <Users className="w-4 h-4 text-[#5DBA58] shrink-0" />
+                      <Users className="w-4 h-4 text-[#55B957] shrink-0" />
                       <div>
-                        <span className="font-bold text-[#10264B] block">
+                        <span className="font-bold text-[#142B4F] block">
                           {featuredSession.remainingSeats !== null
                             ? `${featuredSession.remainingSeats} Seats Available`
                             : 'Open Cohort'}
@@ -922,7 +903,7 @@ export const LiveClassesPage: React.FC = () => {
                 <div className="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4">
                   <div>
                     <span className="text-[11px] text-slate-500 block font-medium">Session Fee</span>
-                    <span className="text-xl font-extrabold text-[#10264B]">
+                    <span className="text-xl font-extrabold text-[#142B4F]">
                       {Number(featuredSession.price) === 0 ? 'Complimentary / Free' : `₹${Number(featuredSession.price).toLocaleString()} INR`}
                     </span>
                   </div>
@@ -933,7 +914,7 @@ export const LiveClassesPage: React.FC = () => {
                       className={`px-6 py-2.5 rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-xs cursor-pointer ${
                         featuredSession.status === 'LIVE'
                           ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-emerald-500/20 animate-pulse'
-                          : 'bg-[#10264B] hover:bg-slate-900 text-white'
+                          : 'bg-[#142B4F] hover:bg-slate-900 text-white'
                       }`}
                     >
                       <Play className="w-3.5 h-3.5 fill-current" />
@@ -943,7 +924,7 @@ export const LiveClassesPage: React.FC = () => {
                     {isAdmin && (
                       <button
                         onClick={() => openUpsertModal(featuredSession)}
-                        className="p-2.5 rounded-xl border border-slate-200 text-slate-600 hover:text-[#5DBA58] hover:bg-[#EAF5EA] transition"
+                        className="p-2.5 rounded-xl border border-slate-200 text-slate-600 hover:text-[#55B957] hover:bg-[#EAF5EA] transition"
                         title="Edit Session"
                       >
                         <Edit className="w-4 h-4" />
@@ -959,7 +940,7 @@ export const LiveClassesPage: React.FC = () => {
         {/* 3.2 SESSIONS GRID HEADER */}
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-xl font-extrabold text-[#10264B]">
+            <h2 className="text-xl font-extrabold text-[#142B4F]">
               {activeCategoryTab === 'ENROLLED'
                 ? 'Your Enrolled Live Classes'
                 : activeCategoryTab === 'LIVE'
@@ -979,7 +960,7 @@ export const LiveClassesPage: React.FC = () => {
                 setSelectedCourse('ALL');
                 setSelectedStatusFilter('ALL');
               }}
-              className="text-xs font-bold text-[#5DBA58] hover:underline"
+              className="text-xs font-bold text-[#55B957] hover:underline"
             >
               Reset Filters
             </button>
@@ -998,10 +979,10 @@ export const LiveClassesPage: React.FC = () => {
         {/* 3.4 EMPTY STATE */}
         {!isLoading && filteredClasses.length === 0 && (
           <div className="max-w-md mx-auto text-center py-16 px-6 bg-white rounded-3xl border border-slate-200 shadow-2xs space-y-3">
-            <div className="w-14 h-14 rounded-2xl bg-[#EAF5EA] text-[#5DBA58] flex items-center justify-center mx-auto shadow-xs">
+            <div className="w-14 h-14 rounded-2xl bg-[#EAF5EA] text-[#55B957] flex items-center justify-center mx-auto shadow-xs">
               <Video className="w-7 h-7" />
             </div>
-            <h3 className="text-lg font-bold text-[#10264B]">No live sessions found</h3>
+            <h3 className="text-lg font-bold text-[#142B4F]">No live sessions found</h3>
             <p className="text-xs text-slate-500 leading-relaxed">
               We couldn't find any scheduled live sessions matching your search or active filter tab.
             </p>
@@ -1013,7 +994,7 @@ export const LiveClassesPage: React.FC = () => {
                 setSelectedStatusFilter('ALL');
                 setActiveCategoryTab('ALL');
               }}
-              className="mt-2 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#10264B] text-white text-xs font-semibold hover:bg-slate-900 transition-colors cursor-pointer"
+              className="mt-2 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#142B4F] text-white text-xs font-semibold hover:bg-slate-900 transition-colors cursor-pointer"
             >
               Clear All Filters
             </button>
@@ -1055,7 +1036,7 @@ export const LiveClassesPage: React.FC = () => {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ duration: 0.3, delay: Math.min(idx * 0.04, 0.25) }}
-                    className="flex flex-col h-full bg-white rounded-2xl border border-slate-200/90 shadow-2xs hover:shadow-xl hover:border-[#5DBA58]/50 transition-all duration-300 transform hover:-translate-y-1 overflow-hidden"
+                    className="flex flex-col h-full bg-white rounded-2xl border border-slate-200/90 shadow-2xs hover:shadow-xl hover:border-[#55B957]/50 transition-all duration-300 transform hover:-translate-y-1 overflow-hidden"
                   >
                     {/* Thumbnail & Badges */}
                     <div className="relative aspect-16/9 bg-slate-900 overflow-hidden">
@@ -1076,7 +1057,7 @@ export const LiveClassesPage: React.FC = () => {
                       {/* Top status & Category badges */}
                       <div className="absolute top-3 left-3 right-3 z-10 flex items-center justify-between gap-2">
                         <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-bold bg-white/95 text-slate-800 shadow-sm backdrop-blur-xs">
-                          <Calendar className="w-3 h-3 text-[#5DBA58]" />
+                          <Calendar className="w-3 h-3 text-[#55B957]" />
                           <span>{dateStr}</span>
                         </span>
 
@@ -1088,7 +1069,7 @@ export const LiveClassesPage: React.FC = () => {
                               ? 'bg-slate-700 text-white'
                               : isLive
                               ? 'bg-emerald-500 text-white animate-pulse'
-                              : 'bg-blue-600 text-white'
+                              : 'bg-[#55B957] text-white'
                           }`}
                         >
                           {item.status}
@@ -1115,12 +1096,12 @@ export const LiveClassesPage: React.FC = () => {
                     <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
                       <div className="space-y-2">
                         {/* Course Name */}
-                        <span className="text-[11px] font-bold text-[#5DBA58] line-clamp-1">
+                        <span className="text-[11px] font-bold text-[#55B957] line-clamp-1">
                           {item.course?.title || 'Interactive Masterclass'}
                         </span>
 
                         {/* Title */}
-                        <h3 className="font-extrabold text-[#10264B] text-base leading-snug line-clamp-2 hover:text-[#5DBA58] transition-colors">
+                        <h3 className="font-extrabold text-[#142B4F] text-base leading-snug line-clamp-2 hover:text-[#55B957] transition-colors">
                           {item.title}
                         </h3>
 
@@ -1149,7 +1130,7 @@ export const LiveClassesPage: React.FC = () => {
                             )}
                           </div>
                           <div>
-                            <span className="font-bold text-[#10264B] block text-xs line-clamp-1">
+                            <span className="font-bold text-[#142B4F] block text-xs line-clamp-1">
                               {item.instructor?.name || 'Assigned Mentor'}
                             </span>
                             <span className="text-[10px] text-slate-500 block">Lead Mentor</span>
@@ -1173,7 +1154,7 @@ export const LiveClassesPage: React.FC = () => {
                     <div className="px-5 py-3.5 bg-slate-50/70 border-t border-slate-100 flex items-center justify-between gap-3">
                       <div>
                         <span className="text-[10px] text-slate-400 block font-semibold uppercase">Fee</span>
-                        <span className="font-extrabold text-sm sm:text-base text-[#10264B]">
+                        <span className="font-extrabold text-sm sm:text-base text-[#142B4F]">
                           {isCourseLinked
                             ? 'Included'
                             : priceNum === 0
@@ -1189,7 +1170,7 @@ export const LiveClassesPage: React.FC = () => {
                             <button
                               onClick={() => openUpsertModal(item)}
                               title="Edit Session"
-                              className="p-1.5 rounded-lg border border-slate-200 hover:bg-[#EAF5EA] text-slate-500 hover:text-[#5DBA58] transition cursor-pointer"
+                              className="p-1.5 rounded-lg border border-slate-200 hover:bg-[#EAF5EA] text-slate-500 hover:text-[#55B957] transition cursor-pointer"
                             >
                               <Edit className="w-3.5 h-3.5" />
                             </button>
@@ -1216,7 +1197,7 @@ export const LiveClassesPage: React.FC = () => {
                         ) : canJoinSession ? (
                           <button
                             onClick={() => handleJoinClick(item)}
-                            className="px-4 py-2 rounded-xl bg-[#5DBA58] hover:bg-[#4ea849] text-white text-xs font-bold transition flex items-center gap-1.5 shadow-xs cursor-pointer"
+                            className="px-4 py-2 rounded-xl bg-[#55B957] hover:bg-[#46a548] text-white text-xs font-bold transition flex items-center gap-1.5 shadow-xs cursor-pointer"
                           >
                             <Play className="w-3 h-3 fill-current" />
                             <span>Join Class</span>
@@ -1226,7 +1207,7 @@ export const LiveClassesPage: React.FC = () => {
                             <span className="text-[10px] text-amber-700 font-medium">Purchase this course to access</span>
                             <Link
                               to={`/courses/${item.course?.slug || item.courseId}`}
-                              className="px-4 py-2 rounded-xl bg-[#5DBA58] hover:bg-[#4ea849] text-white text-xs font-bold transition flex items-center gap-1.5 shadow-xs"
+                              className="px-4 py-2 rounded-xl bg-[#55B957] hover:bg-[#46a548] text-white text-xs font-bold transition flex items-center gap-1.5 shadow-xs"
                             >
                               <span>Enroll in Course</span>
                               <ArrowRight className="w-3 h-3" />
@@ -1235,7 +1216,7 @@ export const LiveClassesPage: React.FC = () => {
                         ) : isRegistered ? (
                           <button
                             onClick={() => handleJoinClick(item)}
-                            className="px-4 py-2 rounded-xl bg-[#5DBA58] hover:bg-[#4ea849] text-white text-xs font-bold transition flex items-center gap-1.5 shadow-xs cursor-pointer"
+                            className="px-4 py-2 rounded-xl bg-[#55B957] hover:bg-[#46a548] text-white text-xs font-bold transition flex items-center gap-1.5 shadow-xs cursor-pointer"
                           >
                             <Play className="w-3 h-3 fill-current" />
                             <span>Join Class</span>
@@ -1255,7 +1236,7 @@ export const LiveClassesPage: React.FC = () => {
                                 setCouponInput('');
                               }
                             }}
-                            className="px-4 py-2 rounded-xl bg-[#5DBA58] hover:bg-[#4ea849] text-white text-xs font-bold transition shadow-xs flex items-center gap-1.5 cursor-pointer"
+                            className="px-4 py-2 rounded-xl bg-[#55B957] hover:bg-[#46a548] text-white text-xs font-bold transition shadow-xs flex items-center gap-1.5 cursor-pointer"
                           >
                             <span>{priceNum === 0 ? 'Register Free' : 'Register Now'}</span>
                             <ArrowRight className="w-3 h-3" />
@@ -1275,7 +1256,7 @@ export const LiveClassesPage: React.FC = () => {
           <div className="mt-16 pt-10 border-t border-slate-200 space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
-                <h3 className="text-lg font-bold text-[#10264B]">
+                <h3 className="text-lg font-bold text-[#142B4F]">
                   Administrative Live Session Oversight & Rosters
                 </h3>
                 <p className="text-xs text-slate-500">
@@ -1285,7 +1266,7 @@ export const LiveClassesPage: React.FC = () => {
 
               <button
                 onClick={() => openUpsertModal()}
-                className="px-4 py-2 rounded-xl bg-[#10264B] text-white text-xs font-bold hover:bg-slate-900 transition flex items-center gap-1.5 self-start cursor-pointer shadow-xs"
+                className="px-4 py-2 rounded-xl bg-[#142B4F] text-white text-xs font-bold hover:bg-slate-900 transition flex items-center gap-1.5 self-start cursor-pointer shadow-xs"
               >
                 <PlusCircle className="w-3.5 h-3.5" />
                 <span>Schedule New Session</span>
@@ -1310,7 +1291,7 @@ export const LiveClassesPage: React.FC = () => {
                   <tbody className="divide-y divide-slate-100">
                     {adminLiveClassesData.map((cls: any) => (
                       <tr key={cls.id} className="hover:bg-slate-50/80 transition-colors">
-                        <td className="py-3 px-4 font-bold text-[#10264B]">
+                        <td className="py-3 px-4 font-bold text-[#142B4F]">
                           {cls.title}
                         </td>
                         <td className="py-3 px-4 text-slate-600">
@@ -1327,13 +1308,13 @@ export const LiveClassesPage: React.FC = () => {
                             minute: '2-digit',
                           })}
                         </td>
-                        <td className="py-3 px-4 font-bold text-[#10264B]">
+                        <td className="py-3 px-4 font-bold text-[#142B4F]">
                           {Number(cls.price) === 0 ? 'Free' : `₹${Number(cls.price).toLocaleString()}`}
                         </td>
                         <td className="py-3 px-4">
                           <button
                             onClick={() => setViewingRegistrationsClass(cls)}
-                            className="px-2.5 py-1 rounded-full bg-blue-50 text-[#2563EB] font-bold text-[11px] hover:bg-blue-100 transition cursor-pointer"
+                            className="px-2.5 py-1 rounded-full bg-[#EAF5EA] text-[#2563EB] font-bold text-[11px] hover:bg-blue-100 transition cursor-pointer"
                           >
                             {cls.totalRegistrations ?? cls.paidRegistrations ?? 0} Students &rarr;
                           </button>
@@ -1347,7 +1328,7 @@ export const LiveClassesPage: React.FC = () => {
                                 ? 'bg-slate-100 text-slate-600'
                                 : cls.status === 'CANCELLED'
                                 ? 'bg-rose-50 text-rose-700'
-                                : 'bg-blue-50 text-blue-700'
+                                : 'bg-[#EAF5EA] text-blue-700'
                             }`}
                           >
                             {cls.status}
@@ -1357,7 +1338,7 @@ export const LiveClassesPage: React.FC = () => {
                           <div className="flex items-center justify-end gap-1.5">
                             <button
                               onClick={() => openUpsertModal(cls)}
-                              className="p-1.5 rounded-lg border border-slate-200 text-slate-500 hover:text-[#5DBA58] hover:bg-[#EAF5EA] transition"
+                              className="p-1.5 rounded-lg border border-slate-200 text-slate-500 hover:text-[#55B957] hover:bg-[#EAF5EA] transition"
                               title="Edit Session"
                             >
                               <Edit className="w-3.5 h-3.5" />
@@ -1389,11 +1370,11 @@ export const LiveClassesPage: React.FC = () => {
           <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-6 shadow-2xl border border-slate-100">
             <div className="flex items-start justify-between">
               <div>
-                <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#5DBA58] uppercase tracking-wider bg-[#EAF5EA] px-2.5 py-0.5 rounded-full mb-2">
+                <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#55B957] uppercase tracking-wider bg-[#EAF5EA] px-2.5 py-0.5 rounded-full mb-2">
                   <Sparkles className="w-3 h-3" />
                   Live Masterclass Registration
                 </span>
-                <h3 className="text-xl font-extrabold text-[#10264B]">
+                <h3 className="text-xl font-extrabold text-[#142B4F]">
                   {selectedClassForCheckout.title}
                 </h3>
               </div>
@@ -1409,25 +1390,25 @@ export const LiveClassesPage: React.FC = () => {
             <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2 text-xs">
               <div className="flex justify-between">
                 <span className="text-slate-500">Mentor:</span>
-                <span className="font-bold text-[#10264B]">
+                <span className="font-bold text-[#142B4F]">
                   {selectedClassForCheckout.instructor?.name || 'Assigned Instructor'}
                 </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-slate-500">Scheduled Time:</span>
-                <span className="font-semibold text-[#10264B]">
+                <span className="font-semibold text-[#142B4F]">
                   {new Date(selectedClassForCheckout.startTime).toLocaleString()} ({selectedClassForCheckout.timezone || 'IST'})
                 </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-slate-500">Duration:</span>
-                <span className="font-semibold text-[#10264B]">{selectedClassForCheckout.duration || 60} Minutes</span>
+                <span className="font-semibold text-[#142B4F]">{selectedClassForCheckout.duration || 60} Minutes</span>
               </div>
             </div>
 
             {/* Coupon Code Section */}
             <div className="space-y-2">
-              <label className="block text-xs font-bold text-[#10264B]">
+              <label className="block text-xs font-bold text-[#142B4F]">
                 Have a Coupon Code?
               </label>
               <div className="flex gap-2">
@@ -1438,14 +1419,14 @@ export const LiveClassesPage: React.FC = () => {
                     placeholder="Enter coupon code (e.g. WELCOME100)"
                     value={couponInput}
                     onChange={(e) => setCouponInput(e.target.value.toUpperCase())}
-                    className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-300 focus:outline-hidden focus:border-[#5DBA58] uppercase font-mono"
+                    className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-300 focus:outline-hidden focus:border-[#55B957] uppercase font-mono"
                   />
                 </div>
                 <button
                   type="button"
                   onClick={handleApplyCoupon}
                   disabled={isApplyingCoupon || !couponInput.trim()}
-                  className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs font-bold text-[#10264B] transition disabled:opacity-50 cursor-pointer"
+                  className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs font-bold text-[#142B4F] transition disabled:opacity-50 cursor-pointer"
                 >
                   {isApplyingCoupon ? 'Verifying...' : 'Apply'}
                 </button>
@@ -1482,7 +1463,7 @@ export const LiveClassesPage: React.FC = () => {
                   <span>- ₹{Number(appliedCoupon.discountAmount || 0).toFixed(2)}</span>
                 </div>
               )}
-              <div className="flex justify-between text-sm font-extrabold text-[#10264B] border-t border-slate-200 pt-2">
+              <div className="flex justify-between text-sm font-extrabold text-[#142B4F] border-t border-slate-200 pt-2">
                 <span>Total Payable:</span>
                 <span>
                   {appliedCoupon
@@ -1493,8 +1474,8 @@ export const LiveClassesPage: React.FC = () => {
             </div>
 
             {/* Trust and Policy Note */}
-            <div className="p-3 rounded-xl bg-blue-50/70 border border-blue-100 text-[11px] text-slate-600 space-y-1">
-              <p className="flex items-center gap-1 font-semibold text-[#10264B]">
+            <div className="p-3 rounded-xl bg-[#EAF5EA]/70 border border-blue-100 text-[11px] text-slate-600 space-y-1">
+              <p className="flex items-center gap-1 font-semibold text-[#142B4F]">
                 <Lock className="w-3.5 h-3.5 text-[#2563EB]" />
                 Verified & Cryptographically Secured Payment
               </p>
@@ -1516,7 +1497,7 @@ export const LiveClassesPage: React.FC = () => {
                 type="button"
                 onClick={handleProceedToPayment}
                 disabled={isProcessingPayment}
-                className="flex-1 py-3 rounded-xl bg-gradient-to-r from-[#5DBA58] to-[#2563EB] hover:bg-[#4ea849] text-white text-xs font-bold transition shadow-xs flex items-center justify-center gap-1.5 disabled:opacity-50 cursor-pointer"
+                className="flex-1 py-3 rounded-xl bg-gradient-to-r from-[#55B957] to-[#2563EB] hover:bg-[#46a548] text-white text-xs font-bold transition shadow-xs flex items-center justify-center gap-1.5 disabled:opacity-50 cursor-pointer"
               >
                 {isProcessingPayment ? (
                   <span>Processing...</span>
@@ -1540,10 +1521,10 @@ export const LiveClassesPage: React.FC = () => {
           <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 space-y-5 shadow-2xl border border-slate-100 my-8">
             <div className="flex items-start justify-between border-b border-slate-100 pb-4">
               <div>
-                <span className="text-[11px] font-bold text-[#5DBA58] uppercase tracking-wider block mb-1">
+                <span className="text-[11px] font-bold text-[#55B957] uppercase tracking-wider block mb-1">
                   Admin Live Session Control
                 </span>
-                <h3 className="text-xl font-extrabold text-[#10264B]">
+                <h3 className="text-xl font-extrabold text-[#142B4F]">
                   {editingSession ? `Edit: ${editingSession.title}` : 'Schedule New Live Class'}
                 </h3>
               </div>
@@ -1565,7 +1546,7 @@ export const LiveClassesPage: React.FC = () => {
                   placeholder="e.g. Python Automation & Data Extraction Masterclass"
                   value={formTitle}
                   onChange={(e) => setFormTitle(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-hidden focus:border-[#5DBA58]"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-hidden focus:border-[#55B957]"
                 />
               </div>
 
@@ -1577,7 +1558,7 @@ export const LiveClassesPage: React.FC = () => {
                   placeholder="Describe what students will learn during this live interactive session..."
                   value={formDescription}
                   onChange={(e) => setFormDescription(e.target.value)}
-                  className="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:outline-hidden focus:border-[#5DBA58]"
+                  className="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:outline-hidden focus:border-[#55B957]"
                 />
               </div>
 
@@ -1588,7 +1569,7 @@ export const LiveClassesPage: React.FC = () => {
                   <select
                     value={formCourseId}
                     onChange={(e) => setFormCourseId(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-300 focus:outline-hidden focus:border-[#5DBA58]"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 focus:outline-hidden focus:border-[#55B957]"
                   >
                     <option value="">Standalone / No Course Required</option>
                     {coursesList.map((c: any) => (
@@ -1604,7 +1585,7 @@ export const LiveClassesPage: React.FC = () => {
                   <select
                     value={formInstructorId}
                     onChange={(e) => setFormInstructorId(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-300 focus:outline-hidden focus:border-[#5DBA58]"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 focus:outline-hidden focus:border-[#55B957]"
                   >
                     <option value="">Select Mentor</option>
                     {mentorsList.map((m: any) => (
@@ -1625,7 +1606,7 @@ export const LiveClassesPage: React.FC = () => {
                     required
                     value={formStartTime}
                     onChange={(e) => setFormStartTime(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-300 focus:outline-hidden focus:border-[#5DBA58]"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 focus:outline-hidden focus:border-[#55B957]"
                   />
                 </div>
 
@@ -1637,7 +1618,7 @@ export const LiveClassesPage: React.FC = () => {
                     max={360}
                     value={formDuration}
                     onChange={(e) => setFormDuration(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-300 focus:outline-hidden focus:border-[#5DBA58]"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 focus:outline-hidden focus:border-[#55B957]"
                   />
                 </div>
               </div>
@@ -1651,7 +1632,7 @@ export const LiveClassesPage: React.FC = () => {
                     min={0}
                     value={formPrice}
                     onChange={(e) => setFormPrice(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-300 focus:outline-hidden focus:border-[#5DBA58]"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 focus:outline-hidden focus:border-[#55B957]"
                   />
                 </div>
 
@@ -1663,7 +1644,7 @@ export const LiveClassesPage: React.FC = () => {
                     max={500}
                     value={formMaxCapacity}
                     onChange={(e) => setFormMaxCapacity(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-300 focus:outline-hidden focus:border-[#5DBA58]"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 focus:outline-hidden focus:border-[#55B957]"
                   />
                 </div>
 
@@ -1672,7 +1653,7 @@ export const LiveClassesPage: React.FC = () => {
                   <select
                     value={formStatus}
                     onChange={(e) => setFormStatus(e.target.value as any)}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-300 focus:outline-hidden focus:border-[#5DBA58]"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 focus:outline-hidden focus:border-[#55B957]"
                   >
                     <option value="SCHEDULED">Scheduled</option>
                     <option value="LIVE">Live Now</option>
@@ -1689,7 +1670,7 @@ export const LiveClassesPage: React.FC = () => {
                   <select
                     value={formMeetingProvider}
                     onChange={(e) => setFormMeetingProvider(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-300 focus:outline-hidden focus:border-[#5DBA58]"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 focus:outline-hidden focus:border-[#55B957]"
                   >
                     <option value="GOOGLE_MEET">Google Meet</option>
                     <option value="ZOOM">Zoom</option>
@@ -1705,7 +1686,7 @@ export const LiveClassesPage: React.FC = () => {
                     placeholder="https://meet.google.com/xyz-abc-def"
                     value={formMeetingUrl}
                     onChange={(e) => setFormMeetingUrl(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-300 focus:outline-hidden focus:border-[#5DBA58]"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-300 focus:outline-hidden focus:border-[#55B957]"
                   />
                 </div>
               </div>
@@ -1722,7 +1703,7 @@ export const LiveClassesPage: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isSubmittingForm}
-                  className="px-5 py-2.5 rounded-xl bg-[#10264B] hover:bg-slate-900 text-white text-xs font-bold transition shadow-xs disabled:opacity-50 cursor-pointer"
+                  className="px-5 py-2.5 rounded-xl bg-[#142B4F] hover:bg-slate-900 text-white text-xs font-bold transition shadow-xs disabled:opacity-50 cursor-pointer"
                 >
                   {isSubmittingForm ? 'Saving Session...' : editingSession ? 'Update Session' : 'Create Session'}
                 </button>
@@ -1740,10 +1721,10 @@ export const LiveClassesPage: React.FC = () => {
           <div className="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 space-y-5 shadow-2xl border border-slate-100 max-h-[85vh] flex flex-col">
             <div className="flex items-start justify-between border-b border-slate-100 pb-3">
               <div>
-                <span className="text-[11px] font-bold text-[#5DBA58] uppercase tracking-wider block">
+                <span className="text-[11px] font-bold text-[#55B957] uppercase tracking-wider block">
                   Student Enrollment Roster
                 </span>
-                <h3 className="text-lg font-extrabold text-[#10264B]">
+                <h3 className="text-lg font-extrabold text-[#142B4F]">
                   {viewingRegistrationsClass.title}
                 </h3>
               </div>
@@ -1774,13 +1755,13 @@ export const LiveClassesPage: React.FC = () => {
                   <tbody className="divide-y divide-slate-100">
                     {viewingRegistrationsClass.registrations.map((reg: any) => (
                       <tr key={reg.id} className="hover:bg-slate-50">
-                        <td className="py-2.5 px-3 font-bold text-[#10264B]">
+                        <td className="py-2.5 px-3 font-bold text-[#142B4F]">
                           {reg.student?.name || 'Student'}
                         </td>
                         <td className="py-2.5 px-3 text-slate-500">
                           {reg.student?.email}
                         </td>
-                        <td className="py-2.5 px-3 font-semibold text-[#10264B]">
+                        <td className="py-2.5 px-3 font-semibold text-[#142B4F]">
                           ₹{Number(reg.amount || 0).toLocaleString()}
                         </td>
                         <td className="py-2.5 px-3">

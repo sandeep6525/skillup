@@ -267,7 +267,7 @@ export const StudentCoursesCatalogView: React.FC = () => {
         <div className="flex items-center justify-between border-b border-[#E4E9F0] pb-3">
           <div>
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-blue-500" />
+              <span className="w-2.5 h-2.5 rounded-full bg-[#EAF5EA]0" />
               <h2 className="text-lg font-bold text-[#14233B]">
                 Available Courses ({filteredAvailable.length})
               </h2>

@@ -132,7 +132,7 @@ export const MentorFeedbackTab: React.FC = () => {
       {/* Header Info */}
       <div className="bg-white p-6 rounded-2xl border border-[#E2E8F0] shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EAF5EA] text-[#4ea849] text-xs font-bold tracking-wide uppercase mb-2">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#EAF5EA] text-[#46a548] text-xs font-bold tracking-wide uppercase mb-2">
             <MessageSquareQuote className="w-3.5 h-3.5" />
             <span>Faculty Academic Evaluation</span>
           </div>
@@ -148,7 +148,7 @@ export const MentorFeedbackTab: React.FC = () => {
         <div className="lg:col-span-7 bg-white p-6 sm:p-8 rounded-2xl border border-[#E2E8F0] shadow-xs space-y-6">
           <div className="border-b border-slate-100 pb-4">
             <h3 className="text-base font-bold text-[#14233B] flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-[#5DBA58]" />
+              <Sparkles className="w-4 h-4 text-[#55B957]" />
               <span>Submit Course Feedback</span>
             </h3>
             <p className="text-xs text-slate-500 mt-0.5">
@@ -167,7 +167,7 @@ export const MentorFeedbackTab: React.FC = () => {
           ) : existingFeedbackForSelected ? (
             <div className="p-6 bg-[#EAF5EA]/60 rounded-xl border border-slate-200 space-y-3">
               <div className="flex items-center gap-2 text-emerald-950 font-bold text-xs">
-                <CheckCircle2 className="w-4 h-4 text-[#5DBA58]" />
+                <CheckCircle2 className="w-4 h-4 text-[#55B957]" />
                 <span>You have already submitted feedback for this course</span>
               </div>
               <p className="text-xs text-emerald-900 leading-relaxed">
@@ -386,7 +386,7 @@ export const MentorFeedbackTab: React.FC = () => {
                     <div className="text-[10px] text-slate-400 pt-1 border-t border-slate-200 flex items-center justify-between">
                       <span>Submitted on {new Date(f.createdAt).toLocaleDateString()}</span>
                       {f.isPublished && (
-                        <span className="text-blue-600 font-bold flex items-center gap-0.5">
+                        <span className="text-[#55B957] font-bold flex items-center gap-0.5">
                           <Eye className="w-3 h-3" /> Live
                         </span>
                       )}

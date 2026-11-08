@@ -42,21 +42,21 @@ const MILESTONES: TimelineMilestone[] = [
     desc: 'Together for better education',
     year: '2024',
     icon: Play,
-    color: '#5DBA58',
+    color: '#55B957',
   },
   {
     title: 'Strategic Collaboration',
     desc: 'Empowering more students',
     year: '2025',
     icon: Users,
-    color: '#4ea849',
+    color: '#46a548',
   },
   {
     title: 'Innovation in Learning',
     desc: 'Building skill-based programs',
     year: '2026',
     icon: Rocket,
-    color: '#10264B',
+    color: '#142B4F',
   },
   {
     title: 'Greater Impact',
@@ -170,11 +170,11 @@ export const PartnerLogoCarousel: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#0B192C] tracking-tight leading-tight"
+            className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#142B4F] tracking-tight leading-tight"
           >
             Growing Together.{' '}
             <GradientText
-              colors={["#5DBA58", "#267A36", "#4ea849", "#15803d"]}
+              colors={["#55B957", "#267A36", "#46a548", "#15803d"]}
               animationSpeed={6}
               variant="linear"
               glow={0}
@@ -241,10 +241,10 @@ export const PartnerLogoCarousel: React.FC = () => {
               >
                 <defs>
                   <linearGradient id="whiteTimelineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#5DBA58" />
-                    <stop offset="40%" stopColor="#4ea849" />
-                    <stop offset="70%" stopColor="#10264B" />
-                    <stop offset="100%" stopColor="#5DBA58" />
+                    <stop offset="0%" stopColor="#55B957" />
+                    <stop offset="40%" stopColor="#46a548" />
+                    <stop offset="70%" stopColor="#142B4F" />
+                    <stop offset="100%" stopColor="#55B957" />
                   </linearGradient>
 
                   <filter id="whiteTimelineGlow" x="-20%" y="-100%" width="140%" height="300%">
@@ -292,7 +292,7 @@ export const PartnerLogoCarousel: React.FC = () => {
                 />
 
                 {/* Traveling glowing particle */}
-                <circle r="6" fill="#5DBA58" filter="url(#whiteTimelineGlow)">
+                <circle r="6" fill="#55B957" filter="url(#whiteTimelineGlow)">
                   <animate
                     attributeName="cx"
                     from="80"
@@ -336,7 +336,7 @@ export const PartnerLogoCarousel: React.FC = () => {
                         <div
                           className={`w-12 h-12 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${isCurrent
                             ? 'scale-110 border-white text-white shadow-[0_0_20px_rgba(93,186,88,0.5)]'
-                            : 'border-[#CBD5E1] bg-white text-[#526B91] hover:border-[#5DBA58] hover:text-[#5DBA58] shadow-xs'
+                            : 'border-[#CBD5E1] bg-white text-[#526B91] hover:border-[#55B957] hover:text-[#55B957] shadow-xs'
                             }`}
                           style={{
                             backgroundColor: isCurrent ? milestone.color : '#FFFFFF',
@@ -350,7 +350,7 @@ export const PartnerLogoCarousel: React.FC = () => {
                       {/* Milestone Details */}
                       <div className="mt-5 text-center flex flex-col items-center max-w-[170px]">
                         <h4
-                          className={`text-sm lg:text-base font-bold tracking-tight transition-colors ${isCurrent ? 'text-[#092653]' : 'text-[#334155] group-hover:text-[#5DBA58]'
+                          className={`text-sm lg:text-base font-bold tracking-tight transition-colors ${isCurrent ? 'text-[#092653]' : 'text-[#334155] group-hover:text-[#55B957]'
                             }`}
                         >
                           {milestone.title}
@@ -367,7 +367,7 @@ export const PartnerLogoCarousel: React.FC = () => {
           </div>
 
           {/* Mobile Vertical Timeline */}
-          <div className="md:hidden space-y-6 relative pl-6 border-l-2 border-[#5DBA58]/30">
+          <div className="md:hidden space-y-6 relative pl-6 border-l-2 border-[#55B957]/30">
             {MILESTONES.map((milestone, idx) => {
               const Icon = milestone.icon;
               const isCurrent = activeNode === idx;
@@ -385,7 +385,7 @@ export const PartnerLogoCarousel: React.FC = () => {
                       backgroundColor: isCurrent ? milestone.color : '#FFFFFF',
                     }}
                   >
-                    <Icon className={`w-4 h-4 ${isCurrent ? 'text-white' : 'text-[#5DBA58]'}`} />
+                    <Icon className={`w-4 h-4 ${isCurrent ? 'text-white' : 'text-[#55B957]'}`} />
                   </div>
 
                   <div className="p-4 rounded-xl bg-[#F8FBFF] border border-[#E2EDFA] shadow-2xs">

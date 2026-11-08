@@ -138,7 +138,7 @@ export const AchievementDetailPage: React.FC = () => {
   if (isLoading) {
     return (
       <div className="min-h-[70vh] flex flex-col items-center justify-center bg-white">
-        <div className="w-10 h-10 border-3 border-[#5DBA58] border-t-transparent rounded-full animate-spin mb-3" />
+        <div className="w-10 h-10 border-3 border-[#55B957] border-t-transparent rounded-full animate-spin mb-3" />
         <p className="text-xs font-semibold text-slate-500">Loading achievement story...</p>
       </div>
     );
@@ -156,7 +156,7 @@ export const AchievementDetailPage: React.FC = () => {
         </p>
         <Link
           to="/achievements"
-          className="mt-4 inline-flex items-center gap-1.5 px-5 py-2 rounded-full bg-[#5DBA58] text-white text-xs font-semibold hover:bg-[#4ea849] transition-colors"
+          className="mt-4 inline-flex items-center gap-1.5 px-5 py-2 rounded-full bg-[#55B957] text-white text-xs font-semibold hover:bg-[#46a548] transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Achievements
@@ -172,7 +172,7 @@ export const AchievementDetailPage: React.FC = () => {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
           <Link
             to="/achievements"
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#102A56] hover:text-[#5DBA58] transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#102A56] hover:text-[#55B957] transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>All Achievements</span>
@@ -191,7 +191,7 @@ export const AchievementDetailPage: React.FC = () => {
 
             <button
               onClick={handleLinkedInShare}
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-700 hover:bg-blue-50 px-3 py-1.5 rounded-full border border-blue-200 bg-white shadow-2xs transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-700 hover:bg-[#EAF5EA] px-3 py-1.5 rounded-full border border-blue-200 bg-white shadow-2xs transition-colors cursor-pointer"
               title="Share on LinkedIn"
             >
               <LinkedInIcon className="w-3.5 h-3.5 text-blue-600" />
@@ -297,7 +297,7 @@ export const AchievementDetailPage: React.FC = () => {
                   <div
                     key={img.id || idx}
                     onClick={() => setActiveLightboxIndex(lightboxIdx)}
-                    className="group relative aspect-square bg-slate-100 rounded-2xl overflow-hidden border border-slate-200/90 cursor-pointer shadow-2xs hover:shadow-md hover:border-[#5DBA58]/50 transition-all"
+                    className="group relative aspect-square bg-slate-100 rounded-2xl overflow-hidden border border-slate-200/90 cursor-pointer shadow-2xs hover:shadow-md hover:border-[#55B957]/50 transition-all"
                   >
                     <img
                       src={getMediaUrl(img.imageUrl)}
@@ -325,7 +325,7 @@ export const AchievementDetailPage: React.FC = () => {
                 <Link
                   key={item.id}
                   to={`/achievements/${item.slug || item.id}`}
-                  className="bg-white rounded-2xl border border-slate-200/90 p-3.5 shadow-2xs hover:shadow-md hover:border-[#5DBA58]/50 transition-all flex flex-col justify-between group"
+                  className="bg-white rounded-2xl border border-slate-200/90 p-3.5 shadow-2xs hover:shadow-md hover:border-[#55B957]/50 transition-all flex flex-col justify-between group"
                 >
                   <div className="relative aspect-video rounded-xl overflow-hidden bg-slate-100 mb-2.5">
                     <img
@@ -338,11 +338,11 @@ export const AchievementDetailPage: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <h4 className="text-xs font-bold text-[#102A56] line-clamp-2 mt-0.5 group-hover:text-[#5DBA58]">
+                    <h4 className="text-xs font-bold text-[#102A56] line-clamp-2 mt-0.5 group-hover:text-[#55B957]">
                       {item.title}
                     </h4>
                   </div>
-                  <div className="mt-2 text-[11px] font-semibold text-[#5DBA58] flex items-center justify-end gap-0.5">
+                  <div className="mt-2 text-[11px] font-semibold text-[#55B957] flex items-center justify-end gap-0.5">
                     <span>Read</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
                   </div>

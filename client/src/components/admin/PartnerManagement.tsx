@@ -470,7 +470,7 @@ export const PartnerManagement: React.FC = () => {
                         <div className="flex items-center justify-end gap-1.5">
                           <button
                             onClick={() => openEditModal(partner)}
-                            className="p-1.5 rounded-lg text-[#2563EB] hover:bg-blue-50 transition-colors"
+                            className="p-1.5 rounded-lg text-[#2563EB] hover:bg-[#EAF5EA] transition-colors"
                             title="Edit Partner"
                           >
                             <Edit2 className="w-3.5 h-3.5" />

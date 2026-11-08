@@ -327,7 +327,7 @@ export const MaterialDetailPage: React.FC = () => {
                     <span>Refunded (Access Revoked)</span>
                   </span>
                 ) : (
-                  <span className="px-3 py-1 rounded-lg text-xs font-bold bg-blue-50 text-[#0866E8] border border-blue-200">
+                  <span className="px-3 py-1 rounded-lg text-xs font-bold bg-[#EAF5EA] text-[#0866E8] border border-blue-200">
                     Official Study Material
                   </span>
                 )}

@@ -147,7 +147,7 @@ export const AllFeedbackPage: React.FC = () => {
           </div>
         ) : feedbacks.length === 0 ? (
           <div className="text-center py-20 px-6 bg-white rounded-3xl border border-[#E2E8F0] shadow-xs">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-blue-50 flex items-center justify-center text-[#2563EB]">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-[#EAF5EA] flex items-center justify-center text-[#2563EB]">
               <MessageSquareQuote className="w-8 h-8" />
             </div>
             <h3 className="text-lg font-bold text-[#14233B]">No feedback matching your filters</h3>
@@ -190,7 +190,7 @@ export const AllFeedbackPage: React.FC = () => {
                       <span
                         className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold tracking-wide uppercase ${
                           isMentor
-                            ? 'bg-[#EAF5EA] text-[#4ea849] border border-[#5DBA58]/30'
+                            ? 'bg-[#EAF5EA] text-[#46a548] border border-[#55B957]/30'
                             : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                         }`}
                       >
