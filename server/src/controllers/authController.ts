@@ -34,17 +34,37 @@ const generateTokens = (user: { id: string; email: string; role: any }) => {
  */
 export const register = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { name, email, password, role, title, bio } = req.body;
-    const normalizedEmail = email.toLowerCase().trim();
+    const { name, email, phone, password, role, title, bio } = req.body;
+    const normalizedEmail = email ? email.toLowerCase().trim() : '';
 
-    // Check if user already exists
+    if (!normalizedEmail || !password || !name) {
+      throw new AppError('Full name, email address and password are required', 400);
+    }
+
+    // Phone number validation: Indian 10-digit mobile number by default or international E.164
+    if (!phone || !phone.trim()) {
+      throw new AppError('Phone number is mandatory for student registration', 400);
+    }
+
+    const cleanPhone = phone.trim();
+    const phoneRegex = /^(\+?\d{1,4}[-\s]?)?[6-9]\d{9}$/;
+    if (!phoneRegex.test(cleanPhone.replace(/\s+/g, ''))) {
+      throw new AppError('Please provide a valid 10-digit phone number', 400);
+    }
+
+    // Check if user already exists with this email
     const existingUser = await prisma.user.findUnique({ where: { email: normalizedEmail } });
     if (existingUser) {
       throw new AppError('An account with this email already exists', 400);
     }
 
+    // Check if user already exists with this phone number
+    const existingPhone = await prisma.user.findFirst({ where: { phone: cleanPhone } });
+    if (existingPhone) {
+      throw new AppError('An account with this phone number already exists', 400);
+    }
+
     // Role security check: Public registration is strictly for Students only.
-    // Mentors/Instructors and Admins cannot be created via public registration.
     if (role && role !== 'STUDENT') {
       throw new AppError('Public registration is restricted to Students. Mentor accounts must be invited and authorized by an Administrator.', 403);
     }
@@ -59,7 +79,8 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
       where: { email: normalizedEmail },
       create: {
         email: normalizedEmail,
-        name,
+        name: name.trim(),
+        phone: cleanPhone,
         password: hashedPassword,
         role: 'STUDENT',
         title,
@@ -69,7 +90,8 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
         attempts: 0,
       },
       update: {
-        name,
+        name: name.trim(),
+        phone: cleanPhone,
         password: hashedPassword,
         role: 'STUDENT',
         title,
@@ -159,6 +181,7 @@ export const verifyRegistrationOTP = async (req: Request, res: Response, next: N
         data: {
           name: pending.name,
           email: pending.email,
+          phone: pending.phone || null,
           password: pending.password,
           role: pending.role,
           title: pending.title,
@@ -169,6 +192,7 @@ export const verifyRegistrationOTP = async (req: Request, res: Response, next: N
           id: true,
           name: true,
           email: true,
+          phone: true,
           role: true,
           title: true,
           bio: true,

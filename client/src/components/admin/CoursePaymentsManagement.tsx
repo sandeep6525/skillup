@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '../../api/client';
+import { downloadProtectedFile } from '../../utils/downloadReport';
 import {
   DollarSign,
   TrendingUp,
@@ -274,17 +275,29 @@ export const CoursePaymentsManagement: React.FC = () => {
     },
   });
 
-  const handleExportCSV = () => {
-    const params = new URLSearchParams();
-    if (selectedCourseId) params.set('courseId', selectedCourseId);
-    if (filterPlan) params.set('paymentPlan', filterPlan);
-    if (filterStartDate) params.set('startDate', filterStartDate);
-    if (filterEndDate) params.set('endDate', filterEndDate);
-    if (studentSearch) params.set('search', studentSearch);
+  const handleExportCSV = async () => {
+    const params: Record<string, any> = {};
+    if (selectedCourseId) params.courseId = selectedCourseId;
+    if (filterPlan) params.paymentPlan = filterPlan;
+    if (filterStartDate) params.startDate = filterStartDate;
+    if (filterEndDate) params.endDate = filterEndDate;
+    if (studentSearch) params.search = studentSearch;
 
-    const baseUrl = api.defaults.baseURL || 'http://localhost:5000/api';
-    const token = localStorage.getItem('token') || '';
-    window.open(`${baseUrl}/admin/payments/export?${params.toString()}&token=${token}`, '_blank');
+    try {
+      toast.info('Downloading Payment Report', 'Preparing CSV export with applied filters...');
+      await downloadProtectedFile('/admin/payments/export', params, {
+        fallbackFilename: `payments_report_${selectedCourseId || 'all'}_${Date.now()}.csv`,
+      });
+      toast.success('Export Complete', 'Payment CSV report downloaded successfully.');
+    } catch (err: any) {
+      if (err.response?.status === 401) {
+        toast.error('Session Expired', 'Your admin session has expired. Please log in again.');
+      } else if (err.response?.status === 403) {
+        toast.error('Access Denied', 'You do not have administrative permissions to export payments.');
+      } else {
+        toast.error('Export Failed', err.message || 'Unable to download payment report.');
+      }
+    }
   };
 
   const clearFilters = () => {

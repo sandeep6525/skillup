@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import { api } from '../api/client';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
-import { GraduationCap, Mail, Lock, User, ArrowRight, ShieldCheck, RefreshCw, ArrowLeft } from 'lucide-react';
+import { GraduationCap, Mail, Lock, User, ArrowRight, ShieldCheck, RefreshCw, ArrowLeft, Phone } from 'lucide-react';
 
 export const AuthPage: React.FC<{ mode: 'login' | 'register' }> = ({ mode }) => {
   const navigate = useNavigate();
@@ -15,7 +15,9 @@ export const AuthPage: React.FC<{ mode: 'login' | 'register' }> = ({ mode }) => 
   // Form Fields
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
   const [loading, setLoading] = useState(false);
@@ -42,13 +44,48 @@ export const AuthPage: React.FC<{ mode: 'login' | 'register' }> = ({ mode }) => 
     e.preventDefault();
     setErrorMsg('');
     setSuccessMsg('');
+
+    if (mode === 'register') {
+      if (!name.trim()) {
+        setErrorMsg('Full Name is required.');
+        return;
+      }
+      if (!email.trim()) {
+        setErrorMsg('Email Address is required.');
+        return;
+      }
+      if (!phone.trim()) {
+        setErrorMsg('Phone Number is required.');
+        return;
+      }
+      const cleanPhone = phone.trim().replace(/\s+/g, '');
+      const phoneRegex = /^(\+?\d{1,4}[-\s]?)?[6-9]\d{9}$/;
+      if (!phoneRegex.test(cleanPhone)) {
+        setErrorMsg('Please enter a valid 10-digit mobile number.');
+        return;
+      }
+      if (!password) {
+        setErrorMsg('Password is required.');
+        return;
+      }
+      if (password.length < 6) {
+        setErrorMsg('Password must be at least 6 characters long.');
+        return;
+      }
+      if (password !== confirmPassword) {
+        setErrorMsg('Passwords do not match. Please verify your confirmation password.');
+        return;
+      }
+    }
+
     setLoading(true);
 
     try {
       if (mode === 'register') {
         const res = await api.post('/auth/register', {
-          name,
-          email,
+          name: name.trim(),
+          email: email.trim(),
+          phone: phone.trim(),
           password,
           role: 'STUDENT',
         });
@@ -308,6 +345,23 @@ export const AuthPage: React.FC<{ mode: 'login' | 'register' }> = ({ mode }) => 
                 </div>
               </div>
 
+              {mode === 'register' && (
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Phone Number</label>
+                  <div className="relative">
+                    <Phone className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                    <input
+                      type="tel"
+                      required
+                      placeholder="9876543210"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      className="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl border border-[#55B957]/30 focus:outline-hidden focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                    />
+                  </div>
+                </div>
+              )}
+
               <div>
                 <div className="flex items-center justify-between mb-1">
                   <label className="text-xs font-bold text-slate-700">Password</label>
@@ -329,6 +383,23 @@ export const AuthPage: React.FC<{ mode: 'login' | 'register' }> = ({ mode }) => 
                   />
                 </div>
               </div>
+
+              {mode === 'register' && (
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Confirm Password</label>
+                  <div className="relative">
+                    <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                    <input
+                      type="password"
+                      required
+                      placeholder="••••••••"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      className="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl border border-[#55B957]/30 focus:outline-hidden focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
+                    />
+                  </div>
+                </div>
+              )}
 
               <button
                 type="submit"

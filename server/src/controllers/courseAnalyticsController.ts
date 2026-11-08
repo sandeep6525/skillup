@@ -2,6 +2,9 @@ import { Response, NextFunction } from 'express';
 import { AuthRequest } from '../middlewares/auth';
 import prisma from '../config/prisma';
 import { AppError } from '../middlewares/errorHandler';
+import * as xlsx from 'xlsx';
+import PDFDocument from 'pdfkit';
+import { generateCorporateExcelWorkbook, ReportColumn, ReportSummaryItem } from '../utils/excelExporter';
 
 /**
  * 1. GET /api/admin/course-analytics/overview
@@ -664,7 +667,7 @@ export const getAdminCourseStudentsDirectory = async (req: AuthRequest, res: Res
         id: u.id,
         name: u.name,
         email: u.email,
-        phone: u.phone || 'Not Available',
+        phone: u.phone || 'Not Provided',
         avatarUrl: u.avatarUrl,
         enrolledAt: enr.enrolledAt,
         completedAt: enr.completedAt,
@@ -839,11 +842,11 @@ export const getAdminStudentCourseDetail = async (req: AuthRequest, res: Respons
           id: user.id,
           name: user.name,
           email: user.email,
-          phone: user.phone || 'Not Available',
+          phone: user.phone || 'Not Provided',
           avatarUrl: user.avatarUrl,
           createdAt: user.createdAt,
           isVerified: user.isVerified,
-          college: user.college || 'Not Available',
+          college: user.college || 'Not Provided',
         },
         course: {
           id: course.id,
@@ -1114,4 +1117,707 @@ export const exportCourseStudentsCSV = async (req: AuthRequest, res: Response, n
     next(error);
   }
 };
+
+/**
+ * Helper to export rows to CSV, XLSX, or PDF
+ */
+async function sendFormattedReport(
+  res: Response,
+  format: 'xlsx' | 'csv' | 'pdf',
+  filenameBase: string,
+  title: string,
+  columns: { header: string; key: string; width?: number; format?: 'currency' | 'date' | 'percent' | 'text' | 'number'; alignment?: 'left' | 'center' | 'right' }[],
+  data: Record<string, any>[],
+  summaryItems?: ReportSummaryItem[],
+  category?: string
+) {
+  const dateStr = new Date().toISOString().split('T')[0];
+  const safeBase = filenameBase.replace(/[^a-zA-Z0-9_-]/g, '_');
+
+  if (format === 'xlsx') {
+    await generateCorporateExcelWorkbook({
+      res,
+      filenameBase,
+      sheets: [
+        {
+          sheetName: 'Executive Report',
+          title,
+          category: category || 'Platform Intelligence',
+          subtitle: `SkillUp Corporate Operations Dossier (${data.length} records)`,
+          summaryItems: summaryItems || [],
+          columns,
+          rows: data,
+        },
+      ],
+    });
+    return;
+  }
+
+  if (format === 'csv') {
+    const escapeCsv = (val: any) => `"${String(val !== undefined && val !== null ? val : '').replace(/"/g, '""')}"`;
+    const csvContent = [
+      columns.map((c) => escapeCsv(c.header)).join(','),
+      ...data.map((row) => columns.map((c) => escapeCsv(row[c.key])).join(',')),
+    ].join('\r\n');
+
+    res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+    res.setHeader('Content-Disposition', `attachment; filename="${safeBase}_${dateStr}.csv"`);
+    res.status(200).send(csvContent);
+    return;
+  }
+
+  if (format === 'pdf') {
+    const doc = new PDFDocument({ margin: 30, size: 'A4', layout: 'landscape' });
+    const chunks: Buffer[] = [];
+    doc.on('data', (chunk) => chunks.push(chunk));
+    doc.on('end', () => {
+      const result = Buffer.concat(chunks);
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', `attachment; filename="${safeBase}_${dateStr}.pdf"`);
+      res.status(200).send(result);
+    });
+
+    // Brand Header
+    doc.rect(0, 0, doc.page.width, 42).fill('#142B4F');
+    doc.fillColor('#FFFFFF').fontSize(16).font('Helvetica-Bold').text('SkillUp Admin Intelligence Dossier', 30, 14);
+    doc.fillColor('#55B957').fontSize(10).font('Helvetica').text(`Export Date: ${dateStr}`, doc.page.width - 180, 16);
+
+    doc.moveDown(2);
+    doc.fillColor('#142B4F').fontSize(14).font('Helvetica-Bold').text(title, 30, 52);
+    doc.fillColor('#64748B').fontSize(9).font('Helvetica').text(`Total records: ${data.length}`, 30, 68);
+
+    // Table Setup
+    const startY = 86;
+    const startX = 30;
+    const usableWidth = doc.page.width - 60;
+    const colWidth = usableWidth / columns.length;
+    const rowHeight = 18;
+
+    // Header Row
+    doc.rect(startX, startY, usableWidth, rowHeight).fill('#E2E8F0');
+    doc.fillColor('#142B4F').fontSize(7.5).font('Helvetica-Bold');
+    columns.forEach((col, idx) => {
+      doc.text(col.header, startX + idx * colWidth + 3, startY + 5, {
+        width: colWidth - 6,
+        align: 'left',
+        ellipsis: true,
+      });
+    });
+
+    let currentY = startY + rowHeight;
+    doc.font('Helvetica').fontSize(7);
+
+    data.forEach((row, rIdx) => {
+      if (currentY + rowHeight > doc.page.height - 35) {
+        doc.addPage({ margin: 30, size: 'A4', layout: 'landscape' });
+        // Header on new page
+        doc.rect(startX, 30, usableWidth, rowHeight).fill('#E2E8F0');
+        doc.fillColor('#142B4F').fontSize(7.5).font('Helvetica-Bold');
+        columns.forEach((col, idx) => {
+          doc.text(col.header, startX + idx * colWidth + 3, 35, {
+            width: colWidth - 6,
+            align: 'left',
+            ellipsis: true,
+          });
+        });
+        currentY = 30 + rowHeight;
+        doc.font('Helvetica').fontSize(7);
+      }
+
+      // Zebra striping
+      if (rIdx % 2 === 1) {
+        doc.rect(startX, currentY, usableWidth, rowHeight).fill('#F8FAFC');
+      }
+
+      doc.fillColor('#111111');
+      columns.forEach((col, idx) => {
+        const textVal = String(row[col.key] !== undefined && row[col.key] !== null ? row[col.key] : '');
+        doc.text(textVal, startX + idx * colWidth + 3, currentY + 4.5, {
+          width: colWidth - 6,
+          align: 'left',
+          ellipsis: true,
+        });
+      });
+
+      currentY += rowHeight;
+    });
+
+    doc.end();
+    return;
+  }
+
+  throw new AppError('Invalid format requested. Supported formats: xlsx, csv, pdf', 400);
+}
+
+/**
+ * 7. GET /api/admin/reports/students
+ * Report A: Complete Student Directory (All Enrolled Students)
+ */
+export const exportAllStudentsReport = async (req: AuthRequest, res: Response, next: NextFunction) => {
+  try {
+    const format = ((req.query.format as string) || 'xlsx').toLowerCase() as 'xlsx' | 'csv' | 'pdf';
+    const { search, courseId, batchId, paymentStatus, enrollmentStatus, certificateStatus } = req.query;
+
+    const userWhere: any = {};
+    if (search) {
+      const q = String(search).trim();
+      userWhere.OR = [
+        { name: { contains: q } },
+        { email: { contains: q } },
+        { phone: { contains: q } },
+      ];
+    }
+
+    const enrollmentWhere: any = {
+      user: userWhere,
+    };
+
+    if (courseId && courseId !== 'ALL') {
+      enrollmentWhere.courseId = String(courseId);
+    }
+    if (enrollmentStatus === 'COMPLETED') {
+      enrollmentWhere.completedAt = { not: null };
+    } else if (enrollmentStatus === 'ACTIVE') {
+      enrollmentWhere.completedAt = null;
+    }
+    if (batchId && batchId !== 'ALL') {
+      enrollmentWhere.user.batchEnrollments = {
+        some: { batchId: String(batchId) },
+      };
+    }
+
+    const enrollments = await prisma.enrollment.findMany({
+      where: enrollmentWhere,
+      include: {
+        course: {
+          select: {
+            id: true,
+            title: true,
+            price: true,
+            discountPrice: true,
+            _count: { select: { liveClasses: true, assignments: true } },
+          },
+        },
+        user: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            phone: true,
+            createdAt: true,
+            batchEnrollments: {
+              include: {
+                batch: {
+                  include: {
+                    mentorAssignments: {
+                      include: { mentor: { select: { name: true } } },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      orderBy: { enrolledAt: 'desc' },
+    });
+
+    const studentIds = Array.from(new Set(enrollments.map((e) => e.userId)));
+    const enrolledCourseIds = Array.from(new Set(enrollments.map((e) => e.courseId)));
+
+    const [payments, certificates, attendances, submissions] = await Promise.all([
+      prisma.payment.findMany({
+        where: { userId: { in: studentIds }, courseId: { in: enrolledCourseIds }, status: 'COMPLETED' },
+        select: { userId: true, courseId: true, amount: true },
+      }),
+      prisma.certificate.findMany({
+        where: { userId: { in: studentIds }, courseId: { in: enrolledCourseIds } },
+        select: { userId: true, courseId: true, certificateNo: true },
+      }),
+      prisma.attendanceRecord.findMany({
+        where: { studentId: { in: studentIds }, status: 'PRESENT' },
+        select: { studentId: true, liveClass: { select: { courseId: true } } },
+      }),
+      prisma.assignmentSubmission.findMany({
+        where: { studentId: { in: studentIds } },
+        select: { studentId: true, assignment: { select: { courseId: true } } },
+      }),
+    ]);
+
+    // Build lookup maps keyed by `${userId}_${courseId}`
+    const paymentMap = new Map<string, number>();
+    payments.forEach((p) => {
+      if (p.courseId) {
+        const key = `${p.userId}_${p.courseId}`;
+        paymentMap.set(key, (paymentMap.get(key) || 0) + Number(p.amount));
+      }
+    });
+
+    const certMap = new Map<string, string>();
+    certificates.forEach((c) => {
+      certMap.set(`${c.userId}_${c.courseId}`, c.certificateNo);
+    });
+
+    const attendanceMap = new Map<string, number>();
+    attendances.forEach((a) => {
+      if (a.liveClass?.courseId) {
+        const key = `${a.studentId}_${a.liveClass.courseId}`;
+        attendanceMap.set(key, (attendanceMap.get(key) || 0) + 1);
+      }
+    });
+
+    const submissionMap = new Map<string, number>();
+    submissions.forEach((s) => {
+      if (s.assignment?.courseId) {
+        const key = `${s.studentId}_${s.assignment.courseId}`;
+        submissionMap.set(key, (submissionMap.get(key) || 0) + 1);
+      }
+    });
+
+    let reportRows = enrollments.map((enr) => {
+      const u = enr.user;
+      const c = enr.course;
+      const key = `${u.id}_${c.id}`;
+      const nominalPrice = Number(c.discountPrice || c.price);
+      const paid = paymentMap.get(key) || 0;
+
+      let pStatus = 'PENDING';
+      if (paid >= nominalPrice && nominalPrice > 0) pStatus = 'PAID';
+      else if (paid > 0) pStatus = 'PARTIAL';
+      else if (nominalPrice === 0) pStatus = 'PAID';
+
+      const certNo = certMap.get(key) || 'NOT_ISSUED';
+      const totalLive = c._count.liveClasses;
+      const attended = attendanceMap.get(key) || 0;
+      const attRate = totalLive > 0 ? `${Math.round((attended / totalLive) * 100)}%` : '100%';
+      const totalAssign = c._count.assignments;
+      const submitted = submissionMap.get(key) || 0;
+
+      // Find matching batch for course
+      const matchingBatch = u.batchEnrollments.find((be) => be.batch.courseId === c.id);
+      const batchName = matchingBatch?.batch?.name || 'Unassigned';
+      const mentorName = matchingBatch?.batch?.mentorAssignments?.[0]?.mentor?.name || 'Unassigned';
+
+      return {
+        studentId: u.id,
+        name: u.name,
+        email: u.email,
+        phone: u.phone || 'Not Provided',
+        registeredAt: u.createdAt ? new Date(u.createdAt).toISOString().split('T')[0] : 'N/A',
+        enrolledAt: enr.enrolledAt ? new Date(enr.enrolledAt).toISOString().split('T')[0] : 'N/A',
+        courseTitle: c.title,
+        courseId: c.id,
+        batch: batchName,
+        mentor: mentorName,
+        paymentStatus: pStatus,
+        amountPaid: paid,
+        progress: `${enr.progress}%`,
+        attendance: attRate,
+        assignments: `${submitted}/${totalAssign}`,
+        certificateStatus: certNo === 'NOT_ISSUED' ? 'Not Issued' : `Issued (${certNo})`,
+      };
+    });
+
+    // In-memory filters
+    if (paymentStatus && paymentStatus !== 'ALL') {
+      reportRows = reportRows.filter((r) => r.paymentStatus === paymentStatus);
+    }
+    if (certificateStatus === 'ISSUED') {
+      reportRows = reportRows.filter((r) => !r.certificateStatus.startsWith('Not Issued'));
+    } else if (certificateStatus === 'NOT_ISSUED') {
+      reportRows = reportRows.filter((r) => r.certificateStatus.startsWith('Not Issued'));
+    }
+
+    // Calculate Summary Dashboard Metrics
+    const totalStudentsCount = reportRows.length;
+    const completedStudentsCount = reportRows.filter((r) => r.progress === '100%').length;
+    const paidStudentsCount = reportRows.filter((r) => r.paymentStatus === 'PAID').length;
+    const totalCollected = reportRows.reduce((sum, r) => sum + (Number(r.amountPaid) || 0), 0);
+
+    const summaryItems: ReportSummaryItem[] = [
+      { label: 'Total Enrolled Students', value: totalStudentsCount },
+      { label: 'Course Completions', value: completedStudentsCount },
+      { label: 'Fully Paid Enrollments', value: paidStudentsCount },
+      { label: 'Total Revenue Collected', value: `₹${totalCollected.toLocaleString('en-IN')}` },
+    ];
+
+    const columns: ReportColumn[] = [
+      { header: 'Student ID', key: 'studentId', width: 26 },
+      { header: 'Full Name', key: 'name', width: 22 },
+      { header: 'Email Address', key: 'email', width: 28 },
+      { header: 'Phone Number', key: 'phone', width: 16 },
+      { header: 'Registered On', key: 'registeredAt', width: 14, format: 'date', alignment: 'center' },
+      { header: 'Enrolled On', key: 'enrolledAt', width: 14, format: 'date', alignment: 'center' },
+      { header: 'Course Name', key: 'courseTitle', width: 28 },
+      { header: 'Course ID', key: 'courseId', width: 26 },
+      { header: 'Batch', key: 'batch', width: 18 },
+      { header: 'Assigned Mentor', key: 'mentor', width: 20 },
+      { header: 'Payment Status', key: 'paymentStatus', width: 16, alignment: 'center' },
+      { header: 'Amount Paid (INR)', key: 'amountPaid', width: 18, format: 'currency' },
+      { header: 'Learning Progress', key: 'progress', width: 18, format: 'percent', alignment: 'center' },
+      { header: 'Attendance %', key: 'attendance', width: 15, alignment: 'center' },
+      { header: 'Assignments', key: 'assignments', width: 15, alignment: 'center' },
+      { header: 'Certificate', key: 'certificateStatus', width: 22, alignment: 'center' },
+    ];
+
+    await sendFormattedReport(
+      res,
+      format,
+      `SkillUp_All_Students_${new Date().getFullYear()}`,
+      'SkillUp - Complete Student Directory Report',
+      columns,
+      reportRows,
+      summaryItems,
+      'Student Enrollment & Telemetry'
+    );
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * 8. GET /api/admin/reports/courses/:courseId/students
+ * Report B: Course-Wise Student Report
+ */
+export const exportCourseStudentsReport = async (req: AuthRequest, res: Response, next: NextFunction) => {
+  try {
+    const courseId = String(req.params.courseId);
+    const format = ((req.query.format as string) || 'xlsx').toLowerCase() as 'xlsx' | 'csv' | 'pdf';
+    const { search, batchId, paymentStatus, enrollmentStatus, certificateStatus } = req.query;
+
+    const course = await prisma.course.findUnique({
+      where: { id: courseId },
+      include: {
+        instructor: { select: { name: true } },
+        _count: { select: { liveClasses: true, assignments: true, enrollments: true } },
+      },
+    });
+    if (!course) throw new AppError('Course not found', 404);
+
+    const nominalPrice = Number(course.discountPrice || course.price);
+
+    const userWhere: any = {};
+    if (search) {
+      const q = String(search).trim();
+      userWhere.OR = [
+        { name: { contains: q } },
+        { email: { contains: q } },
+        { phone: { contains: q } },
+      ];
+    }
+
+    const enrollmentWhere: any = {
+      courseId,
+      user: userWhere,
+    };
+
+    if (enrollmentStatus === 'COMPLETED') {
+      enrollmentWhere.completedAt = { not: null };
+    } else if (enrollmentStatus === 'ACTIVE') {
+      enrollmentWhere.completedAt = null;
+    }
+    if (batchId && batchId !== 'ALL') {
+      enrollmentWhere.user.batchEnrollments = {
+        some: { batchId: String(batchId) },
+      };
+    }
+
+    const enrollments = await prisma.enrollment.findMany({
+      where: enrollmentWhere,
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            phone: true,
+            createdAt: true,
+            batchEnrollments: {
+              where: { batch: { courseId } },
+              include: {
+                batch: {
+                  include: {
+                    mentorAssignments: {
+                      include: { mentor: { select: { name: true } } },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+      orderBy: { enrolledAt: 'desc' },
+    });
+
+    const studentIds = enrollments.map((e) => e.userId);
+
+    const [payments, certificates, attendances, submissions] = await Promise.all([
+      prisma.payment.findMany({
+        where: { courseId, userId: { in: studentIds }, status: 'COMPLETED' },
+        select: { userId: true, amount: true },
+      }),
+      prisma.certificate.findMany({
+        where: { courseId, userId: { in: studentIds } },
+        select: { userId: true, certificateNo: true },
+      }),
+      prisma.attendanceRecord.findMany({
+        where: { liveClass: { courseId }, studentId: { in: studentIds }, status: 'PRESENT' },
+        select: { studentId: true },
+      }),
+      prisma.assignmentSubmission.findMany({
+        where: { assignment: { courseId }, studentId: { in: studentIds } },
+        select: { studentId: true },
+      }),
+    ]);
+
+    const paymentsMap = new Map<string, number>();
+    payments.forEach((p) => {
+      paymentsMap.set(p.userId, (paymentsMap.get(p.userId) || 0) + Number(p.amount));
+    });
+
+    const certsMap = new Map<string, string>();
+    certificates.forEach((c) => {
+      certsMap.set(c.userId, c.certificateNo);
+    });
+
+    const attendanceCountMap = new Map<string, number>();
+    attendances.forEach((a) => {
+      attendanceCountMap.set(a.studentId, (attendanceCountMap.get(a.studentId) || 0) + 1);
+    });
+
+    const submissionCountMap = new Map<string, number>();
+    submissions.forEach((s) => {
+      submissionCountMap.set(s.studentId, (submissionCountMap.get(s.studentId) || 0) + 1);
+    });
+
+    let rows = enrollments.map((enr) => {
+      const u = enr.user;
+      const paid = paymentsMap.get(u.id) || 0;
+      let pStatus = 'PENDING';
+      if (paid >= nominalPrice && nominalPrice > 0) pStatus = 'PAID';
+      else if (paid > 0) pStatus = 'PARTIAL';
+      else if (nominalPrice === 0) pStatus = 'PAID';
+
+      const certNo = certsMap.get(u.id) || 'NOT_ISSUED';
+      const liveClassesCount = course._count.liveClasses;
+      const attended = attendanceCountMap.get(u.id) || 0;
+      const attRate = liveClassesCount > 0 ? `${Math.round((attended / liveClassesCount) * 100)}%` : '100%';
+      const assignmentsCount = course._count.assignments;
+      const submitted = submissionCountMap.get(u.id) || 0;
+
+      const batchName = u.batchEnrollments?.[0]?.batch?.name || 'Unassigned';
+      const mentorName = u.batchEnrollments?.[0]?.batch?.mentorAssignments?.[0]?.mentor?.name || course.instructor?.name || 'Unassigned';
+
+      return {
+        studentId: u.id,
+        name: u.name,
+        email: u.email,
+        phone: u.phone || 'Not Provided',
+        registeredAt: u.createdAt ? new Date(u.createdAt).toISOString().split('T')[0] : 'N/A',
+        enrolledAt: enr.enrolledAt ? new Date(enr.enrolledAt).toISOString().split('T')[0] : 'N/A',
+        courseTitle: course.title,
+        batch: batchName,
+        mentor: mentorName,
+        paymentStatus: pStatus,
+        amountPaid: paid,
+        progress: `${enr.progress}%`,
+        attendance: attRate,
+        assignments: `${submitted}/${assignmentsCount}`,
+        certificateStatus: certNo === 'NOT_ISSUED' ? 'Not Issued' : `Issued (${certNo})`,
+      };
+    });
+
+    // In-memory filters
+    if (paymentStatus && paymentStatus !== 'ALL') {
+      rows = rows.filter((r) => r.paymentStatus === paymentStatus);
+    }
+    if (certificateStatus === 'ISSUED') {
+      rows = rows.filter((r) => !r.certificateStatus.startsWith('Not Issued'));
+    } else if (certificateStatus === 'NOT_ISSUED') {
+      rows = rows.filter((r) => r.certificateStatus.startsWith('Not Issued'));
+    }
+
+    // Calculate Summary Dashboard Metrics
+    const totalEnrolled = rows.length;
+    const completedCount = rows.filter((r) => r.progress === '100%').length;
+    const paidCount = rows.filter((r) => r.paymentStatus === 'PAID').length;
+    const totalRevenue = rows.reduce((sum, r) => sum + (Number(r.amountPaid) || 0), 0);
+
+    const summaryItems: ReportSummaryItem[] = [
+      { label: 'Total Enrolled', value: totalEnrolled },
+      { label: 'Completions', value: completedCount },
+      { label: 'Paid Enrollments', value: paidCount },
+      { label: 'Course Revenue', value: `₹${totalRevenue.toLocaleString('en-IN')}` },
+    ];
+
+    const columns: ReportColumn[] = [
+      { header: 'Student ID', key: 'studentId', width: 26 },
+      { header: 'Student Name', key: 'name', width: 22 },
+      { header: 'Email Address', key: 'email', width: 28 },
+      { header: 'Phone Number', key: 'phone', width: 16 },
+      { header: 'Registered Date', key: 'registeredAt', width: 15, format: 'date', alignment: 'center' },
+      { header: 'Enrolled Date', key: 'enrolledAt', width: 15, format: 'date', alignment: 'center' },
+      { header: 'Course Title', key: 'courseTitle', width: 28 },
+      { header: 'Batch', key: 'batch', width: 18 },
+      { header: 'Assigned Mentor', key: 'mentor', width: 20 },
+      { header: 'Payment Status', key: 'paymentStatus', width: 16, alignment: 'center' },
+      { header: 'Amount Paid (INR)', key: 'amountPaid', width: 18, format: 'currency' },
+      { header: 'Progress', key: 'progress', width: 16, format: 'percent', alignment: 'center' },
+      { header: 'Attendance %', key: 'attendance', width: 15, alignment: 'center' },
+      { header: 'Assignments', key: 'assignments', width: 15, alignment: 'center' },
+      { header: 'Certificate', key: 'certificateStatus', width: 22, alignment: 'center' },
+    ];
+
+    await sendFormattedReport(
+      res,
+      format,
+      `SkillUp_Course_Students_${course.title.substring(0, 25).replace(/\s+/g, '_')}`,
+      `SkillUp - ${course.title} Student Roster`,
+      columns,
+      rows,
+      summaryItems,
+      course.title
+    );
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * 9. GET /api/admin/reports/courses
+ * Report C: Complete Course Report (All Courses Performance & Revenue)
+ */
+export const exportAllCoursesReport = async (req: AuthRequest, res: Response, next: NextFunction) => {
+  try {
+    const format = ((req.query.format as string) || 'xlsx').toLowerCase() as 'xlsx' | 'csv' | 'pdf';
+    const { category, status } = req.query;
+
+    const courseWhere: any = {};
+    if (category && category !== 'ALL') {
+      courseWhere.category = { name: String(category) };
+    }
+    if (status && status !== 'ALL') {
+      courseWhere.status = String(status);
+    }
+
+    const courses = await prisma.course.findMany({
+      where: courseWhere,
+      include: {
+        category: { select: { name: true } },
+        instructor: { select: { id: true, name: true, email: true } },
+        mentorAssignments: {
+          include: { mentor: { select: { id: true, name: true, email: true } } },
+        },
+        _count: {
+          select: {
+            enrollments: true,
+            batches: true,
+            liveClasses: true,
+            assignments: true,
+            certificates: true,
+          },
+        },
+        enrollments: {
+          select: { progress: true },
+        },
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+
+    const courseIds = courses.map((c) => c.id);
+
+    const payments = await prisma.payment.findMany({
+      where: { courseId: { in: courseIds } },
+      select: { courseId: true, amount: true, status: true },
+    });
+
+    const revenueMap = new Map<string, { verifiedRev: number; paidStudents: number; totalOrders: number }>();
+    payments.forEach((p) => {
+      if (!p.courseId) return;
+      const cur = revenueMap.get(p.courseId) || { verifiedRev: 0, paidStudents: 0, totalOrders: 0 };
+      cur.totalOrders += 1;
+      if (p.status === 'COMPLETED') {
+        cur.verifiedRev += Number(p.amount);
+        cur.paidStudents += 1;
+      }
+      revenueMap.set(p.courseId, cur);
+    });
+
+    const rows = courses.map((c) => {
+      const revData = revenueMap.get(c.id) || { verifiedRev: 0, paidStudents: 0, totalOrders: 0 };
+      const avgProg = c.enrollments.length > 0
+        ? Math.round(c.enrollments.reduce((sum, e) => sum + e.progress, 0) / c.enrollments.length)
+        : 0;
+
+      const mentors = c.mentorAssignments.map((m) => m.mentor?.name).filter(Boolean);
+      const mentorDisplay = mentors.length > 0 ? mentors.join(', ') : (c.instructor?.name || 'Unassigned');
+
+      return {
+        courseId: c.id,
+        title: c.title,
+        category: c.category?.name || 'General',
+        level: c.level,
+        status: c.status,
+        regularPrice: Number(c.price),
+        discountPrice: c.discountPrice ? Number(c.discountPrice) : 'None',
+        totalEnrollments: c._count.enrollments,
+        paidStudentsCount: revData.paidStudents,
+        verifiedRevenue: revData.verifiedRev,
+        avgCompletionProgress: `${avgProg}%`,
+        totalBatches: c._count.batches,
+        totalLiveClasses: c._count.liveClasses,
+        totalAssignments: c._count.assignments,
+        certificatesIssued: c._count.certificates,
+        instructorOrMentors: mentorDisplay,
+      };
+    });
+
+    // Calculate Summary Dashboard Metrics
+    const totalCourses = rows.length;
+    const publishedCourses = rows.filter((r) => r.status === 'PUBLISHED').length;
+    const totalEnrollments = rows.reduce((sum, r) => sum + (Number(r.totalEnrollments) || 0), 0);
+    const totalPlatformRevenue = rows.reduce((sum, r) => sum + (Number(r.verifiedRevenue) || 0), 0);
+
+    const summaryItems: ReportSummaryItem[] = [
+      { label: 'Total Catalog Courses', value: totalCourses },
+      { label: 'Published Courses', value: publishedCourses },
+      { label: 'Total Student Enrollments', value: totalEnrollments },
+      { label: 'Total Verified Revenue', value: `₹${totalPlatformRevenue.toLocaleString('en-IN')}` },
+    ];
+
+    const columns: ReportColumn[] = [
+      { header: 'Course ID', key: 'courseId', width: 26 },
+      { header: 'Course Title', key: 'title', width: 28 },
+      { header: 'Category', key: 'category', width: 18 },
+      { header: 'Level', key: 'level', width: 14, alignment: 'center' },
+      { header: 'Status', key: 'status', width: 14, alignment: 'center' },
+      { header: 'Regular Price (INR)', key: 'regularPrice', width: 18, format: 'currency' },
+      { header: 'Discount Price', key: 'discountPrice', width: 18, format: 'currency' },
+      { header: 'Total Enrollments', key: 'totalEnrollments', width: 16, format: 'number' },
+      { header: 'Paid Students', key: 'paidStudentsCount', width: 15, format: 'number' },
+      { header: 'Verified Revenue (INR)', key: 'verifiedRevenue', width: 20, format: 'currency' },
+      { header: 'Avg Completion %', key: 'avgCompletionProgress', width: 18, format: 'percent', alignment: 'center' },
+      { header: 'Batches Count', key: 'totalBatches', width: 15, format: 'number', alignment: 'center' },
+      { header: 'Live Classes', key: 'totalLiveClasses', width: 15, format: 'number', alignment: 'center' },
+      { header: 'Assignments', key: 'totalAssignments', width: 15, format: 'number', alignment: 'center' },
+      { header: 'Certificates Issued', key: 'certificatesIssued', width: 18, format: 'number', alignment: 'center' },
+      { header: 'Assigned Mentors/Instructor', key: 'instructorOrMentors', width: 26 },
+    ];
+
+    await sendFormattedReport(
+      res,
+      format,
+      `SkillUp_Course_Report_${new Date().getFullYear()}`,
+      'SkillUp - Complete Courses Performance & Revenue Report',
+      columns,
+      rows,
+      summaryItems,
+      'Curriculum & Revenue Intelligence'
+    );
+  } catch (error) {
+    next(error);
+  }
+};
+
 

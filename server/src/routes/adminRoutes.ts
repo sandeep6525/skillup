@@ -22,6 +22,11 @@ router.get('/courses/:courseId/students', courseAnalyticsCtrl.getAdminCourseStud
 router.get('/courses/:courseId/students/:studentId', courseAnalyticsCtrl.getAdminStudentCourseDetail);
 router.get('/courses/:courseId/export', courseAnalyticsCtrl.exportCourseStudentsCSV);
 
+// 1c. Admin Reports System (Excel, CSV, PDF)
+router.get('/reports/students', courseAnalyticsCtrl.exportAllStudentsReport);
+router.get('/reports/courses/:courseId/students', courseAnalyticsCtrl.exportCourseStudentsReport);
+router.get('/reports/courses', courseAnalyticsCtrl.exportAllCoursesReport);
+
 // 2. User Management
 router.get('/users', adminCtrl.getAdminUsers);
 router.patch('/users/:userId/role', adminCtrl.updateUserRole);

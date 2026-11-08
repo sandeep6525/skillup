@@ -39,17 +39,17 @@ export const Navbar: React.FC = () => {
   };
 
   const navLinkClass = ({ isActive }: { isActive: boolean }) =>
-    `relative text-[14px] font-medium transition-colors hover:text-[#55B957] py-1 px-3 whitespace-nowrap ${
+    `relative text-[14px] font-semibold transition-colors hover:text-[#55B957] py-1 px-3 whitespace-nowrap ${
       isActive
-        ? 'text-[#55B957] font-semibold after:content-[""] after:absolute after:bottom-[-6px] after:left-1/2 after:-translate-x-1/2 after:w-8 after:h-[2.5px] after:bg-[#55B957] after:rounded-full after:shadow-[0_0_8px_rgba(85,185,87,0.4)]'
-        : 'text-[#64748B] hover:text-[#55B957]'
+        ? 'text-[#55B957] font-bold after:content-[""] after:absolute after:bottom-[-6px] after:left-1/2 after:-translate-x-1/2 after:w-8 after:h-[2.5px] after:bg-[#55B957] after:rounded-full after:shadow-[0_0_8px_rgba(85,185,87,0.4)]'
+        : 'text-[#111111] hover:text-[#55B957]'
     }`;
 
   const mobileNavLinkClass = ({ isActive }: { isActive: boolean }) =>
-    `block px-3.5 py-2.5 text-sm font-medium rounded-xl transition-colors ${
+    `block px-3.5 py-2.5 text-sm font-semibold rounded-xl transition-colors ${
       isActive
-        ? 'text-[#55B957] bg-[#EAF5EA] border border-[#55B957]/30 font-semibold'
-        : 'text-[#64748B] hover:text-[#111111] hover:bg-slate-50'
+        ? 'text-[#55B957] bg-[#EAF5EA] border border-[#55B957]/30 font-bold'
+        : 'text-[#111111] hover:text-[#55B957] hover:bg-slate-50'
     }`;
 
   const isAdminActive = location.pathname.startsWith('/admin');
@@ -119,7 +119,7 @@ export const Navbar: React.FC = () => {
             <Link
               to="/courses"
               title="Search courses & materials"
-              className="p-2 text-[#64748B] hover:text-[#55B957] hover:bg-slate-100 rounded-full transition-all cursor-pointer"
+              className="p-2 text-[#111111] hover:text-[#55B957] hover:bg-slate-100 rounded-full transition-all cursor-pointer"
             >
               <Search className="w-4 h-4" />
             </Link>
@@ -129,7 +129,7 @@ export const Navbar: React.FC = () => {
               <Link
                 to="/notifications"
                 title="Notifications"
-                className="relative p-2 text-[#64748B] hover:text-[#55B957] hover:bg-slate-100 rounded-full transition-all"
+                className="relative p-2 text-[#111111] hover:text-[#55B957] hover:bg-slate-100 rounded-full transition-all"
                 aria-label="View notifications"
               >
                 <Bell className="w-4 h-4" />

@@ -5,6 +5,7 @@ import { config } from '../config';
 import { AppError } from '../middlewares/errorHandler';
 import { AuthRequest } from '../middlewares/auth';
 import { testSMTPConnection, sendEmail, emailTemplates } from '../services/emailService';
+import { generateCorporateExcelWorkbook, ReportColumn, ReportSummaryItem } from '../utils/excelExporter';
 
 // Helper to log audit actions
 const createAuditLog = async (userId: string | undefined, action: string, resource: string, details?: string) => {
@@ -1760,6 +1761,8 @@ export const getCouponRedemptions = async (req: AuthRequest, res: Response, next
  */
 export const exportCouponRedemptionsCSV = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
+    const format = ((req.query.format as string) || 'xlsx').toLowerCase();
+
     const redemptions = await prisma.couponRedemption.findMany({
       include: {
         coupon: { select: { code: true, college: true, discountType: true, discountVal: true } },
@@ -1769,41 +1772,75 @@ export const exportCouponRedemptionsCSV = async (req: AuthRequest, res: Response
       orderBy: { redeemedAt: 'desc' },
     });
 
-    const headers = [
-      'Redemption ID',
-      'Coupon Code',
-      'College Affiliate',
-      'Student Name',
-      'Student Email',
-      'Student College',
-      'Course',
-      'Original Price (INR)',
-      'Discount Applied (INR)',
-      'Final Paid (INR)',
-      'Status',
-      'Redeemed At',
+    const totalRedemptions = redemptions.length;
+    const totalDiscountsGranted = redemptions.reduce((sum, r) => sum + Number(r.discountAmount || 0), 0);
+    const totalRevenueGenerated = redemptions.reduce((sum, r) => sum + Number(r.finalAmount || 0), 0);
+
+    const summaryItems: ReportSummaryItem[] = [
+      { label: 'Total Redemptions', value: totalRedemptions },
+      { label: 'Total Discounts (INR)', value: `₹${totalDiscountsGranted.toLocaleString('en-IN')}` },
+      { label: 'Net Revenue (INR)', value: `₹${totalRevenueGenerated.toLocaleString('en-IN')}` },
     ];
 
-    const rows = redemptions.map((r) => [
-      `"${r.id}"`,
-      `"${r.coupon.code}"`,
-      `"${r.coupon.college || 'Universal'}"`,
-      `"${r.user.name}"`,
-      `"${r.user.email}"`,
-      `"${r.user.college || r.coupon.college || 'N/A'}"`,
-      `"${(r.course?.title || 'Course/Item').replace(/"/g, '""')}"`,
-      r.originalAmount,
-      r.discountAmount,
-      r.finalAmount,
-      `"${r.status}"`,
-      `"${new Date(r.redeemedAt).toISOString()}"`,
-    ]);
+    const formattedRows = redemptions.map((r) => ({
+      id: r.id,
+      code: r.coupon.code,
+      college: r.coupon.college || 'Universal',
+      userName: r.user.name,
+      userEmail: r.user.email,
+      studentCollege: r.user.college || r.coupon.college || 'N/A',
+      courseTitle: r.course?.title || 'General Item',
+      originalAmount: Number(r.originalAmount),
+      discountAmount: Number(r.discountAmount),
+      finalAmount: Number(r.finalAmount),
+      status: r.status,
+      redeemedAt: new Date(r.redeemedAt).toISOString().split('T')[0],
+    }));
 
-    const csvContent = [headers.join(','), ...rows.map((row) => row.join(','))].join('\n');
+    const columns: ReportColumn[] = [
+      { header: 'Redemption ID', key: 'id', width: 26 },
+      { header: 'Coupon Code', key: 'code', width: 16, alignment: 'center' },
+      { header: 'College Affiliate', key: 'college', width: 20 },
+      { header: 'Student Name', key: 'userName', width: 22 },
+      { header: 'Student Email', key: 'userEmail', width: 26 },
+      { header: 'Student College', key: 'studentCollege', width: 22 },
+      { header: 'Course / Item', key: 'courseTitle', width: 26 },
+      { header: 'Original Price (INR)', key: 'originalAmount', width: 18, format: 'currency' },
+      { header: 'Discount Applied (INR)', key: 'discountAmount', width: 20, format: 'currency' },
+      { header: 'Final Paid (INR)', key: 'finalAmount', width: 18, format: 'currency' },
+      { header: 'Status', key: 'status', width: 14, alignment: 'center' },
+      { header: 'Redeemed On', key: 'redeemedAt', width: 15, format: 'date', alignment: 'center' },
+    ];
 
-    res.setHeader('Content-Type', 'text/csv');
-    res.setHeader('Content-Disposition', `attachment; filename=coupon-redemptions-${Date.now()}.csv`);
-    res.status(200).send(csvContent);
+    if (format === 'csv') {
+      const headers = columns.map((c) => c.header);
+      const escapeCsv = (val: any) => `"${String(val !== undefined && val !== null ? val : '').replace(/"/g, '""')}"`;
+      const csvContent = [
+        headers.join(','),
+        ...formattedRows.map((row) => columns.map((c) => escapeCsv(row[c.key as keyof typeof row])).join(',')),
+      ].join('\r\n');
+
+      res.setHeader('Content-Type', 'text/csv');
+      res.setHeader('Content-Disposition', `attachment; filename=SkillUp_Coupon_Redemptions_${new Date().toISOString().split('T')[0]}.csv`);
+      res.status(200).send(csvContent);
+      return;
+    }
+
+    await generateCorporateExcelWorkbook({
+      res,
+      filenameBase: 'SkillUp_Coupon_Redemptions',
+      sheets: [
+        {
+          sheetName: 'Coupon Redemptions',
+          title: 'SkillUp - Institutional Coupon & Discount Redemptions',
+          category: 'Promotional & Affiliate Performance',
+          subtitle: `Campus Partnerships Dossier (${totalRedemptions} records)`,
+          summaryItems,
+          columns,
+          rows: formattedRows,
+        },
+      ],
+    });
   } catch (error) {
     next(error);
   }

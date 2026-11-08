@@ -4,6 +4,7 @@ import { api } from '../api/client';
 import { useAuth } from '../context/AuthContext';
 import { useToast, useConfirm } from '../context/ToastContext';
 import { Navigate, Link } from 'react-router-dom';
+import { downloadProtectedFile } from '../utils/downloadReport';
 import {
   Users,
   User,
@@ -1774,14 +1775,22 @@ export const AdminHubPage: React.FC = () => {
                               >
                                 <Edit2 className="w-3.5 h-3.5" />
                               </button>
-                              <a
-                                href={`${api.defaults.baseURL || 'http://localhost:5000/api'}/materials/${mat.id}/download?token=${localStorage.getItem('token')}`}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="px-2 py-1 text-[11px] font-semibold text-[#2563EB] hover:bg-[#EFF6FF] rounded transition"
+                              <button
+                                onClick={async () => {
+                                  try {
+                                    toast.info('Downloading Material', `Preparing ${mat.title}...`);
+                                    await downloadProtectedFile(`/materials/${mat.id}/download`, {}, {
+                                      fallbackFilename: `${mat.title.replace(/\s+/g, '_')}.pdf`,
+                                    });
+                                    toast.success('Download Complete', 'Material downloaded.');
+                                  } catch (err: any) {
+                                    toast.error('Download Failed', err.message || 'Unable to download material.');
+                                  }
+                                }}
+                                className="px-2 py-1 text-[11px] font-semibold text-[#2563EB] hover:bg-[#EFF6FF] rounded transition cursor-pointer"
                               >
                                 Download
-                              </a>
+                              </button>
                               <button
                                 onClick={async () => {
                                   const confirmed = await confirm({
@@ -3249,12 +3258,16 @@ export const AdminHubPage: React.FC = () => {
                 </div>
                 <div className="flex items-center gap-2.5">
                   <button
-                    onClick={() => {
-                      const token = localStorage.getItem('token');
-                      window.open(
-                        `${api.defaults.baseURL || 'http://localhost:5000/api'}/admin/coupons/export-csv?token=${token}`,
-                        '_blank'
-                      );
+                    onClick={async () => {
+                      try {
+                        toast.info('Downloading Redemptions', 'Preparing coupons report...');
+                        await downloadProtectedFile('/admin/coupons/export-csv', {}, {
+                          fallbackFilename: `coupon_redemptions_${Date.now()}.csv`,
+                        });
+                        toast.success('Download Complete', 'Coupon redemptions report downloaded.');
+                      } catch (err: any) {
+                        toast.error('Export Failed', err.message || 'Unable to download coupon report.');
+                      }
                     }}
                     className="px-3.5 py-2 text-xs font-semibold text-[#14233B] bg-[#F6F8FB] hover:bg-[#EDF0F4] border border-[#E4E9F0] rounded-lg transition-colors flex items-center gap-1.5 shadow-2xs"
                   >

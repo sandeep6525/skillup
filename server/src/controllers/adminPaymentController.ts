@@ -5,6 +5,7 @@ import { config } from '../config';
 import { AppError } from '../middlewares/errorHandler';
 import { AuthRequest } from '../middlewares/auth';
 import { sendEmail, emailTemplates } from '../services/emailService';
+import { generateCorporateExcelWorkbook, ReportColumn, ReportSummaryItem } from '../utils/excelExporter';
 
 const razorpay = new Razorpay({
   key_id: config.razorpay.keyId,
@@ -961,26 +962,26 @@ export const exportAdminPaymentsCSV = async (req: AuthRequest, res: Response, ne
       take: 5000,
     });
 
-    const headers = [
-      'Transaction ID',
-      'Order / Gateway ID',
-      'Payment ID',
-      'Student Name',
-      'Student Email',
-      'Student Phone',
-      'Product Type',
-      'Item Title',
-      'Amount (INR)',
-      'Remaining Balance (INR)',
-      'Payment Plan',
-      'Status',
-      'Coupon Code',
-      'Discount (INR)',
-      'Refund ID',
-      'Created At',
+    const format = ((req.query.format as string) || 'xlsx').toLowerCase();
+
+    // Summary calculations
+    const totalTransactions = transactions.length;
+    const successfulPayments = transactions.filter((t) => t.status === 'COMPLETED').length;
+    const pendingPayments = transactions.filter((t) => t.status === 'PENDING').length;
+    const failedPayments = transactions.filter((t) => t.status === 'FAILED').length;
+    const totalRevenue = transactions
+      .filter((t) => t.status === 'COMPLETED')
+      .reduce((sum, t) => sum + Number(t.amount), 0);
+
+    const summaryItems: ReportSummaryItem[] = [
+      { label: 'Total Transactions', value: totalTransactions },
+      { label: 'Successful Payments', value: successfulPayments },
+      { label: 'Pending Webhooks', value: pendingPayments },
+      { label: 'Failed Payments', value: failedPayments },
+      { label: 'Total Settled Revenue', value: `₹${totalRevenue.toLocaleString('en-IN')}` },
     ];
 
-    const rows = transactions.map((t) => {
+    const formattedRows = transactions.map((t) => {
       let type = 'Other';
       let title = 'General Payment';
       if (t.course) {
@@ -1000,31 +1001,75 @@ export const exportAdminPaymentsCSV = async (req: AuthRequest, res: Response, ne
         title = t.liveClass.title;
       }
 
-      return [
-        `"${t.id}"`,
-        `"${t.razorpayOrderId || ''}"`,
-        `"${t.razorpayPaymentId || ''}"`,
-        `"${t.user?.name || ''}"`,
-        `"${t.user?.email || ''}"`,
-        `"${t.user?.phone || 'N/A'}"`,
-        `"${type}"`,
-        `"${title.replace(/"/g, '""')}"`,
-        Number(t.amount).toFixed(2),
-        Number(t.remainingBalance || 0).toFixed(2),
-        `"${t.paymentPlan || 'FULL'}"`,
-        `"${t.status}"`,
-        `"${t.couponCode || ''}"`,
-        Number(t.discountAmount || 0).toFixed(2),
-        `"${t.refundId || ''}"`,
-        `"${new Date(t.createdAt).toISOString()}"`,
-      ];
+      return {
+        id: t.id,
+        orderId: t.razorpayOrderId || 'N/A',
+        paymentId: t.razorpayPaymentId || 'N/A',
+        studentName: t.user?.name || 'N/A',
+        studentEmail: t.user?.email || 'N/A',
+        studentPhone: t.user?.phone || 'Not Provided',
+        productType: type,
+        itemTitle: title,
+        amount: Number(t.amount),
+        remainingBalance: Number(t.remainingBalance || 0),
+        paymentPlan: t.paymentPlan || 'FULL',
+        status: t.status,
+        couponCode: t.couponCode || 'None',
+        discountAmount: Number(t.discountAmount || 0),
+        refundId: t.refundId || 'None',
+        createdAt: new Date(t.createdAt).toISOString().split('T')[0],
+      };
     });
 
-    const csvContent = [headers.join(','), ...rows.map((r) => r.join(','))].join('\r\n');
+    const columns: ReportColumn[] = [
+      { header: 'Transaction ID', key: 'id', width: 26 },
+      { header: 'Order / Gateway ID', key: 'orderId', width: 22 },
+      { header: 'Payment ID', key: 'paymentId', width: 22 },
+      { header: 'Student Name', key: 'studentName', width: 22 },
+      { header: 'Student Email', key: 'studentEmail', width: 26 },
+      { header: 'Student Phone', key: 'studentPhone', width: 16 },
+      { header: 'Product Type', key: 'productType', width: 14, alignment: 'center' },
+      { header: 'Item Title', key: 'itemTitle', width: 28 },
+      { header: 'Amount (INR)', key: 'amount', width: 18, format: 'currency' },
+      { header: 'Remaining Balance (INR)', key: 'remainingBalance', width: 22, format: 'currency' },
+      { header: 'Payment Plan', key: 'paymentPlan', width: 15, alignment: 'center' },
+      { header: 'Status', key: 'status', width: 15, alignment: 'center' },
+      { header: 'Coupon Code', key: 'couponCode', width: 15, alignment: 'center' },
+      { header: 'Discount (INR)', key: 'discountAmount', width: 16, format: 'currency' },
+      { header: 'Refund ID', key: 'refundId', width: 18 },
+      { header: 'Created Date', key: 'createdAt', width: 15, format: 'date', alignment: 'center' },
+    ];
 
-    res.setHeader('Content-Type', 'text/csv; charset=utf-8');
-    res.setHeader('Content-Disposition', `attachment; filename=course_payments_export_${Date.now()}.csv`);
-    res.status(200).send(csvContent);
+    if (format === 'csv') {
+      const headers = columns.map((c) => c.header);
+      const escapeCsv = (val: any) => `"${String(val !== undefined && val !== null ? val : '').replace(/"/g, '""')}"`;
+      const csvContent = [
+        headers.join(','),
+        ...formattedRows.map((r) => columns.map((c) => escapeCsv(r[c.key as keyof typeof r])).join(',')),
+      ].join('\r\n');
+
+      res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+      res.setHeader('Content-Disposition', `attachment; filename=SkillUp_Payments_${new Date().toISOString().split('T')[0]}.csv`);
+      res.status(200).send(csvContent);
+      return;
+    }
+
+    // Default: Professional Excel report
+    await generateCorporateExcelWorkbook({
+      res,
+      filenameBase: `SkillUp_Course_Payments_${courseId ? 'Course_' + courseId : 'All'}`,
+      sheets: [
+        {
+          sheetName: 'Financial Transactions',
+          title: 'SkillUp - Corporate Financial Transactions & Revenue Dossier',
+          category: 'Payment & Financial Reconciliation',
+          subtitle: `Aggregated Gateway Orders (${totalTransactions} records)`,
+          summaryItems,
+          columns,
+          rows: formattedRows,
+        },
+      ],
+    });
   } catch (error) {
     next(error);
   }
