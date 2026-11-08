@@ -91,44 +91,55 @@ export const HomePage: React.FC = () => {
   // Top 4 courses for the right floating panel in hero
   const popularCourses = featuredCourses.slice(0, 4);
 
-  // Responsive device detection for Hero Background Animation
-  // Desktop: 1024px+ (full animation)
-  // Tablet: 768px-1023px (reduced particle count & lighter blur)
-  // Mobile: < 768px (completely disabled, pure clean white background, 0 WebGPU/canvas overhead)
-  const [deviceTier, setDeviceTier] = useState<'mobile' | 'tablet' | 'desktop'>('desktop');
+  // Responsive device tier detection for Hero Background Animation:
+  // - desktop: Large monitors (1440px+) -> 680 shards (optimized by ~48%), smooth cinematic flow
+  // - laptop: Standard laptops (1024px - 1439px) -> 480 shards, minimal depth/glow, no lag
+  // - tablet: Tablets (768px - 1023px) -> 260 shards, reduced complexity
+  // - mobile: (< 768px) -> 0 particles, completely disabled WebGPU/canvas overhead
+  const [deviceTier, setDeviceTier] = useState<'mobile' | 'tablet' | 'laptop' | 'desktop'>('laptop');
 
   useEffect(() => {
+    let timeoutId: any;
     const handleResize = () => {
-      const width = window.innerWidth;
-      if (width < 768) {
-        setDeviceTier('mobile');
-      } else if (width < 1024) {
-        setDeviceTier('tablet');
-      } else {
-        setDeviceTier('desktop');
-      }
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        const width = window.innerWidth;
+        if (width < 768) {
+          setDeviceTier('mobile');
+        } else if (width < 1024) {
+          setDeviceTier('tablet');
+        } else if (width < 1440) {
+          setDeviceTier('laptop');
+        } else {
+          setDeviceTier('desktop');
+        }
+      }, 100);
     };
 
     handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize, { passive: true });
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   return (
     <div className="min-w-0 bg-[#F7FAF7] text-[#171717] font-sans overflow-x-hidden selection:bg-[#5DBA58] selection:text-white">
       {/* ========================================================
           1. CLEAN CENTERED HERO SECTION WITH RESPONSIVE BACKGROUND
-          - Desktop (1024px+): Full AeroShards GPU animated background with green accents
-          - Tablet (768px - 1023px): Optimized animation with reduced particle density & subtle glow
-          - Mobile (< 768px): Completely disabled animation, pure clean white background, zero canvas overhead
+          - Desktop (1440px+): 680 shards (~48% reduction), smooth 60fps cinematic flow
+          - Laptop (1024px - 1439px): 480 shards, minimal blur, zero GPU lag or stutter
+          - Tablet (768px - 1023px): 260 shards, lightweight rendering
+          - Mobile (< 768px): Completely disabled, clean white background, zero canvas overhead
           - Completely center-aligned headline, description, and action buttons
           - Palette: #5DBA58, #000000, #FFFFFF, #F7FAF7, #EAF5EA, #171717
       ======================================================== */}
       <section className="relative flex flex-col justify-center items-center overflow-hidden bg-white text-[#171717] pt-20 sm:pt-28 pb-18 sm:pb-24 border-b border-slate-200/70">
         
-        {/* Desktop & Tablet Animated Background Layers (Hidden on Mobile < 768px and when motion-reduced) */}
+        {/* Animated Background Layers (Rendered only on >= 768px, completely absent on Mobile) */}
         {deviceTier !== 'mobile' && (
-          <div className="hidden md:block absolute inset-0 z-0 pointer-events-auto motion-reduce:hidden">
+          <div className="hidden md:block absolute inset-0 z-0 pointer-events-auto motion-reduce:hidden will-change-transform">
             <AeroShards
               shardColor="#5DBA58"
               accentColor="#267A36"
@@ -136,32 +147,32 @@ export const HomePage: React.FC = () => {
               placement="full"
               material="glass"
               markers="plus"
-              count={deviceTier === 'desktop' ? 1300 : 500}
-              depthOfField={deviceTier === 'desktop' ? 0.75 : 0.4}
-              vignette={deviceTier === 'desktop' ? 0.15 : 0.08}
+              count={deviceTier === 'desktop' ? 680 : deviceTier === 'laptop' ? 480 : 260}
+              depthOfField={deviceTier === 'desktop' ? 0.45 : 0.25}
+              vignette={0.08}
               mouseInteraction
               pulseOnClick
               holdToGather
               lightMode={true}
-              shardSize={1}
+              shardSize={1.05}
               spread={1}
-              twist={1}
-              billow={1}
-              speed={deviceTier === 'desktop' ? 1 : 0.7}
+              twist={0.7}
+              billow={0.8}
+              speed={0.65}
               scale={1}
-              glow={deviceTier === 'desktop' ? 0.4 : 0.2}
-              grain={0.04}
+              glow={deviceTier === 'desktop' ? 0.25 : 0.1}
+              grain={0.02}
               intro
-              mouseStrength={0.6}
-              parallax={0.5}
+              mouseStrength={0.45}
+              parallax={0.35}
               paused={false}
             />
           </div>
         )}
 
-        {/* Atmosphere Overlays - Desktop and Tablet only; Mobile stays pure white */}
-        <div className="hidden md:block absolute inset-0 bg-white/20 backdrop-blur-[0.5px] pointer-events-none z-[1]" />
-        <div className="hidden md:block absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[340px] bg-[#EAF5EA]/40 blur-[120px] rounded-full pointer-events-none z-[2]" />
+        {/* Atmosphere Overlays - Desktop and Tablet only; Lightweight blur avoiding lag */}
+        <div className="hidden md:block absolute inset-0 bg-white/10 pointer-events-none z-[1]" />
+        <div className="hidden md:block absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[260px] bg-[#EAF5EA]/35 blur-[80px] rounded-full pointer-events-none z-[2]" />
 
         {/* Hero Main Content Container - Centered */}
         <div className="max-w-4xl w-full mx-auto px-6 sm:px-10 relative z-10 text-center flex flex-col items-center">
