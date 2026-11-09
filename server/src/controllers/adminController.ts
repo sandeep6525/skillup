@@ -1892,7 +1892,7 @@ export const createMentorPayout = async (req: AuthRequest, res: Response, next: 
           mentorName: mentor.name,
           amount: Number(payout.amount),
           payoutRef: `PAYOUT_${payout.id.substring(0, 8).toUpperCase()}`,
-          payoutDate: payout.processedAt || new Date(),
+          payoutDate: payout.processedAt ? payout.processedAt.toLocaleDateString('en-IN') : new Date().toLocaleDateString('en-IN'),
           notes: payout.notes,
         });
 

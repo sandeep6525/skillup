@@ -156,6 +156,7 @@ router.delete('/partners/:id', partnerCtrl.deletePartner);
 import * as emailAdminCtrl from '../controllers/emailAdminController';
 
 router.get('/email/templates', emailAdminCtrl.getEmailTemplates);
+router.get('/email/templates/:code/preview', emailAdminCtrl.previewEmailTemplate);
 router.patch('/email/templates/:id', emailAdminCtrl.updateEmailTemplate);
 router.delete('/email/templates/:id', emailAdminCtrl.deleteEmailTemplate);
 router.post('/email/test', emailAdminCtrl.sendTestEmail);

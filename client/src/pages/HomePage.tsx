@@ -38,6 +38,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { PartnerLogoCarousel } from '../components/PartnerLogoCarousel';
 import { HomeFeedbackSection } from '../components/HomeFeedbackSection';
 import { HomeLiveClassesSection } from '../components/HomeLiveClassesSection';
+import { FloatingSocialLinks } from '../components/FloatingSocialLinks';
 
 export const HomePage: React.FC = () => {
   const [showDemoModal, setShowDemoModal] = useState(false);
@@ -876,6 +877,9 @@ export const HomePage: React.FC = () => {
           </div>
         )}
       </AnimatePresence>
+
+      {/* Floating Social Media Icons (Homepage Only) */}
+      <FloatingSocialLinks />
     </div>
   </div>
   );

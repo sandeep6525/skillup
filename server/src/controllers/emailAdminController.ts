@@ -4,55 +4,19 @@ import { AppError } from '../middlewares/errorHandler';
 import { AuthRequest } from '../middlewares/auth';
 import { sendEmail, testSMTPConnection, emailTemplates } from '../services/emailService';
 import { runPaymentReminderScan } from '../services/reminderScheduler';
+import { ensureAllTemplatesSeeded } from '../services/emailTemplateSeeder';
 
 /**
  * 1. GET /api/admin/email/templates - List all email templates with configuration status
  */
 export const getEmailTemplates = async (_req: AuthRequest, res: Response, next: NextFunction) => {
   try {
+    // Ensure all 36 templates are always seeded and available
+    await ensureAllTemplatesSeeded();
+
     const templates = await prisma.emailTemplate.findMany({
       orderBy: { code: 'asc' },
     });
-
-    // If database has no templates seeded yet, seed defaults from code
-    if (templates.length === 0) {
-      const defaultTemplates = [
-        { code: 'STUDENT_WELCOME', name: 'Student Registration Welcome', subject: 'Welcome to SkillUp!', category: 'STUDENT' },
-        { code: 'EMAIL_VERIFICATION_OTP', name: 'Email Verification OTP', subject: 'SkillUp Account Verification Code: {{otp}}', category: 'AUTH' },
-        { code: 'PASSWORD_RESET', name: 'Password Reset Request', subject: 'Reset Your SkillUp Password', category: 'AUTH' },
-        { code: 'PASSWORD_CHANGED', name: 'Password Changed Confirmation', subject: 'Security Alert: Password Updated', category: 'AUTH' },
-        { code: 'COURSE_ENROLLMENT_CONFIRMATION', name: 'Course Enrollment Confirmed', subject: 'Enrollment Confirmed: {{courseTitle}}', category: 'STUDENT' },
-        { code: 'COURSE_PAYMENT_RECEIPT', name: 'Student Course Payment Receipt', subject: 'Payment Receipt: {{courseTitle}} (Ref: {{paymentRef}})', category: 'PAYMENT' },
-        { code: 'MATERIAL_PURCHASE_RECEIPT', name: 'Learning Material Receipt', subject: 'Payment Receipt: {{materialTitle}} (Ref: {{paymentRef}})', category: 'PAYMENT' },
-        { code: 'PAYMENT_REMINDER_PENDING', name: 'Upcoming Installment Reminder', subject: 'Payment Reminder: Upcoming Installment for {{courseTitle}}', category: 'REMINDER' },
-        { code: 'PAYMENT_REMINDER_OVERDUE', name: 'Overdue Installment Reminder', subject: 'Important: Overdue Installment Payment for {{courseTitle}}', category: 'REMINDER' },
-        { code: 'PAYMENT_FAILED', name: 'Payment Incomplete / Failed', subject: 'Payment Incomplete for {{productTitle}}', category: 'PAYMENT' },
-        { code: 'PAYMENT_REFUND', name: 'Refund Confirmation', subject: 'Refund Processed: ₹{{amount}} for {{productTitle}}', category: 'PAYMENT' },
-        { code: 'MENTOR_WELCOME', name: 'Mentor Welcome & Onboarding', subject: 'Welcome to the SkillUp Mentor & Instructor Team!', category: 'MENTOR' },
-        { code: 'MENTOR_COURSE_ASSIGNED', name: 'Mentor Course Assignment', subject: 'New Teaching Assignment: {{courseTitle}}', category: 'MENTOR' },
-        { code: 'MENTOR_PAYOUT_STATEMENT', name: 'Mentor Compensation Statement', subject: 'Mentor Disbursement Statement: ₹{{amount}} (Ref: {{payoutRef}})', category: 'MENTOR' },
-        { code: 'LIVE_CLASS_REMINDER', name: 'Live Class Reminder & Schedule', subject: 'Upcoming Live Masterclass: {{classTitle}}', category: 'CLASS' },
-        { code: 'CERTIFICATE_ISSUED', name: 'Course Certificate Ready', subject: 'Certificate of Completion: {{courseTitle}}', category: 'STUDENT' },
-        { code: 'ASSIGNMENT_GRADED', name: 'Assignment Graded & Feedback', subject: 'Assignment Graded: {{assignmentTitle}}', category: 'STUDENT' },
-        { code: 'ADMIN_ALERT', name: 'Administrative Alert', subject: '[SkillUp Admin Alert] {{title}}', category: 'ADMIN' },
-      ];
-
-      for (const t of defaultTemplates) {
-        await prisma.emailTemplate.create({
-          data: {
-            code: t.code,
-            name: t.name,
-            subject: t.subject,
-            bodyHtml: '<p>Standard SkillUp responsive template</p>',
-            category: t.category,
-            isEnabled: true,
-          },
-        });
-      }
-
-      const seeded = await prisma.emailTemplate.findMany({ orderBy: { code: 'asc' } });
-      return res.json({ success: true, data: seeded });
-    }
 
     res.json({ success: true, data: templates });
   } catch (error) {
@@ -87,8 +51,123 @@ export const updateEmailTemplate = async (req: AuthRequest, res: Response, next:
 };
 
 /**
- * 3. POST /api/admin/email/test - Send test email to verify SMTP and template rendering
+ * 2b. GET /api/admin/email/templates/:code/preview - Render live branded preview of template
  */
+export const previewEmailTemplate = async (req: AuthRequest, res: Response, next: NextFunction) => {
+  try {
+    const code = String(req.params.code).toUpperCase();
+
+    // Map template code to template function
+    const templateKeyMap: Record<string, string> = {
+      STUDENT_WELCOME: 'welcome',
+      EMAIL_VERIFICATION_OTP: 'registrationOTP',
+      PASSWORD_RESET: 'passwordReset',
+      PASSWORD_CHANGED: 'passwordChanged',
+      LOGIN_SECURITY_ALERT: 'loginSecurityAlert',
+      COURSE_ENROLLMENT_CONFIRMATION: 'courseEnrollmentConfirmation',
+      COURSE_PAYMENT_RECEIPT: 'paymentSuccessReceipt',
+      PAYMENT_FAILED: 'paymentFailed',
+      PARTIAL_PAYMENT_CONFIRMATION: 'partialPaymentConfirmation',
+      REMAINING_PAYMENT_REMINDER: 'remainingPaymentReminder',
+      COURSE_ACCESS_ACTIVATED: 'courseAccessActivated',
+      COURSE_COMPLETION_CONFIRMATION: 'courseCompletionConfirmation',
+      LIVE_CLASS_SCHEDULED: 'liveClassScheduled',
+      LIVE_CLASS_REMINDER: 'liveClassReminder',
+      LIVE_CLASS_STARTING_NOW: 'liveClassStartingNow',
+      LIVE_CLASS_CANCELLED: 'liveClassCancelled',
+      LIVE_CLASS_RESCHEDULED: 'liveClassRescheduled',
+      LIVE_CLASS_COMPLETED: 'liveClassCompleted',
+      INTERNSHIP_APPLICATION_CONFIRMATION: 'internshipApplicationConfirmation',
+      INTERNSHIP_APPROVAL: 'internshipApproved',
+      INTERNSHIP_REJECTION: 'internshipRejected',
+      INTERNSHIP_COMPLETION: 'internshipCompleted',
+      INTERNSHIP_CERTIFICATE_ISSUED: 'internshipCertificateIssued',
+      MATERIAL_PURCHASE_CONFIRMATION: 'materialPurchaseConfirmation',
+      MATERIAL_ACCESS_GRANTED: 'materialAccessGranted',
+      NEW_STUDY_MATERIAL_ANNOUNCEMENT: 'newStudyMaterialAnnouncement',
+      ACHIEVEMENT_PUBLISHED: 'achievementPublished',
+      CERTIFICATE_ISSUED: 'certificateIssued',
+      STUDENT_RECOGNITION: 'studentRecognition',
+      ADMIN_NEW_STUDENT_REGISTRATION: 'adminNewStudentRegistration',
+      ADMIN_NEW_COURSE_ENROLLMENT: 'adminNewCourseEnrollment',
+      ADMIN_NEW_PAYMENT_NOTIFICATION: 'adminNewPaymentNotification',
+      ADMIN_NEW_INTERNSHIP_APPLICATION: 'adminNewInternshipApplication',
+      ADMIN_NEW_STUDENT_QUERY: 'adminNewStudentQuery',
+      MENTOR_ASSIGNMENT_NOTIFICATION: 'mentorAssignmentNotification',
+      ADMIN_ANNOUNCEMENT: 'adminAnnouncement',
+    };
+
+    const fnName = templateKeyMap[code] || 'welcome';
+    const templFn = (emailTemplates as any)[fnName] || (emailTemplates as any).welcome;
+
+    const sampleData: any = {
+      name: 'Priya Sharma',
+      studentName: 'Priya Sharma',
+      email: 'priya.sharma@example.com',
+      phone: '9876543210',
+      otp: '482910',
+      resetUrl: `${process.env.CLIENT_URL || 'https://skillups.co.in'}/reset-password?token=sample_token_123`,
+      courseTitle: 'Full-Stack Web Development Mastery',
+      productTitle: 'Full-Stack Web Development Mastery',
+      amount: 4999,
+      amountPaid: 4999,
+      remainingBalance: 5000,
+      dueDate: '15-Dec-2026',
+      startsIn: '15 minutes',
+      classTitle: 'Building Microservices with Docker & Kubernetes',
+      date: '10-Nov-2026',
+      time: '07:30 PM IST',
+      newDate: '12-Nov-2026',
+      newTime: '08:00 PM IST',
+      meetingUrl: `${process.env.CLIENT_URL || 'https://skillups.co.in'}/live-classes`,
+      internshipTitle: 'Full-Stack Cloud Engineering Virtual Internship',
+      startDate: '01-Dec-2026',
+      feedback: 'Great code portfolio. We recommend sharpening SQL query optimization.',
+      materialTitle: 'Cloud Architecture & DevOps Cheatsheet 2026',
+      category: 'Cloud Engineering',
+      downloadUrl: `${process.env.CLIENT_URL || 'https://skillups.co.in'}/materials`,
+      achievementTitle: 'Smart India Hackathon 1st Runner Up',
+      achievementUrl: `${process.env.CLIENT_URL || 'https://skillups.co.in'}/achievements`,
+      certificateNo: 'SKILLUP-CERT-2026-8842',
+      certificateUrl: `${process.env.CLIENT_URL || 'https://skillups.co.in'}/certificates`,
+      recognitionTitle: 'Top Technical Project Contributor - Cohort 4',
+      reason: 'Delivered an exceptional microservices capstone project with automated CI/CD pipeline.',
+      transactionId: 'pay_live_test_998822',
+      ticketId: '9421',
+      subject: 'Clarification regarding Capstone Project evaluation rubric',
+      mentorName: 'Dr. R. Karthik',
+      title: 'Platform Maintenance Scheduled for Sunday 2:00 AM',
+      bodyHtml: '<p>SkillUp will undergo a scheduled 30-minute platform upgrade to enhance real-time live class performance. During this time, interactive sandboxes will be temporarily paused.</p>',
+    };
+
+    let rendered: any;
+    if (typeof templFn === 'function') {
+      if (fnName === 'welcome' || fnName === 'passwordChanged') {
+        rendered = templFn('Priya Sharma');
+      } else if (fnName === 'registrationOTP') {
+        rendered = templFn('Priya Sharma', '482910');
+      } else if (fnName === 'passwordReset') {
+        rendered = templFn('Priya Sharma', sampleData.resetUrl);
+      } else {
+        rendered = templFn(sampleData);
+      }
+    }
+
+    const html = rendered?.html || '<p>Template preview not available</p>';
+    const subject = rendered?.subject || 'SkillUp Notification Preview';
+
+    res.json({
+      success: true,
+      data: {
+        code,
+        subject,
+        html,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 export const sendTestEmail = async (req: AuthRequest, res: Response, next: NextFunction) => {
   try {
     const { recipientEmail, templateCode } = req.body;

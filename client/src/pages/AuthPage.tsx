@@ -82,10 +82,12 @@ export const AuthPage: React.FC<{ mode: 'login' | 'register' }> = ({ mode }) => 
 
     try {
       if (mode === 'register') {
+        const cleanPhone = phone.trim().replace(/\s+/g, '');
         const res = await api.post('/auth/register', {
           name: name.trim(),
           email: email.trim(),
-          phone: phone.trim(),
+          phone: cleanPhone,
+          phoneNumber: cleanPhone,
           password,
           role: 'STUDENT',
         });
@@ -353,9 +355,15 @@ export const AuthPage: React.FC<{ mode: 'login' | 'register' }> = ({ mode }) => 
                     <input
                       type="tel"
                       required
+                      name="phoneNumber"
                       placeholder="9876543210"
+                      maxLength={10}
                       value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
+                      onChange={(e) => {
+                        const numeric = e.target.value.replace(/\D/g, '');
+                        setPhone(numeric);
+                        if (errorMsg) setErrorMsg('');
+                      }}
                       className="w-full pl-10 pr-4 py-2.5 text-sm rounded-xl border border-[#55B957]/30 focus:outline-hidden focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500"
                     />
                   </div>

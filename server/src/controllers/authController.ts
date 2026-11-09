@@ -6,7 +6,7 @@ import prisma from '../config/prisma';
 import { config } from '../config';
 import { AppError } from '../middlewares/errorHandler';
 import { AuthRequest } from '../middlewares/auth';
-import { sendEmail, emailTemplates } from '../services/emailService';
+import { sendEmail, emailTemplates, getLastSmtpError } from '../services/emailService';
 
 // Cryptographically secure 6-digit OTP generator
 const generateSecureOTP = (): string => {
@@ -34,19 +34,22 @@ const generateTokens = (user: { id: string; email: string; role: any }) => {
  */
 export const register = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { name, email, phone, password, role, title, bio } = req.body;
+    const { name, email, phone, phoneNumber, password, role, title, bio } = req.body;
     const normalizedEmail = email ? email.toLowerCase().trim() : '';
 
     if (!normalizedEmail || !password || !name) {
       throw new AppError('Full name, email address and password are required', 400);
     }
 
+    // Support either phone or phoneNumber field name
+    const rawPhone = (phone || phoneNumber || '').trim();
+
     // Phone number validation: Indian 10-digit mobile number by default or international E.164
-    if (!phone || !phone.trim()) {
+    if (!rawPhone) {
       throw new AppError('Phone number is mandatory for student registration', 400);
     }
 
-    const cleanPhone = phone.trim();
+    const cleanPhone = rawPhone;
     const phoneRegex = /^(\+?\d{1,4}[-\s]?)?[6-9]\d{9}$/;
     if (!phoneRegex.test(cleanPhone.replace(/\s+/g, ''))) {
       throw new AppError('Please provide a valid 10-digit phone number', 400);
@@ -113,10 +116,11 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
     });
 
     if (!emailResult) {
-      throw new AppError(
-        'Email delivery failed. Please verify the mail server configuration or try again later.',
-        503
-      );
+      const errInfo = getLastSmtpError();
+      const specificMsg = errInfo?.message
+        ? `Verification email delivery failed: ${errInfo.message}`
+        : 'Email delivery failed. Please verify the mail server configuration or try again later.';
+      throw new AppError(specificMsg, 503);
     }
 
     res.status(200).json({
@@ -281,10 +285,11 @@ export const resendRegistrationOTP = async (req: Request, res: Response, next: N
     });
 
     if (!emailResult) {
-      throw new AppError(
-        'Email delivery failed. Please verify the mail server configuration or try again later.',
-        503
-      );
+      const errInfo = getLastSmtpError();
+      const specificMsg = errInfo?.message
+        ? `Verification email delivery failed: ${errInfo.message}`
+        : 'Email delivery failed. Please verify the mail server configuration or try again later.';
+      throw new AppError(specificMsg, 503);
     }
 
     res.json({

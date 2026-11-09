@@ -172,7 +172,7 @@ export const createLiveClass = async (req: AuthRequest, res: Response, next: Nex
             startTime: new Date(startTime).toLocaleString('en-IN'),
             durationMins: duration || 60,
             mentorName: req.user?.name || 'SkillUp Mentor',
-            meetingUrl: liveClass.meetingUrl,
+            meetingUrl: liveClass.meetingUrl || '',
           }).html,
         }).catch((err) => console.error('[Live Class Email Notification Error]:', err));
       }

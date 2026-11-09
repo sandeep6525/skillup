@@ -8,8 +8,8 @@ interface RouteSEO {
 
 const ROUTE_SEO_MAP: Record<string, RouteSEO> = {
   '/': {
-    title: 'SkillUp | Home',
-    description: 'SkillUp - Next-generation tech skill development platform offering cohort courses, live classes, internships, and capstone projects.',
+    title: 'SkillUp – Student Skill Development Platform',
+    description: 'SkillUp - Student Skill Development Platform offering cohort courses, interactive live classes, verified internships, and capstone projects.',
   },
   '/courses': {
     title: 'SkillUp | Courses',

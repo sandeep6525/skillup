@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ShieldCheck, Mail, Globe, ArrowUpRight } from 'lucide-react';
+import BRAND_CONFIG from '../config/brandConfig';
 
 export const Footer: React.FC = () => {
   return (
@@ -146,15 +147,54 @@ export const Footer: React.FC = () => {
           </div>
         </div>
 
+        {/* Social Media Links Section */}
+        <div className="pt-8 pb-6 border-t border-emerald-900/20 flex flex-col sm:flex-row items-center justify-between text-xs text-zinc-400 gap-4">
+          <div className="flex items-center gap-3">
+            <span className="text-xs font-semibold text-white uppercase tracking-wider">Connect With Us:</span>
+            <div className="flex items-center gap-2">
+              <a
+                href={BRAND_CONFIG.socialLinks.linkedin.url}
+                target="_blank"
+                rel="noreferrer"
+                className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white font-medium border border-white/10 transition-colors inline-flex items-center gap-1.5"
+              >
+                <span className="text-[#0A66C2] font-bold">in</span>
+                <span>LinkedIn</span>
+              </a>
+              <a
+                href={BRAND_CONFIG.socialLinks.youtube.url}
+                target="_blank"
+                rel="noreferrer"
+                className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white font-medium border border-white/10 transition-colors inline-flex items-center gap-1.5"
+              >
+                <span className="text-[#FF0000] font-bold">▶</span>
+                <span>YouTube</span>
+              </a>
+              <a
+                href={BRAND_CONFIG.socialLinks.instagram.url}
+                target="_blank"
+                rel="noreferrer"
+                className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white font-medium border border-white/10 transition-colors inline-flex items-center gap-1.5"
+              >
+                <span className="text-[#E1306C] font-bold">📷</span>
+                <span>Instagram</span>
+              </a>
+            </div>
+          </div>
+          <div className="text-xs text-zinc-400">
+            Support: <a href={`mailto:${BRAND_CONFIG.supportEmail}`} className="text-white hover:underline">{BRAND_CONFIG.supportEmail}</a>
+          </div>
+        </div>
+
         {/* Bottom Copyright & Legal Links */}
-        <div className="pt-8 border-t border-emerald-900/20 flex flex-col sm:flex-row items-center justify-between text-xs text-zinc-400 gap-4">
-          <p>© 2026 SkillUp – A Product of TRI-CUBE DIGITAL SOLUTIONS. All rights reserved.</p>
+        <div className="pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between text-xs text-zinc-400 gap-4">
+          <p>© 2026 SkillUp – Student Skill Development Platform. All rights reserved.</p>
           <div className="flex items-center gap-6 text-zinc-400 font-medium">
             <Link to="/privacy" className="hover:text-emerald-300 transition-colors">
               Privacy Policy
             </Link>
             <Link to="/terms" className="hover:text-emerald-300 transition-colors">
-              Terms of Service
+              Terms &amp; Conditions
             </Link>
             <span className="text-zinc-600 hidden sm:inline">|</span>
             <span className="text-zinc-400 hidden sm:inline">Certified Secure Gateway</span>
