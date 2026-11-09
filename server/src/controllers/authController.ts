@@ -589,6 +589,54 @@ export const resetPassword = async (req: Request, res: Response, next: NextFunct
 };
 
 /**
+ * Authenticated Change Password endpoint
+ */
+export const changePassword = async (req: AuthRequest, res: Response, next: NextFunction) => {
+  try {
+    if (!req.user) throw new AppError('Unauthorized', 401);
+    const { currentPassword, newPassword } = req.body;
+
+    const user = await prisma.user.findUnique({ where: { id: req.user.id } });
+    if (!user) throw new AppError('User not found', 404);
+
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!isMatch) {
+      throw new AppError('Current password is incorrect', 400);
+    }
+
+    if (currentPassword === newPassword) {
+      throw new AppError('New password must be different from current password', 400);
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 12);
+
+    await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        password: hashedPassword,
+        refreshToken: null, // Force re-login with new password
+      },
+    });
+
+    const confirmTpl = emailTemplates.passwordChanged(user.name);
+    sendEmail({
+      to: user.email,
+      subject: confirmTpl.subject,
+      html: confirmTpl.html,
+      templateCode: 'PASSWORD_CHANGED',
+      idempotencyKey: `pwd_changed_${user.id}_${Date.now()}`,
+    }).catch(console.error);
+
+    res.json({
+      success: true,
+      message: 'Password changed successfully. Please log in with your new password.',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
  * Legacy Verify Email Link endpoint
  */
 export const verifyEmail = async (req: Request, res: Response, next: NextFunction) => {

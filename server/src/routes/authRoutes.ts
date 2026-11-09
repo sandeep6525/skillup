@@ -45,6 +45,11 @@ const activateMentorSchema = z.object({
   password: z.string().min(6, 'Password must be at least 6 characters'),
 });
 
+const changePasswordSchema = z.object({
+  currentPassword: z.string().min(1, 'Current password is required'),
+  newPassword: z.string().min(6, 'New password must be at least 6 characters'),
+});
+
 router.post('/register', validate(registerSchema), authController.register);
 router.post('/verify-otp', validate(verifyOtpSchema), authController.verifyRegistrationOTP);
 router.post('/resend-otp', validate(resendOtpSchema), authController.resendRegistrationOTP);
@@ -53,6 +58,7 @@ router.post('/refresh-token', authController.refreshToken);
 router.post('/logout', authenticate, authController.logout);
 router.get('/me', authenticate, authController.getCurrentUser);
 router.patch('/profile', authenticate, authController.updateProfile);
+router.post('/change-password', authenticate, validate(changePasswordSchema), authController.changePassword);
 router.post('/forgot-password', validate(forgotPasswordSchema), authController.forgotPassword);
 router.post('/reset-password', validate(resetPasswordSchema), authController.resetPassword);
 router.post('/verify-email', authController.verifyEmail);

@@ -17,23 +17,23 @@ export const BRAND_CONFIG = {
   privacyPolicyUrl: 'https://skillups.co.in/privacy',
   termsUrl: 'https://skillups.co.in/terms',
 
-  // Social Media Profiles (Official)
+  // Social Media Profiles (Official TRI CUBE DIGITAL SOLUTIONS)
   socialLinks: {
-    linkedin: {
-      name: 'LinkedIn',
-      url: 'https://www.linkedin.com/company/skillup-learning',
-      iconUrl: 'https://cdn-icons-png.flaticon.com/512/3536/3536505.png',
-      brandColor: '#0A66C2',
-    },
     youtube: {
       name: 'YouTube',
-      url: 'https://www.youtube.com/@SkillUpPlatform',
+      url: 'https://www.youtube.com/@tricube_digital_solutions/shorts',
       iconUrl: 'https://cdn-icons-png.flaticon.com/512/3670/3670147.png',
       brandColor: '#FF0000',
     },
+    linkedin: {
+      name: 'LinkedIn',
+      url: 'https://www.linkedin.com/in/tri-cube-digital-solutions-undefined-061547407/',
+      iconUrl: 'https://cdn-icons-png.flaticon.com/512/3536/3536505.png',
+      brandColor: '#0A66C2',
+    },
     instagram: {
       name: 'Instagram',
-      url: 'https://www.instagram.com/skillup_platform',
+      url: 'https://www.instagram.com/tricube_digital_solutions?psln=OWZlaXM3a2l2Y3li',
       iconUrl: 'https://cdn-icons-png.flaticon.com/512/3955/3955024.png',
       brandColor: '#E1306C',
     },

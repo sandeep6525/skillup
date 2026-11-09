@@ -17,22 +17,22 @@ export const BRAND_CONFIG = {
   privacyPolicyUrl: 'https://skillups.co.in/privacy',
   termsUrl: 'https://skillups.co.in/terms',
 
-  // Social Media Profiles (Official)
+  // Social Media Profiles (Official TRI CUBE DIGITAL SOLUTIONS)
   socialLinks: {
-    linkedin: {
-      name: 'LinkedIn',
-      url: 'https://www.linkedin.com/company/skillup-learning',
-      label: 'SkillUp on LinkedIn',
-    },
     youtube: {
       name: 'YouTube',
-      url: 'https://www.youtube.com/@SkillUpPlatform',
-      label: 'SkillUp on YouTube',
+      url: 'https://www.youtube.com/@tricube_digital_solutions/shorts',
+      label: 'Tri Cube Digital Solutions on YouTube',
+    },
+    linkedin: {
+      name: 'LinkedIn',
+      url: 'https://www.linkedin.com/in/tri-cube-digital-solutions-undefined-061547407/',
+      label: 'Tri Cube Digital Solutions on LinkedIn',
     },
     instagram: {
       name: 'Instagram',
-      url: 'https://www.instagram.com/skillup_platform',
-      label: 'SkillUp on Instagram',
+      url: 'https://www.instagram.com/tricube_digital_solutions?psln=OWZlaXM3a2l2Y3li',
+      label: 'Tri Cube Digital Solutions on Instagram',
     },
   },
 

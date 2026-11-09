@@ -187,42 +187,42 @@ export const renderSkillUpEmailWrapper = (options: EmailRenderOptions): string =
                 Empowering students through practical learning, expert mentorship and industry-focused training.
               </div>
 
-              <!-- Social Media Icons (Official Brand Colors & Links) -->
+              <!-- Social Media Icons (TRI CUBE DIGITAL SOLUTIONS - Official Brand Colors & Links) -->
               <table border="0" cellpadding="0" cellspacing="0" align="center" style="margin: 0 auto 24px auto;">
                 <tr>
-                  <!-- LinkedIn -->
-                  <td align="center" style="padding: 0 8px;">
-                    <a href="${BRAND_CONFIG.socialLinks.linkedin.url}" target="_blank" title="SkillUp on LinkedIn" style="display: inline-block; text-decoration: none;">
-                      <table border="0" cellpadding="0" cellspacing="0" style="background-color: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 50%; width: 38px; height: 38px; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
+                  <!-- YouTube (Official Red) -->
+                  <td align="center" style="padding: 0 10px;">
+                    <a href="${BRAND_CONFIG.socialLinks.youtube.url}" target="_blank" rel="noopener noreferrer" title="Tri Cube Digital Solutions on YouTube" aria-label="YouTube" style="display: inline-block; text-decoration: none;">
+                      <table border="0" cellpadding="0" cellspacing="0" style="background-color: #FFFFFF; border: 1.5px solid #FEE2E2; border-radius: 50%; width: 42px; height: 42px; box-shadow: 0 2px 8px rgba(255,0,0,0.08);">
                         <tr>
-                          <td align="center" valign="middle" style="width: 38px; height: 38px;">
-                            <img src="${linkedinIcon}" alt="LinkedIn" width="18" height="18" style="display: block; width: 18px; height: 18px; border: 0;" />
+                          <td align="center" valign="middle" style="width: 42px; height: 42px; text-align: center;">
+                            <img src="${youtubeIcon}" alt="YouTube" width="22" height="22" style="display: block; margin: 0 auto; width: 22px; height: 22px; border: 0;" />
                           </td>
                         </tr>
                       </table>
                     </a>
                   </td>
 
-                  <!-- YouTube -->
-                  <td align="center" style="padding: 0 8px;">
-                    <a href="${BRAND_CONFIG.socialLinks.youtube.url}" target="_blank" title="SkillUp on YouTube" style="display: inline-block; text-decoration: none;">
-                      <table border="0" cellpadding="0" cellspacing="0" style="background-color: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 50%; width: 38px; height: 38px; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
+                  <!-- LinkedIn (Official Blue) -->
+                  <td align="center" style="padding: 0 10px;">
+                    <a href="${BRAND_CONFIG.socialLinks.linkedin.url}" target="_blank" rel="noopener noreferrer" title="Tri Cube Digital Solutions on LinkedIn" aria-label="LinkedIn" style="display: inline-block; text-decoration: none;">
+                      <table border="0" cellpadding="0" cellspacing="0" style="background-color: #FFFFFF; border: 1.5px solid #DBEAFE; border-radius: 50%; width: 42px; height: 42px; box-shadow: 0 2px 8px rgba(10,102,194,0.08);">
                         <tr>
-                          <td align="center" valign="middle" style="width: 38px; height: 38px;">
-                            <img src="${youtubeIcon}" alt="YouTube" width="18" height="18" style="display: block; width: 18px; height: 18px; border: 0;" />
+                          <td align="center" valign="middle" style="width: 42px; height: 42px; text-align: center;">
+                            <img src="${linkedinIcon}" alt="LinkedIn" width="22" height="22" style="display: block; margin: 0 auto; width: 22px; height: 22px; border: 0;" />
                           </td>
                         </tr>
                       </table>
                     </a>
                   </td>
 
-                  <!-- Instagram -->
-                  <td align="center" style="padding: 0 8px;">
-                    <a href="${BRAND_CONFIG.socialLinks.instagram.url}" target="_blank" title="SkillUp on Instagram" style="display: inline-block; text-decoration: none;">
-                      <table border="0" cellpadding="0" cellspacing="0" style="background-color: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 50%; width: 38px; height: 38px; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
+                  <!-- Instagram (Brand Gradient Styling) -->
+                  <td align="center" style="padding: 0 10px;">
+                    <a href="${BRAND_CONFIG.socialLinks.instagram.url}" target="_blank" rel="noopener noreferrer" title="Tri Cube Digital Solutions on Instagram" aria-label="Instagram" style="display: inline-block; text-decoration: none;">
+                      <table border="0" cellpadding="0" cellspacing="0" style="background-color: #FFFFFF; border: 1.5px solid #FCE7F3; border-radius: 50%; width: 42px; height: 42px; box-shadow: 0 2px 8px rgba(225,48,108,0.08);">
                         <tr>
-                          <td align="center" valign="middle" style="width: 38px; height: 38px;">
-                            <img src="${instagramIcon}" alt="Instagram" width="18" height="18" style="display: block; width: 18px; height: 18px; border: 0;" />
+                          <td align="center" valign="middle" style="width: 42px; height: 42px; text-align: center;">
+                            <img src="${instagramIcon}" alt="Instagram" width="22" height="22" style="display: block; margin: 0 auto; width: 22px; height: 22px; border: 0;" />
                           </td>
                         </tr>
                       </table>
